@@ -23,14 +23,14 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import br.com.reconecta.R
 import br.com.reconecta.components.AppButton
-import br.com.reconecta.components.BaseBlock
+import br.com.reconecta.components.RoundedTopBaseBlock
 import br.com.reconecta.components.InputText
-import br.com.reconecta.ui.theme.GreenReconecta
+import br.com.reconecta.ui.theme.DarkGreenReconecta
 
 
 @Composable
 fun LoginScreen(navController: NavHostController) {
-    BaseBlock() {
+    RoundedTopBaseBlock() {
         Column {
             Spacer(modifier = Modifier.height(20.dp))
             Text(
@@ -38,7 +38,7 @@ fun LoginScreen(navController: NavHostController) {
                 modifier = Modifier.fillMaxWidth(),
                 fontFamily = FontFamily(Font(R.font.sora_semi_bold)),
                 fontSize = 20.sp,
-                color = GreenReconecta,
+                color = DarkGreenReconecta,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center
             )
@@ -48,7 +48,7 @@ fun LoginScreen(navController: NavHostController) {
                 modifier = Modifier.fillMaxWidth(),
                 fontFamily = FontFamily(Font(R.font.sora_regular)),
                 fontSize = 11.sp,
-                color = GreenReconecta,
+                color = DarkGreenReconecta,
                 textAlign = TextAlign.Center
             )
             Spacer(modifier = Modifier.height(45.dp))
@@ -70,7 +70,7 @@ fun LoginScreen(navController: NavHostController) {
                 )
                 Text(
                     text = "Esqueceu sua senha?",
-                    color = GreenReconecta,
+                    color = DarkGreenReconecta,
                     fontFamily = FontFamily(Font(R.font.poppins_regular)),
                     fontSize = 12.sp,
                     modifier = Modifier.align(Alignment.End)
@@ -96,7 +96,7 @@ fun LoginScreen(navController: NavHostController) {
                         text = "Cadastre-se!",
                         modifier = Modifier.clickable { navController.navigate(ScreenNames.REGISTER.path) },
                         fontSize = 12.sp,
-                        color = GreenReconecta,
+                        color = DarkGreenReconecta,
                         fontFamily = FontFamily(Font(R.font.poppins_bold))
                     )
                 }
