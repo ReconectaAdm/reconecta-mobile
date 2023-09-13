@@ -9,12 +9,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import br.com.reconecta.R
 
 
 @Composable
-fun AppButton(text:String) {
+fun AppButton(text: String) {
     Button(
         onClick = { /*TODO*/ },
         shape = RoundedCornerShape(7.dp),
@@ -22,6 +25,11 @@ fun AppButton(text:String) {
             .height(40.dp)
             .width(250.dp)
     ) {
-        Text(text = text, fontSize = 14.5.sp, color = Color.White)
+        Text(
+            text = text,
+            fontSize = 14.5.sp,
+            color = Color.White,
+            fontFamily = FontFamily(Font(R.font.poppins_medium)),
+        )
     }
 }

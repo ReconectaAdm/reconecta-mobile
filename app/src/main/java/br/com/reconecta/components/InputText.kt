@@ -56,7 +56,8 @@ fun InputText(
                 ),
             keyboardOptions = KeyboardOptions(keyboardType = keyboardType!!),
             textStyle = TextStyle(
-                fontSize = 10.sp
+                fontSize = 10.sp,
+                fontFamily = FontFamily(Font(R.font.sora_semi_bold))
             ),
             visualTransformation = visualTransformation!!
         )

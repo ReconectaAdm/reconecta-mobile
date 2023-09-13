@@ -36,6 +36,7 @@ fun LoginScreen(navController: NavHostController) {
             Text(
                 text = "Bem-vindo de volta!",
                 modifier = Modifier.fillMaxWidth(),
+                fontFamily = FontFamily(Font(R.font.sora_semi_bold)),
                 fontSize = 20.sp,
                 color = GreenReconecta,
                 fontWeight = FontWeight.Bold,
@@ -45,17 +46,17 @@ fun LoginScreen(navController: NavHostController) {
             Text(
                 text = "Conexões sustentáveis para um mundo melhor.",
                 modifier = Modifier.fillMaxWidth(),
-                fontSize = 13.sp,
+                fontFamily = FontFamily(Font(R.font.sora_regular)),
+                fontSize = 11.sp,
                 color = GreenReconecta,
                 textAlign = TextAlign.Center
             )
             Spacer(modifier = Modifier.height(45.dp))
             Text(
-                fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                fontFamily = FontFamily(Font(R.font.poppins_medium)),
                 text = "Acessar Conta",
                 modifier = Modifier.fillMaxWidth(),
-                fontSize = 14.sp,
-                fontWeight = FontWeight.ExtraBold,
+                fontSize = 13.sp,
                 textAlign = TextAlign.Center,
                 color = Color.Black
             )
