@@ -80,7 +80,7 @@ fun LoginScreen(navController: NavHostController) {
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    AppButton("Entrar")
+                    AppButton("Entrar", onClick = navController.navigate(ScreenNames.HOME.path) )
                 }
                 Spacer(modifier = Modifier.height(20.dp))
                 Row(

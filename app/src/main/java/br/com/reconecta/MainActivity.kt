@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
+import br.com.reconecta.screens.HomeScreen
 import br.com.reconecta.screens.LoginScreen
 import br.com.reconecta.screens.RegisterScreen
 import br.com.reconecta.screens.ScreenNames
@@ -51,6 +52,9 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(route = ScreenNames.REGISTER.path) {
                             RegisterScreen(navController)
+                        }
+                        composable(route = ScreenNames.HOME.path) {
+                            HomeScreen(navController)
                         }
                     }
                 }
