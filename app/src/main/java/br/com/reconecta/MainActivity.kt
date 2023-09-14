@@ -10,8 +10,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
+import br.com.reconecta.screens.HomeEstablishmentScreen
 import br.com.reconecta.screens.LoginScreen
-import br.com.reconecta.screens.RegisterScreen
+import br.com.reconecta.screens.OrganizationDetailsScreen
+import br.com.reconecta.screens.SignUpScreen
 import br.com.reconecta.screens.ScreenNames
 import br.com.reconecta.ui.theme.ReconectaTheme
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -23,26 +25,25 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-
             ReconectaTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = colorResource(id = R.color.reconecta_background),
+                    color = colorResource(id = R.color.white),
                 ) {
                     val navController = rememberAnimatedNavController()
                     AnimatedNavHost(
                         navController = navController,
-                        startDestination = ScreenNames.LOGIN.path,
+                        startDestination = ScreenNames.ORGANIZATION_DETAILS.path,
                         exitTransition = {
                             slideOutOfContainer(
                                 towards = AnimatedContentScope.SlideDirection.End,
-                                tween(500)
+                                tween(300)
                             )
                         },
                         enterTransition = {
                             slideIntoContainer(
                                 towards = AnimatedContentScope.SlideDirection.Down,
-                                animationSpec = tween(500)
+                                animationSpec = tween(300)
                             )
                         }
                     ) {
@@ -50,7 +51,13 @@ class MainActivity : ComponentActivity() {
                             LoginScreen(navController)
                         }
                         composable(route = ScreenNames.REGISTER.path) {
-                            RegisterScreen(navController)
+                            SignUpScreen(navController)
+                        }
+                        composable(route = ScreenNames.ORGANIZATION_DETAILS.path) {
+                            OrganizationDetailsScreen(navController)
+                        }
+                        composable(route = ScreenNames.HOME_ESTABLISHMENT.path) {
+                            HomeEstablishmentScreen(navController)
                         }
                     }
                 }

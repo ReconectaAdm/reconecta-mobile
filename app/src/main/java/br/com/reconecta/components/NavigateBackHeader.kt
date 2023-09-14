@@ -18,12 +18,11 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import br.com.reconecta.R
 import br.com.reconecta.ui.theme.LightGreenReconecta
 
 @Composable
-fun HeaderMenu(title: String, navController: NavController) {
+fun NavigateBackHeader(title: String, clickAction: ()  -> Unit) {
     Row(
         horizontalArrangement = Arrangement.Center,
         modifier = Modifier
@@ -37,7 +36,7 @@ fun HeaderMenu(title: String, navController: NavController) {
                 .width(20.dp)
                 .offset((-50).dp)
                 .align(Alignment.CenterVertically)
-                .clickable { navController.navigate("TODO") },
+                .clickable { clickAction() },
             tint = LightGreenReconecta
         )
         Text(

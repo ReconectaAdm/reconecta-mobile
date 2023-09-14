@@ -12,10 +12,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun BaseBlock(composable: @Composable () -> Unit) {
+fun RoundedTopBaseBox(composable: @Composable () -> Unit) {
     Box(
         modifier = Modifier
-            .padding(top = 40.dp)
+            .padding(top = 20.dp)
             .clip(RoundedCornerShape(topEnd = 35.dp, topStart = 35.dp))
             .fillMaxSize()
             .background(Color.White)

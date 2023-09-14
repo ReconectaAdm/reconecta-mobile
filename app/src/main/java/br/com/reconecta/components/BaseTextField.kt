@@ -22,16 +22,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.reconecta.R
 
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun InputText(
+fun BaseTextField(
     label: String,
     modifier: Modifier? = Modifier,
     keyboardType: KeyboardType? = KeyboardType.Text,
     visualTransformation: VisualTransformation? = VisualTransformation.None,
-
-    ) {
+) {
     Column {
         Text(
             text = label,
@@ -41,25 +38,27 @@ fun InputText(
         )
         TextField(
             value = "TODO",
-            colors = TextFieldDefaults.textFieldColors(
-                containerColor = Color.Unspecified,
-                focusedIndicatorColor = Color.Unspecified,
-                disabledIndicatorColor = Color.Unspecified,
-                unfocusedIndicatorColor = Color.Unspecified
-            ),
+            visualTransformation = visualTransformation!!,
+            keyboardOptions = KeyboardOptions(keyboardType = keyboardType!!),
             onValueChange = {},
+            colors = TextFieldDefaults.colors(
+                focusedContainerColor = Color.Unspecified,
+                unfocusedContainerColor = Color.Unspecified,
+                disabledContainerColor = Color.Unspecified,
+                focusedIndicatorColor = Color.Unspecified,
+                unfocusedIndicatorColor = Color.Unspecified,
+                disabledIndicatorColor = Color.Unspecified,
+            ),
             modifier = modifier!!
                 .height(45.dp)
                 .border(
                     BorderStroke(width = 2.dp, color = Color.LightGray),
                     shape = RoundedCornerShape(20)
                 ),
-            keyboardOptions = KeyboardOptions(keyboardType = keyboardType!!),
             textStyle = TextStyle(
                 fontSize = 10.sp,
                 fontFamily = FontFamily(Font(R.font.sora_semi_bold))
-            ),
-            visualTransformation = visualTransformation!!
+            )
         )
     }
 }

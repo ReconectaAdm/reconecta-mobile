@@ -17,7 +17,7 @@ import br.com.reconecta.R
 
 
 @Composable
-fun AppButton(text: String) {
+fun PrimaryButton(text: String) {
     Button(
         onClick = { /*TODO*/ },
         shape = RoundedCornerShape(7.dp),
