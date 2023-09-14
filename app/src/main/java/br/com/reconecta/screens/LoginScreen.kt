@@ -25,7 +25,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import br.com.reconecta.R
 import br.com.reconecta.components.BaseTextField
-import br.com.reconecta.components.PrimaryButton
 import br.com.reconecta.components.RoundedTopBaseBox
 import br.com.reconecta.ui.theme.DarkGreenReconecta
 

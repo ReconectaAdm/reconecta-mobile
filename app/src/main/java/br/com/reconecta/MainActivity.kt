@@ -13,8 +13,8 @@ import androidx.compose.ui.res.colorResource
 import br.com.reconecta.screens.HomeEstablishmentScreen
 import br.com.reconecta.screens.LoginScreen
 import br.com.reconecta.screens.OrganizationDetailsScreen
-import br.com.reconecta.screens.SignUpScreen
 import br.com.reconecta.screens.ScreenNames
+import br.com.reconecta.screens.SignUpScreen
 import br.com.reconecta.ui.theme.ReconectaTheme
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
@@ -25,25 +25,26 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+
             ReconectaTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = colorResource(id = R.color.white),
+                    color = colorResource(id = R.color.reconecta_background),
                 ) {
                     val navController = rememberAnimatedNavController()
                     AnimatedNavHost(
                         navController = navController,
-                        startDestination = ScreenNames.ORGANIZATION_DETAILS.path,
+                        startDestination = ScreenNames.LOGIN.path,
                         exitTransition = {
                             slideOutOfContainer(
                                 towards = AnimatedContentScope.SlideDirection.End,
-                                tween(300)
+                                tween(500)
                             )
                         },
                         enterTransition = {
                             slideIntoContainer(
                                 towards = AnimatedContentScope.SlideDirection.Down,
-                                animationSpec = tween(300)
+                                animationSpec = tween(500)
                             )
                         }
                     ) {
