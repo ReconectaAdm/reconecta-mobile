@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import br.com.reconecta.screens.HomeScreen
 import br.com.reconecta.screens.LoginScreen
+import br.com.reconecta.screens.OrganizationListScreen
 import br.com.reconecta.screens.RegisterScreen
 import br.com.reconecta.screens.ScreenNames
 import br.com.reconecta.ui.theme.ReconectaTheme
@@ -24,7 +25,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-
             ReconectaTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberAnimatedNavController()
                     AnimatedNavHost(
                         navController = navController,
-                        startDestination = ScreenNames.LOGIN.path,
+                        startDestination = ScreenNames.ORGANIZATIONLIST.path,
                         exitTransition = {
                             slideOutOfContainer(
                                 towards = AnimatedContentScope.SlideDirection.End,
@@ -55,6 +55,9 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(route = ScreenNames.HOME.path) {
                             HomeScreen(navController)
+                        }
+                        composable(route = ScreenNames.ORGANIZATIONLIST.path){
+                            OrganizationListScreen(navController)
                         }
                     }
                 }
