@@ -27,7 +27,7 @@ fun Residuo (id: Int, contentDescription: String, text: String) {
             modifier = Modifier.size(70.dp))
         Text(
             text = text,
-            fontFamily = FontFamily(Font(R.font.poppins_regular)),
+            fontFamily = FontFamily(Font(R.font.sora_regular)),
             fontSize = 15.sp
         )
     }

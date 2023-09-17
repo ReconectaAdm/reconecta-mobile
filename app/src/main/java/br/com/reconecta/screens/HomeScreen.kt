@@ -65,7 +65,7 @@ fun HomeScreen(navController: NavHostController) {
                         .weight(1f)){
                     Text(
                         text = "R. Augusta, 854",
-                        fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                        fontFamily = FontFamily(Font(R.font.sora_regular)),
                         fontSize = 15.sp
                     )
                     Icon(
@@ -105,7 +105,7 @@ fun HomeScreen(navController: NavHostController) {
                     value = "",
                     onValueChange = {},
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-                    textStyle = TextStyle(fontFamily = FontFamily(Font(R.font.poppins_regular))),
+                    textStyle = TextStyle(fontFamily = FontFamily(Font(R.font.sora_regular))),
                     colors = TextFieldDefaults.textFieldColors(
                         containerColor = Color.Unspecified,
                         focusedIndicatorColor = Color.Unspecified,
@@ -191,7 +191,7 @@ fun HomeScreen(navController: NavHostController) {
             Column(modifier = Modifier.fillMaxWidth().padding(vertical = 10.dp)) {
                 Text(
                     text = "Favoritos",
-                    fontFamily = FontFamily(Font(R.font.poppins_medium)),
+                    fontFamily = FontFamily(Font(R.font.sora_medium)),
                     fontSize = 20.sp
                 )
                 Row (
@@ -218,7 +218,7 @@ fun HomeScreen(navController: NavHostController) {
             Column (modifier = Modifier.fillMaxWidth().padding(vertical = 10.dp)){
                 Text(
                     text = "Recentes",
-                    fontFamily = FontFamily(Font(R.font.poppins_medium)),
+                    fontFamily = FontFamily(Font(R.font.sora_medium)),
                     fontSize = 20.sp
                 )
                 Row(

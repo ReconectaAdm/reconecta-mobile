@@ -53,7 +53,7 @@ fun LoginScreen(navController: NavHostController) {
             )
             Spacer(modifier = Modifier.height(45.dp))
             Text(
-                fontFamily = FontFamily(Font(R.font.poppins_medium)),
+                fontFamily = FontFamily(Font(R.font.sora_medium)),
                 text = "Acessar Conta",
                 modifier = Modifier.fillMaxWidth(),
                 fontSize = 13.sp,
@@ -71,7 +71,7 @@ fun LoginScreen(navController: NavHostController) {
                 Text(
                     text = "Esqueceu sua senha?",
                     color = GreenReconecta,
-                    fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                    fontFamily = FontFamily(Font(R.font.sora_regular)),
                     fontSize = 12.sp,
                     modifier = Modifier.align(Alignment.End)
                 )
@@ -97,7 +97,7 @@ fun LoginScreen(navController: NavHostController) {
                         modifier = Modifier.clickable { navController.navigate(ScreenNames.REGISTER.path) },
                         fontSize = 12.sp,
                         color = GreenReconecta,
-                        fontFamily = FontFamily(Font(R.font.poppins_bold))
+                        fontFamily = FontFamily(Font(R.font.sora_bold))
                     )
                 }
             }
