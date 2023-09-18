@@ -19,7 +19,7 @@ import br.com.reconecta.R
 @Composable
 fun PrimaryButton(text: String, onClick: ()-> Unit) {
     Button(
-        onClick = { onClick },
+        onClick = { onClick() },
         shape = RoundedCornerShape(7.dp),
         modifier = Modifier
             .height(40.dp)

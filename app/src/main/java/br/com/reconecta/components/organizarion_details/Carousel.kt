@@ -1,4 +1,4 @@
-package br.com.reconecta.components
+package br.com.reconecta.components.organizarion_details
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
@@ -8,16 +8,19 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import br.com.reconecta.R
@@ -29,12 +32,22 @@ fun Carousel() {
     val pageSize = 3
 
     Column {
-        HorizontalPager(state = pagerState, pageCount = pageSize) {
+        HorizontalPager(
+            state = pagerState,
+            pageCount = pageSize,
+            modifier = Modifier.fillMaxWidth()
+        ) {
             when (it) {
                 0, 1, 2 -> Image(
-                    painter = painterResource(id = R.drawable.org1),
+                    contentScale = ContentScale.FillWidth,
+                    painter = painterResource(id = R.drawable.mock_org),
                     contentDescription = "org1",
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(180.dp)
+                        .clip(RoundedCornerShape(10.dp))
+
+
                 )
             }
         }
@@ -43,9 +56,8 @@ fun Carousel() {
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
         ) {
-            repeat(pageSize) { iteration ->
-                val color =
-                    if (pagerState.currentPage == iteration) Color.DarkGray else Color.LightGray
+            repeat(pageSize) {
+                val color = if (pagerState.currentPage == it) Color.DarkGray else Color.LightGray
                 Box(
                     modifier = Modifier
                         .offset(y = (-14).dp)
