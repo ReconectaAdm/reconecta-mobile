@@ -25,6 +25,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+
             ReconectaTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -33,7 +34,7 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberAnimatedNavController()
                     AnimatedNavHost(
                         navController = navController,
-                        startDestination = ScreenNames.SCHEDULING.path,
+                        startDestination = ScreenNames.LOGIN.path,
                         exitTransition = {
                             slideOutOfContainer(
                                 towards = AnimatedContentScope.SlideDirection.End,
@@ -58,6 +59,9 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(route = ScreenNames.SCHEDULING.path){
                             SchedulingScreen(navController)
+                        }
+                        composable(route = ScreenNames.ORGANIZATIONLIST.path){
+                            OrganizationListScreen(navController)
                         }
                     }
                 }
