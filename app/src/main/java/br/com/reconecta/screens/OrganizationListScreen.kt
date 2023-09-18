@@ -27,7 +27,7 @@ import br.com.reconecta.components.OrganizacaoItem
 @Composable
 fun OrganizationListScreen(navController: NavController) {
     var isFavoritoOrganization1 by remember { mutableStateOf(false) }
-    var isFavoritoOrganization2 by remember { mutableStateOf(false) }
+    var isFavoritoOrganization2 by remember { mutableStateOf(true) }
     var isFavoritoOrganization3 by remember { mutableStateOf(false) }
     var isFavoritoOrganization4 by remember { mutableStateOf(false) }
     var isFavoritoOrganization5 by remember { mutableStateOf(false) }
