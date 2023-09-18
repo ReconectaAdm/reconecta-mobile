@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -72,21 +73,39 @@ fun LoginScreen(navController: NavHostController) {
                     Spacer(Modifier.height(5.dp))
                     PasswordTextField(text = passwordStr)
                     Text(
-                        text = "Cadastre-se!",
-                        modifier = Modifier.clickable { navController.navigate(ScreenNames.REGISTER.path) },
-                        fontSize = 12.sp,
+                        text = "Esqueceu sua senha?",
                         color = DarkGreenReconecta,
-                        fontFamily = FontFamily(Font(R.font.poppins_bold))
+                        fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                        fontSize = 12.sp,
+                        modifier = Modifier.align(Alignment.End)
                     )
+                    Spacer(modifier = Modifier.height(30.dp))
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        PrimaryButton("Entrar") { navController.navigate("") }
+                    }
+                    Spacer(modifier = Modifier.height(20.dp))
+                    Row(
+                        modifier = Modifier.align(Alignment.CenterHorizontally)
+                    ) {
+                        Text(
+                            text = "Não tem uma conta?",
+                            color = Color.Black,
+                            fontSize = 12.sp,
+                            textAlign = TextAlign.Center,
+                        )
+                        Text(
+                            text = "Cadastre-se!",
+                            modifier = Modifier.clickable { navController.navigate(ScreenNames.REGISTER.path) },
+                            fontSize = 12.sp,
+                            color = DarkGreenReconecta,
+                            fontFamily = FontFamily(Font(R.font.poppins_bold))
+                        )
+                    }
                 }
-
-                PrimaryButton(
-                    text = "Continuar",
-                    modifier = Modifier.align(Alignment.CenterHorizontally),
-                    onClick = {}
-                )
             }
         }
     }
 }
-
