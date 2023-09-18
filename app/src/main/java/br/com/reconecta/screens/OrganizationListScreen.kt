@@ -59,30 +59,28 @@ fun OrganizationListScreen(navController: NavController) {
                 .weight(1f)
                 .verticalScroll(rememberScrollState())
         ) {
-
-            OrganizacaoItem(
-                painter = painterResource(id = R.drawable.logo_reciclamais),
-                contentDescription = "Descrição da organização 1",
-                nome = "Recicla +",
-                avaliacao = 4.8,
-                distanciaKm = 0.7,
-                isFavorito = isFavoritoOrganization1,
-                onImageClick = {},
-                onFavoriteClick = {
-                    isFavoritoOrganization1 = !isFavoritoOrganization1
-                }
-            )
-
             OrganizacaoItem(
                 painter = painterResource(id = R.drawable.logo_plasrecicla),
                 contentDescription = "Descrição da organização 2",
                 nome = "PlasRecicla",
                 avaliacao = 5.0,
-                distanciaKm = 0.9,
+                distanciaKm = 0.7,
                 isFavorito = isFavoritoOrganization2,
                 onImageClick = {navController.navigate(ScreenNames.ORGANIZATION_DETAILS.path)},
                 onFavoriteClick = {
                     isFavoritoOrganization2 = !isFavoritoOrganization2
+                }
+            )
+            OrganizacaoItem(
+                painter = painterResource(id = R.drawable.logo_reciclamais),
+                contentDescription = "Descrição da organização 1",
+                nome = "Recicla +",
+                avaliacao = 4.8,
+                distanciaKm = 0.9,
+                isFavorito = isFavoritoOrganization1,
+                onImageClick = {},
+                onFavoriteClick = {
+                    isFavoritoOrganization1 = !isFavoritoOrganization1
                 }
             )
 
