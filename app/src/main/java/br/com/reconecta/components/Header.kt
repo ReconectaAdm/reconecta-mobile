@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.sp
 import br.com.reconecta.R
 
 @Composable
-fun Header(text: String, onClick: Unit?) {
+fun Header(text: String, onClick: () -> Unit) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
@@ -30,7 +30,7 @@ fun Header(text: String, onClick: Unit?) {
     ) {
         IconButton(
             modifier = Modifier.weight(0.1f),
-            onClick = {onClick!!}
+            onClick = { onClick() }
         ) {
             Icon(
                 imageVector = ImageVector.vectorResource(R.drawable.baseline_arrow_back_ios_24),
@@ -50,6 +50,4 @@ fun Header(text: String, onClick: Unit?) {
         )
         Spacer(modifier = Modifier.weight(0.1f))
     }
-
 }
-
