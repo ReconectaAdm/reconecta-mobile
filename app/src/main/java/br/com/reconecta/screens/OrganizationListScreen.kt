@@ -26,8 +26,8 @@ import br.com.reconecta.components.OrganizacaoItem
 
 @Composable
 fun OrganizationListScreen(navController: NavController) {
-    var isFavoritoOrganization1 by remember { mutableStateOf(false) }
-    var isFavoritoOrganization2 by remember { mutableStateOf(true) }
+    var isFavoritoOrganization1 by remember { mutableStateOf(true) }
+    var isFavoritoOrganization2 by remember { mutableStateOf(false) }
     var isFavoritoOrganization3 by remember { mutableStateOf(false) }
     var isFavoritoOrganization4 by remember { mutableStateOf(false) }
     var isFavoritoOrganization5 by remember { mutableStateOf(false) }
@@ -61,26 +61,26 @@ fun OrganizationListScreen(navController: NavController) {
         ) {
             OrganizacaoItem(
                 painter = painterResource(id = R.drawable.logo_plasrecicla),
-                contentDescription = "Descrição da organização 2",
+                contentDescription = "Descrição da organização 1",
                 nome = "PlasRecicla",
                 avaliacao = 5.0,
                 distanciaKm = 0.7,
-                isFavorito = isFavoritoOrganization2,
+                isFavorito = isFavoritoOrganization1,
                 onImageClick = {navController.navigate(ScreenNames.ORGANIZATION_DETAILS.path)},
                 onFavoriteClick = {
-                    isFavoritoOrganization2 = !isFavoritoOrganization2
+                    isFavoritoOrganization1 = !isFavoritoOrganization1
                 }
             )
             OrganizacaoItem(
                 painter = painterResource(id = R.drawable.logo_reciclamais),
-                contentDescription = "Descrição da organização 1",
+                contentDescription = "Descrição da organização 2",
                 nome = "Recicla +",
                 avaliacao = 4.8,
                 distanciaKm = 0.9,
-                isFavorito = isFavoritoOrganization1,
+                isFavorito = isFavoritoOrganization2,
                 onImageClick = {},
                 onFavoriteClick = {
-                    isFavoritoOrganization1 = !isFavoritoOrganization1
+                    isFavoritoOrganization2 = !isFavoritoOrganization2
                 }
             )
 
