@@ -1,6 +1,7 @@
 package br.com.reconecta.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -17,10 +18,10 @@ import androidx.compose.ui.unit.sp
 import br.com.reconecta.R
 
 @Composable
-fun Residuo (id: Int, contentDescription: String, text: String) {
+fun Residuo (id: Int, contentDescription: String, text: String, onClick: () -> Unit) {
     Column (verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.padding(5.dp)
+        modifier = Modifier.padding(5.dp).clickable { onClick() }
     ){
         Image(painter = painterResource(id = id),
             contentDescription = contentDescription,

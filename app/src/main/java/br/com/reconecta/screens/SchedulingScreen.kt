@@ -71,7 +71,7 @@ fun SchedulingScreen(navController: NavHostController) {
             .fillMaxWidth()
     ) {
         Column(modifier = Modifier.weight(0.1f)) {
-            Header(text = "Agendamento", onClick = null)
+            Header(text = "Agendamento", onClick = {})
         }
         Divider(thickness = 1.dp, color = Color.LightGray)
         Column(

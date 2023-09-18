@@ -142,21 +142,34 @@ fun HomeScreen(navController: NavHostController) {
                         contentDescription = "Ícone de resíduo plástico",
                         text = "Plástico"
                     )
+                    {
+                        // Ação a ser executada quando o Residuo for clicado
+                        navController.navigate(ScreenNames.ORGANIZATIONLIST.path)
+                    }
                     Residuo(
                         id = R.drawable.residuo_metal,
                         contentDescription = "Ícone de resíduo metal",
                         text = "Metal"
                     )
+                    {
+                        // Ação a ser executada quando o Residuo for clicado
+                    }
                     Residuo(
                         id = R.drawable.residuo_papel,
                         contentDescription = "Ícone de resíduo papel",
                         text = "Papel"
                     )
+                    {
+                        // Ação a ser executada quando o Residuo for clicado
+                    }
                     Residuo(
                         id = R.drawable.residuo_vidro,
                         contentDescription = "Ícone de resíduo vidro",
                         text = "Vidro"
                     )
+                    {
+                        // Ação a ser executada quando o Residuo for clicado
+                    }
                 }
                 //segunda fileira
                 Row(
@@ -169,21 +182,33 @@ fun HomeScreen(navController: NavHostController) {
                         contentDescription = "Ícone de resíduo orgânico",
                         text = "Orgânico"
                     )
+                    {
+                        // Ação a ser executada quando o Residuo for clicado
+                    }
                     Residuo(
                         id = R.drawable.residuo_pilhas,
                         contentDescription = "Ícone de resíduo pilha e bateria",
                         text = "Pilhas"
                     )
+                    {
+                        // Ação a ser executada quando o Residuo for clicado
+                    }
                     Residuo(
                         id = R.drawable.residuo_eletronicos,
                         contentDescription = "Ícone de resíduo eletrônico",
                         text = "Eletrônicos"
                     )
+                    {
+                        // Ação a ser executada quando o Residuo for clicado
+                    }
                     Residuo(
                         id = R.drawable.residuo_outros,
                         contentDescription = "Ícone de outros resíduos",
                         text = "Outros"
                     )
+                    {
+                        // Ação a ser executada quando o Residuo for clicado
+                    }
                 }
             }
             //favoritos
