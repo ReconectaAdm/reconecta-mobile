@@ -15,6 +15,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SuggestionChip
@@ -67,41 +68,49 @@ fun SchedulingScreen(navController: NavHostController) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .verticalScroll(rememberScrollState())
-            .padding(25.dp)
             .fillMaxWidth()
     ) {
-        Header("Agendamento", true)
-        Spacer(modifier = Modifier.height(20.dp))
-
-        FormQtd(qtd) { qtd = it }
-        Spacer(modifier = Modifier.height(20.dp))
-
-        Calendar(actualDate) { dateChecked = it }
-        Spacer(modifier = Modifier.height(20.dp))
-
-        HourSelection { hourChecked = it }
-
-        Spacer(modifier = Modifier.height(20.dp))
-        Row(
-            horizontalArrangement = Arrangement.Center,
+        Column(modifier = Modifier.weight(0.1f)) {
+            Header(text = "Agendamento", onClick = null)
+        }
+        Divider(thickness = 1.dp, color = Color.LightGray)
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
+                .weight(1f)
+                .padding(horizontal = 25.dp)
+
+                .verticalScroll(rememberScrollState())
         ) {
-            Button(
+            FormQtd(qtd) { qtd = it }
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Calendar(actualDate) { dateChecked = it }
+            Spacer(modifier = Modifier.height(25.dp))
+
+            HourSelection { hourChecked = it }
+
+            Spacer(modifier = Modifier.height(25.dp))
+            Row(
+                horizontalArrangement = Arrangement.Center,
                 modifier = Modifier
-                    .width(225.dp),
-                shape = RoundedCornerShape(10.dp),
-                colors = ButtonDefaults.buttonColors(
-                    contentColor = Color.White,
-                    containerColor = Color(0xFF3E9629),
-                    disabledContentColor = Color.White.copy(alpha = 0.7f),
-                    disabledContainerColor = Color(0xFF3E9629).copy(alpha = 0.7f)
-                ),
-                enabled = hourChecked && dateChecked && !qtd.isEmpty(),
-                onClick = { /*TODO*/ },
+                    .fillMaxWidth()
             ) {
-                Text(text = "Agendar", fontSize = 18.sp)
+                Button(
+                    modifier = Modifier
+                        .width(225.dp)
+                        .padding(bottom = 15.dp),
+                    shape = RoundedCornerShape(10.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        contentColor = Color.White,
+                        containerColor = Color(0xFF3E9629),
+                        disabledContentColor = Color.White.copy(alpha = 0.7f),
+                        disabledContainerColor = Color(0xFF3E9629).copy(alpha = 0.7f)
+                    ),
+                    enabled = hourChecked && dateChecked && !qtd.isEmpty(),
+                    onClick = { /*TODO*/ },
+                ) {
+                    Text(text = "Agendar", fontSize = 18.sp)
+                }
             }
         }
     }
@@ -114,7 +123,8 @@ fun FormQtd(qtd:String, qtdState: (qtd: String) -> Unit) {
         Text(
             text = "Informe a quantidade",
             textAlign = TextAlign.Start,
-            fontWeight = FontWeight.Medium
+            fontWeight = FontWeight.Medium,
+            modifier = Modifier.padding(top = 15.dp)
         )
         Spacer(modifier = Modifier.height(10.dp))
         Row(

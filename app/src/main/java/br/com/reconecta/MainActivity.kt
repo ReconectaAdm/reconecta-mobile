@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import br.com.reconecta.screens.HomeScreen
 import br.com.reconecta.screens.LoginScreen
+import br.com.reconecta.screens.OrganizationListScreen
 import br.com.reconecta.screens.RegisterScreen
 import br.com.reconecta.screens.SchedulingScreen
 import br.com.reconecta.screens.ScreenNames
@@ -34,7 +35,7 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberAnimatedNavController()
                     AnimatedNavHost(
                         navController = navController,
-                        startDestination = ScreenNames.LOGIN.path,
+                        startDestination = ScreenNames.HOME.path,
                         exitTransition = {
                             slideOutOfContainer(
                                 towards = AnimatedContentScope.SlideDirection.End,

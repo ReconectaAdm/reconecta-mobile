@@ -1,22 +1,26 @@
 package br.com.reconecta.screens
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Divider
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.core.graphics.toColorInt
 import androidx.navigation.NavController
 import br.com.reconecta.R
+import br.com.reconecta.components.Header
 import br.com.reconecta.components.Navbar
 import br.com.reconecta.components.OrganizacaoItem
 
@@ -33,45 +37,23 @@ fun OrganizationListScreen(navController: NavController) {
     Column {
         // barra superior
         Column(
-            modifier = Modifier.fillMaxWidth()
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(0.10f)
         ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp, vertical = 10.dp)
-            ) {
-                // icone voltar
-                IconButton(
-                    onClick = {
-                        navController.navigate("home")
-                    }
-                ) {
-                    Icon(
-                        imageVector = ImageVector.vectorResource(R.drawable.baseline_arrow_back_ios_24),
-                        contentDescription = null,
-                        tint = Color("#3E9629".toColorInt())
-                    )
-                }
-
-                // título
-                Text(
-                    text = "Organizações",
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .wrapContentWidth(Alignment.CenterHorizontally)
-                )
-            }}
+            Header(text = "Organizações", onClick = null)
+        }
 
         Divider(thickness = 1.dp, color = Color.LightGray)
+
         // lista organizações
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f)
-                .padding(vertical = 10.dp)
+                .padding(top = 10.dp)
                 .verticalScroll(rememberScrollState())
         ) {
 
