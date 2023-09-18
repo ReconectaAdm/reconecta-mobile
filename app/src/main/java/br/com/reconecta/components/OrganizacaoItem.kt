@@ -17,6 +17,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.material3.Text
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import br.com.reconecta.R
 
 @Composable
 fun OrganizacaoItem(
@@ -56,8 +59,8 @@ fun OrganizacaoItem(
             ) {
                 Text(
                     text = nome,
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 15.sp,
+                    fontFamily = FontFamily(Font(R.font.poppins_medium)),
                     modifier = Modifier.weight(1f)
                 )
                 Icon(
@@ -85,7 +88,8 @@ fun OrganizacaoItem(
 
                 Text(
                     text = String.format("%.1f", avaliacao),
-                    fontSize = 16.sp,
+                    fontSize = 13.sp,
+                    fontFamily = FontFamily(Font(R.font.poppins_regular)),
                     color = Color(0xFFFE6802),
                     modifier = Modifier.padding(start = 4.dp)
                 )
@@ -94,7 +98,8 @@ fun OrganizacaoItem(
 
                 Text(
                     text = "${String.format("%.1f", distanciaKm)} km",
-                    fontSize = 16.sp,
+                    fontSize = 13.sp,
+                    fontFamily = FontFamily(Font(R.font.poppins_regular)),
                     color = Color(0xFF646363)
                 )
             }

@@ -11,6 +11,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import br.com.reconecta.screens.HomeEstablishmentScreen
+import br.com.reconecta.screens.HomeScreen
 import br.com.reconecta.screens.LoginScreen
 import br.com.reconecta.screens.OrganizationDetailsScreen
 import br.com.reconecta.screens.OrganizationListScreen
@@ -35,7 +36,7 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberAnimatedNavController()
                     AnimatedNavHost(
                         navController = navController,
-                        startDestination = ScreenNames.LOGIN.path,
+                        startDestination = ScreenNames.SCHEDULING.path,
                         exitTransition = {
                             slideOutOfContainer(
                                 towards = AnimatedContentScope.SlideDirection.End,
@@ -55,10 +56,13 @@ class MainActivity : ComponentActivity() {
                         composable(route = ScreenNames.REGISTER.path) {
                             SignUpScreen(navController)
                         }
+                        composable(route = ScreenNames.HOME.path) {
+                            HomeScreen(navController)
+                        }
                         composable(route = ScreenNames.ORGANIZATION_DETAILS.path) {
                             OrganizationDetailsScreen(navController)
                         }
-                        composable(route = ScreenNames.HOME.path) {
+                        composable(route = ScreenNames.HOME_ESTABLISHMENT.path) {
                             HomeEstablishmentScreen(navController)
                         }
                         composable(route = ScreenNames.SCHEDULING.path){

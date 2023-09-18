@@ -56,7 +56,6 @@ fun OrganizationListScreen(navController: NavController) {
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f)
-                .padding(top = 10.dp)
                 .verticalScroll(rememberScrollState())
         ) {
 

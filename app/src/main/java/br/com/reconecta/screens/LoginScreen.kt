@@ -84,14 +84,14 @@ fun LoginScreen(navController: NavHostController) {
                         horizontalAlignment = Alignment.CenterHorizontally,
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        PrimaryButton("Entrar") { navController.navigate("") }
+                        PrimaryButton("Entrar") { navController.navigate("home") }
                     }
                     Spacer(modifier = Modifier.height(20.dp))
                     Row(
                         modifier = Modifier.align(Alignment.CenterHorizontally)
                     ) {
                         Text(
-                            text = "Não tem uma conta?",
+                            text = "Não tem uma conta? ",
                             color = Color.Black,
                             fontSize = 12.sp,
                             textAlign = TextAlign.Center,

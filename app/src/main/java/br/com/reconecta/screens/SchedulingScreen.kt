@@ -30,6 +30,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -38,6 +40,7 @@ import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import br.com.reconecta.R
 import br.com.reconecta.components.Header
 import br.com.reconecta.components.kalendar.Kalendar
 import br.com.reconecta.components.kalendar.ui.component.day.KalendarDayKonfig
@@ -70,7 +73,7 @@ fun SchedulingScreen(navController: NavHostController) {
         modifier = Modifier
             .fillMaxWidth()
     ) {
-        Column(modifier = Modifier.weight(0.1f)) {
+        Column(verticalArrangement = Arrangement.SpaceEvenly, horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.weight(0.1f)) {
             Header(text = "Agendamento", onClick = {})
         }
         Divider(thickness = 1.dp, color = Color.LightGray)
@@ -78,7 +81,6 @@ fun SchedulingScreen(navController: NavHostController) {
             modifier = Modifier
                 .weight(1f)
                 .padding(horizontal = 25.dp)
-
                 .verticalScroll(rememberScrollState())
         ) {
             FormQtd(qtd) { qtd = it }
@@ -109,7 +111,7 @@ fun SchedulingScreen(navController: NavHostController) {
                     enabled = hourChecked && dateChecked && !qtd.isEmpty(),
                     onClick = { /*TODO*/ },
                 ) {
-                    Text(text = "Agendar", fontSize = 18.sp)
+                    Text(text = "Agendar", fontSize = 18.sp, fontFamily = FontFamily(Font(R.font.sora_regular)))
                 }
             }
         }
@@ -123,7 +125,8 @@ fun FormQtd(qtd:String, qtdState: (qtd: String) -> Unit) {
         Text(
             text = "Informe a quantidade",
             textAlign = TextAlign.Start,
-            fontWeight = FontWeight.Medium,
+            fontFamily = FontFamily(Font(R.font.sora_medium)),
+            fontSize = 18.sp,
             modifier = Modifier.padding(top = 15.dp)
         )
         Spacer(modifier = Modifier.height(10.dp))
@@ -173,7 +176,10 @@ fun FormQtd(qtd:String, qtdState: (qtd: String) -> Unit) {
 fun Calendar(actualDate: LocalDate, dateChecked: (isDateChecked: Boolean) -> Unit) {
     Column(horizontalAlignment = Alignment.Start) {
         Text(
-            text = "Selecione a data", textAlign = TextAlign.Start, fontWeight = FontWeight.Medium
+            text = "Selecione a data",
+            textAlign = TextAlign.Start,
+            fontFamily = FontFamily(Font(R.font.sora_medium)),
+            fontSize = 18.sp
         )
         Kalendar(
             currentDay = actualDate, kalendarDayKonfig = KalendarDayKonfig(
@@ -211,7 +217,8 @@ fun HourSelection(hourChecked: (hourChecked: Boolean) -> Unit) {
         Text(
             text = "Selecione o horário",
             textAlign = TextAlign.Start,
-            fontWeight = FontWeight.Medium
+            fontFamily = FontFamily(Font(R.font.sora_medium)),
+            fontSize = 18.sp
         )
 
         Spacer(modifier = Modifier.height(10.dp))

@@ -26,7 +26,7 @@ fun Navbar (id: Int, contentDescription: String, text: String) {
             modifier = Modifier.size(27.dp))
         Text(
             text = text,
-            fontFamily = FontFamily(Font(R.font.sora_regular)),
+            fontFamily = FontFamily(Font(R.font.poppins_regular)),
             color = Color(0xFF999999),
             fontSize = 13.sp
         )
