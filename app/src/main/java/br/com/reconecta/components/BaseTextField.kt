@@ -39,7 +39,7 @@ fun BaseTextField(
     Column {
         Text(
             text = label,
-            fontFamily = FontFamily(Font(R.font.poppins_regular)),
+            fontFamily = FontFamily(Font(R.font.sora_regular)),
             fontSize = 12.sp,
             color = Color.Black
         )

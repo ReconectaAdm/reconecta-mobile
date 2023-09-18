@@ -29,7 +29,7 @@ fun PrimaryButton(text: String, onClick: ()-> Unit) {
             text = text,
             fontSize = 14.5.sp,
             color = Color.White,
-            fontFamily = FontFamily(Font(R.font.poppins_medium)),
+            fontFamily = FontFamily(Font(R.font.sora)),
         )
     }
 }
