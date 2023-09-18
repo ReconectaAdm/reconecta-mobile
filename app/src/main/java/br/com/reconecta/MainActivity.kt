@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import br.com.reconecta.screens.HomeScreen
 import br.com.reconecta.screens.LoginScreen
+import br.com.reconecta.screens.OrganizationListScreen
 import br.com.reconecta.screens.RegisterScreen
 import br.com.reconecta.screens.SchedulingScreen
 import br.com.reconecta.screens.ScreenNames
@@ -25,6 +26,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+
             ReconectaTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -58,6 +60,9 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(route = ScreenNames.SCHEDULING.path){
                             SchedulingScreen(navController)
+                        }
+                        composable(route = ScreenNames.ORGANIZATIONLIST.path){
+                            OrganizationListScreen(navController)
                         }
                     }
                 }

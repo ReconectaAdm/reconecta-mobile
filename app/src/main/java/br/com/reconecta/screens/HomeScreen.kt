@@ -1,7 +1,6 @@
 package br.com.reconecta.screens
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
@@ -36,10 +35,10 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import br.com.reconecta.components.Residuo
-import br.com.reconecta.components.Organizacao
 import br.com.reconecta.R
 import br.com.reconecta.components.Navbar
+import br.com.reconecta.components.Organizacao
+import br.com.reconecta.components.Residuo
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -51,7 +50,7 @@ fun HomeScreen(navController: NavHostController) {
             verticalArrangement = Arrangement.Center,
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(0.10f)){
+                .weight(0.1f)){
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
