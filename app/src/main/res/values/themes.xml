@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Theme.Reconecta" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:fontFamily">@font/poppins</item>
+        <item name="android:fontFamily">@font/sora</item>
+<!--        <item name="android:calendarViewStyle">@style/Widget.CalendarView.Custom</item>-->
+    </style>
+
+    <style name="Widget.CalendarView.Custom" parent="android:Widget.CalendarView">
+<!--        <item name="android:focusedMonthDateColor">@color/purple_200</item>-->
+<!--        <item name="android:weekNumberColor">@color/purple_200</item>-->
+<!--        <item name="android:weekDayTextAppearance">@style/TextAppearance.AppCompat.Medium</item>-->
+<!--        <item name="android:dateTextAppearance">@style/TextAppearance.AppCompat.Medium</item>-->
     </style>
 </resources>
