@@ -18,6 +18,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -38,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import br.com.reconecta.R
+import br.com.reconecta.components.Header
 import br.com.reconecta.components.SecondaryButton
 import br.com.reconecta.components.organizarion_details.Carousel
 import br.com.reconecta.components.organizarion_details.EmailButton
@@ -65,37 +67,45 @@ fun OrganizationDetailsScreen(navController: NavHostController) {
         Column(
             modifier = Modifier
                 .background(Color.White)
-                .padding(top = 8.dp, start = 20.dp, end = 20.dp)
                 .verticalScroll(rememberScrollState())
         ) {
-            NavigateBackHeader(
+            Header(
                 "Organização"
-            ) { navController.navigate(ScreenNames.LOGIN.path) }
+            ) { navController.navigate(ScreenNames.ORGANIZATION_LIST.path) }
+            Divider(thickness = 1.dp, color = Color.LightGray)
+            Spacer(modifier = Modifier.height(10.dp))
 
-            Carousel()
-            OrganizationInfoMenu(orgMock)
+            Column(
+                modifier = Modifier
+                    .padding(top = 8.dp, start = 20.dp, end = 20.dp)
+            ){
+                Carousel()
+                OrganizationInfoMenu(orgMock)
 
-            Spacer(modifier = Modifier.height(6.dp))
-            SelectedItemsMenu(selectedResiduos, myList, activeResiduo)
-            ViewReviewsMenu(orgMock.reviews.size)
+                Spacer(modifier = Modifier.height(6.dp))
+                SelectedItemsMenu(selectedResiduos, myList, activeResiduo)
+                ViewReviewsMenu(orgMock.reviews.size)
 
-            Spacer(Modifier.height(20.dp))
-            TextMenuItem(text = "Horário de funcionamento")
-            Text(
-                text = orgMock.openTime,
-                fontSize = 10.sp,
-                fontFamily = FontFamily(Font(R.font.poppins_light))
-            )
+                Spacer(Modifier.height(20.dp))
+                TextMenuItem(text = "Horário de funcionamento")
+                Text(
+                    text = orgMock.openTime,
+                    fontSize = 10.sp,
+                    fontFamily = FontFamily(Font(R.font.poppins_light))
+                )
 
-            Spacer(modifier = Modifier.height(15.dp))
-            ContactMenu()
-            Spacer(modifier = Modifier.height(50.dp))
+                Spacer(modifier = Modifier.height(15.dp))
+                ContactMenu()
+                Spacer(modifier = Modifier.height(50.dp))
 
-            SecondaryButton(
-                text = "Continuar",
-                selectedResiduos.size > 0,
-                modifier = Modifier.align(Alignment.CenterHorizontally)
-            )
+                SecondaryButton(
+                    text = "Continuar",
+                    selectedResiduos.size > 0,
+                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                    onClick = { navController.navigate(ScreenNames.SCHEDULING.path) }
+                )
+            }
+
         }
     }
 }

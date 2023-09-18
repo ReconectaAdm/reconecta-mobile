@@ -68,7 +68,7 @@ class MainActivity : ComponentActivity() {
                         composable(route = ScreenNames.SCHEDULING.path){
                             SchedulingScreen(navController)
                         }
-                        composable(route = ScreenNames.ORGANIZATIONLIST.path){
+                        composable(route = ScreenNames.ORGANIZATION_LIST.path){
                             OrganizationListScreen(navController)
                         }
                     }

@@ -153,7 +153,7 @@ fun HomeScreen(navController: NavHostController) {
                     )
                     {
                         // Ação a ser executada quando o Residuo for clicado
-                        navController.navigate(ScreenNames.ORGANIZATIONLIST.path)
+                        navController.navigate(ScreenNames.ORGANIZATION_LIST.path)
                     }
                     Residuo(
                         id = R.drawable.residuo_metal,
@@ -293,7 +293,8 @@ fun HomeScreen(navController: NavHostController) {
                 Navbar(
                     id = R.drawable.navbar_home,
                     contentDescription = "Ícone início",
-                    text = "Início"
+                    text = "Início",
+                    color = Color(0xFF276246)
                 )
                 Navbar(
                     id = R.drawable.navbar_coleta,

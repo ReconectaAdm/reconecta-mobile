@@ -18,7 +18,7 @@ import br.com.reconecta.ui.theme.DisabledButton
 import br.com.reconecta.ui.theme.MediumGreenReconecta
 
 @Composable
-fun SecondaryButton(text:String, enabled: Boolean, modifier: Modifier? = Modifier) {
+fun SecondaryButton(text:String, enabled: Boolean, modifier: Modifier? = Modifier, onClick: () -> Unit = {}) {
     Button(shape = RoundedCornerShape(8.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = MediumGreenReconecta,
@@ -29,7 +29,7 @@ fun SecondaryButton(text:String, enabled: Boolean, modifier: Modifier? = Modifie
             .height(40.dp)
             .width(200.dp),
         enabled = enabled,
-        onClick = {}) {
+        onClick = onClick) {
         Text(
             text = text,
             color = Color.White,

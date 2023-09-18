@@ -40,6 +40,7 @@ fun OrganizationListScreen(navController: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
             modifier = Modifier
+                .padding(horizontal = 10.dp)
                 .fillMaxWidth()
                 .weight(0.10f)
         ) {
@@ -79,7 +80,7 @@ fun OrganizationListScreen(navController: NavController) {
                 avaliacao = 5.0,
                 distanciaKm = 0.9,
                 isFavorito = isFavoritoOrganization2,
-                onImageClick = {},
+                onImageClick = {navController.navigate(ScreenNames.ORGANIZATION_DETAILS.path)},
                 onFavoriteClick = {
                     isFavoritoOrganization2 = !isFavoritoOrganization2
                 }
