@@ -1,4 +1,4 @@
-package br.com.reconecta.components
+package br.com.reconecta.components.organizarion_details
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -18,8 +18,9 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import br.com.reconecta.R
-import br.com.reconecta.ui.theme.LightGreenReconecta
+import br.com.reconecta.ui.theme.MediumGreenReconecta
 
 @Composable
 fun NavigateBackHeader(title: String, clickAction: ()  -> Unit) {
@@ -37,10 +38,11 @@ fun NavigateBackHeader(title: String, clickAction: ()  -> Unit) {
                 .offset((-50).dp)
                 .align(Alignment.CenterVertically)
                 .clickable { clickAction() },
-            tint = LightGreenReconecta
+            tint = MediumGreenReconecta
         )
         Text(
             text = title,
+            fontSize = 17.sp,
             fontFamily = FontFamily(Font(R.font.poppins_semi_bold)),
             color = Color.Black,
             textAlign = TextAlign.Center,

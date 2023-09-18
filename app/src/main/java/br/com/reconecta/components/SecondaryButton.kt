@@ -1,7 +1,7 @@
 package br.com.reconecta.components
 
-
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -13,30 +13,27 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import br.com.reconecta.R
-import br.com.reconecta.ui.theme.DarkGreenReconecta
 import br.com.reconecta.ui.theme.DisabledButton
 import br.com.reconecta.ui.theme.MediumGreenReconecta
 
 @Composable
-fun PrimaryButton(text: String, onClick: () -> Unit, modifier: Modifier? = Modifier) {
-    Button(
+fun SecondaryButton(text:String, enabled: Boolean, modifier: Modifier? = Modifier) {
+    Button(shape = RoundedCornerShape(8.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = DarkGreenReconecta,
+            containerColor = MediumGreenReconecta,
             disabledContainerColor = DisabledButton
         ),
-        onClick = { onClick() },
-        shape = RoundedCornerShape(7.dp),
         modifier = modifier!!
+            .padding(bottom = 16.dp)
             .height(40.dp)
-            .width(250.dp)
-    ) {
+            .width(200.dp),
+        enabled = enabled,
+        onClick = {}) {
         Text(
             text = text,
-            fontSize = 14.5.sp,
             color = Color.White,
-            fontFamily = FontFamily(Font(R.font.sora)),
+            fontFamily = FontFamily(Font(R.font.poppins_semi_bold))
         )
     }
 }

@@ -5,5 +5,6 @@ enum class ScreenNames(val path: String) {
     REGISTER("register"),
     HOME("home"),
     SCHEDULING("scheduling"),
-    ORGANIZATIONLIST("organizationList")
+    ORGANIZATIONLIST("organizationList"),
+    ORGANIZATION_DETAILS("organizationetails")
 }

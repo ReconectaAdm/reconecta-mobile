@@ -14,7 +14,6 @@ import br.com.reconecta.screens.HomeEstablishmentScreen
 import br.com.reconecta.screens.LoginScreen
 import br.com.reconecta.screens.OrganizationDetailsScreen
 import br.com.reconecta.screens.OrganizationListScreen
-import br.com.reconecta.screens.RegisterScreen
 import br.com.reconecta.screens.SchedulingScreen
 import br.com.reconecta.screens.ScreenNames
 import br.com.reconecta.screens.SignUpScreen
@@ -28,16 +27,15 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-
             ReconectaTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = colorResource(id = R.color.reconecta_background),
+                    color = colorResource(id = R.color.white),
                 ) {
                     val navController = rememberAnimatedNavController()
                     AnimatedNavHost(
                         navController = navController,
-                        startDestination = ScreenNames.HOME.path,
+                        startDestination = ScreenNames.LOGIN.path,
                         exitTransition = {
                             slideOutOfContainer(
                                 towards = AnimatedContentScope.SlideDirection.End,
@@ -60,7 +58,7 @@ class MainActivity : ComponentActivity() {
                         composable(route = ScreenNames.ORGANIZATION_DETAILS.path) {
                             OrganizationDetailsScreen(navController)
                         }
-                        composable(route = ScreenNames.HOME_ESTABLISHMENT.path) {
+                        composable(route = ScreenNames.HOME.path) {
                             HomeEstablishmentScreen(navController)
                         }
                         composable(route = ScreenNames.SCHEDULING.path){
