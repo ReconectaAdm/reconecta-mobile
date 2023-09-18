@@ -63,7 +63,6 @@ import br.com.reconecta.components.kalendar.Kalendar
 import br.com.reconecta.components.kalendar.ui.component.day.KalendarDayKonfig
 import br.com.reconecta.components.kalendar.ui.firey.DaySelectionMode
 import kotlinx.datetime.Clock
-import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.todayIn
 
@@ -110,13 +109,13 @@ fun SchedulingScreen(navController: NavHostController) {
                 .fillMaxWidth()
         ) {
 
-            Header("Agendamento", null)
+            Header("Agendamento") { navController.navigate(ScreenNames.ORGANIZATION_DETAILS.path) }
             Spacer(modifier = Modifier.height(20.dp))
 
             FormQtd(qtd) { qtd = it }
             Spacer(modifier = Modifier.height(20.dp))
 
-            Calendar() { dateChecked = it }
+            Calendar { dateChecked = it }
             Spacer(modifier = Modifier.height(20.dp))
 
             HourSelection { hourChecked = it }

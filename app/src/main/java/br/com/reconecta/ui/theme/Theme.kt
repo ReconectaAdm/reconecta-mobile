@@ -23,7 +23,7 @@ private val DarkColorScheme = darkColorScheme(
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary =   GreenReconecta,
+    primary =   DarkGreenReconecta,
     secondary = Color.Black,
     tertiary = Color.Black
     /* Other default colors to override

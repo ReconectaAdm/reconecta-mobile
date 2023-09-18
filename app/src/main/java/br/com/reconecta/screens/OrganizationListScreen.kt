@@ -43,7 +43,10 @@ fun OrganizationListScreen(navController: NavController) {
                 .fillMaxWidth()
                 .weight(0.10f)
         ) {
-            Header(text = "Organizações", onClick = null)
+            Header(text = "Organizações", onClick = {
+                navController.navigate(ScreenNames.HOME.path)
+            }
+            )
         }
 
         Divider(thickness = 1.dp, color = Color.LightGray)
@@ -53,7 +56,6 @@ fun OrganizationListScreen(navController: NavController) {
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f)
-                .padding(top = 10.dp)
                 .verticalScroll(rememberScrollState())
         ) {
 
@@ -64,9 +66,7 @@ fun OrganizationListScreen(navController: NavController) {
                 avaliacao = 4.8,
                 distanciaKm = 0.7,
                 isFavorito = isFavoritoOrganization1,
-                onImageClick = {
-                    navController.navigate("detalhesOrganizacao")
-                },
+                onImageClick = {},
                 onFavoriteClick = {
                     isFavoritoOrganization1 = !isFavoritoOrganization1
                 }
@@ -79,9 +79,7 @@ fun OrganizationListScreen(navController: NavController) {
                 avaliacao = 5.0,
                 distanciaKm = 0.9,
                 isFavorito = isFavoritoOrganization2,
-                onImageClick = {
-                    navController.navigate("detalhesOrganizacao")
-                },
+                onImageClick = {},
                 onFavoriteClick = {
                     isFavoritoOrganization2 = !isFavoritoOrganization2
                 }
@@ -94,9 +92,7 @@ fun OrganizationListScreen(navController: NavController) {
                 avaliacao = 4.5,
                 distanciaKm = 1.1,
                 isFavorito = isFavoritoOrganization3,
-                onImageClick = {
-                    navController.navigate("detalhesOrganizacao")
-                },
+                onImageClick = {},
                 onFavoriteClick = {
                     isFavoritoOrganization3 = !isFavoritoOrganization3
                 }
@@ -109,9 +105,7 @@ fun OrganizationListScreen(navController: NavController) {
                 avaliacao = 4.8,
                 distanciaKm = 1.1,
                 isFavorito = isFavoritoOrganization4,
-                onImageClick = {
-                    navController.navigate("detalhesOrganizacao")
-                },
+                onImageClick = {},
                 onFavoriteClick = {
                     isFavoritoOrganization4 = !isFavoritoOrganization4
                 }
@@ -124,9 +118,7 @@ fun OrganizationListScreen(navController: NavController) {
                 avaliacao = 4.9,
                 distanciaKm = 1.6,
                 isFavorito = isFavoritoOrganization5,
-                onImageClick = {
-                    navController.navigate("detalhesOrganizacao")
-                },
+                onImageClick = {},
                 onFavoriteClick = {
                     isFavoritoOrganization5 = !isFavoritoOrganization5
                 }
@@ -139,9 +131,7 @@ fun OrganizationListScreen(navController: NavController) {
                 avaliacao = 4.7,
                 distanciaKm = 2.5,
                 isFavorito = isFavoritoOrganization6,
-                onImageClick = {
-                    navController.navigate("detalhesOrganizacao")
-                },
+                onImageClick = {},
                 onFavoriteClick = {
                     isFavoritoOrganization6 = !isFavoritoOrganization6
                 }
@@ -154,9 +144,7 @@ fun OrganizationListScreen(navController: NavController) {
                 avaliacao = 4.8,
                 distanciaKm = 3.0,
                 isFavorito = isFavoritoOrganization7,
-                onImageClick = {
-                    navController.navigate("detalhesOrganizacao")
-                },
+                onImageClick = {},
                 onFavoriteClick = {
                     isFavoritoOrganization7 = !isFavoritoOrganization7
                 }

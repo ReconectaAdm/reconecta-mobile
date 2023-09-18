@@ -25,6 +25,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -43,6 +47,11 @@ import br.com.reconecta.components.Residuo
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(navController: NavHostController) {
+
+    var pesquisaState by remember {
+        mutableStateOf("")
+    }
+
     Column {
         //barra com endereço cima
         Column (
@@ -64,7 +73,7 @@ fun HomeScreen(navController: NavHostController) {
                         .weight(1f)){
                     Text(
                         text = "R. Augusta, 854",
-                        fontFamily = FontFamily(Font(R.font.sora_regular)),
+                        fontFamily = FontFamily(Font(R.font.poppins_regular)),
                         fontSize = 15.sp
                     )
                     Icon(
@@ -101,10 +110,10 @@ fun HomeScreen(navController: NavHostController) {
                     .fillMaxWidth()
                     .padding(top = 10.dp, bottom = 5.dp)){
                 TextField(
-                    value = "",
-                    onValueChange = {},
+                    value = pesquisaState,
+                    onValueChange = {pesquisaState = it},
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-                    textStyle = TextStyle(fontFamily = FontFamily(Font(R.font.sora_regular))),
+                    textStyle = TextStyle(fontFamily = FontFamily(Font(R.font.poppins_regular))),
                     colors = TextFieldDefaults.textFieldColors(
                         containerColor = Color.Unspecified,
                         focusedIndicatorColor = Color.Unspecified,
@@ -142,21 +151,34 @@ fun HomeScreen(navController: NavHostController) {
                         contentDescription = "Ícone de resíduo plástico",
                         text = "Plástico"
                     )
+                    {
+                        // Ação a ser executada quando o Residuo for clicado
+                        navController.navigate(ScreenNames.ORGANIZATIONLIST.path)
+                    }
                     Residuo(
                         id = R.drawable.residuo_metal,
                         contentDescription = "Ícone de resíduo metal",
                         text = "Metal"
                     )
+                    {
+                        // Ação a ser executada quando o Residuo for clicado
+                    }
                     Residuo(
                         id = R.drawable.residuo_papel,
                         contentDescription = "Ícone de resíduo papel",
                         text = "Papel"
                     )
+                    {
+                        // Ação a ser executada quando o Residuo for clicado
+                    }
                     Residuo(
                         id = R.drawable.residuo_vidro,
                         contentDescription = "Ícone de resíduo vidro",
                         text = "Vidro"
                     )
+                    {
+                        // Ação a ser executada quando o Residuo for clicado
+                    }
                 }
                 //segunda fileira
                 Row(
@@ -169,21 +191,33 @@ fun HomeScreen(navController: NavHostController) {
                         contentDescription = "Ícone de resíduo orgânico",
                         text = "Orgânico"
                     )
+                    {
+                        // Ação a ser executada quando o Residuo for clicado
+                    }
                     Residuo(
                         id = R.drawable.residuo_pilhas,
                         contentDescription = "Ícone de resíduo pilha e bateria",
                         text = "Pilhas"
                     )
+                    {
+                        // Ação a ser executada quando o Residuo for clicado
+                    }
                     Residuo(
                         id = R.drawable.residuo_eletronicos,
                         contentDescription = "Ícone de resíduo eletrônico",
                         text = "Eletrônicos"
                     )
+                    {
+                        // Ação a ser executada quando o Residuo for clicado
+                    }
                     Residuo(
                         id = R.drawable.residuo_outros,
                         contentDescription = "Ícone de outros resíduos",
                         text = "Outros"
                     )
+                    {
+                        // Ação a ser executada quando o Residuo for clicado
+                    }
                 }
             }
             //favoritos
@@ -191,7 +225,7 @@ fun HomeScreen(navController: NavHostController) {
                 Text(
                     text = "Favoritos",
                     fontFamily = FontFamily(Font(R.font.sora_medium)),
-                    fontSize = 20.sp
+                    fontSize = 18.sp
                 )
                 Row (
                     horizontalArrangement = Arrangement.Start,
@@ -218,7 +252,7 @@ fun HomeScreen(navController: NavHostController) {
                 Text(
                     text = "Recentes",
                     fontFamily = FontFamily(Font(R.font.sora_medium)),
-                    fontSize = 20.sp
+                    fontSize = 18.sp
                 )
                 Row(
                     horizontalArrangement = Arrangement.Start,

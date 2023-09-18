@@ -10,12 +10,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
+import br.com.reconecta.screens.HomeEstablishmentScreen
 import br.com.reconecta.screens.HomeScreen
 import br.com.reconecta.screens.LoginScreen
+import br.com.reconecta.screens.OrganizationDetailsScreen
 import br.com.reconecta.screens.OrganizationListScreen
-import br.com.reconecta.screens.RegisterScreen
 import br.com.reconecta.screens.SchedulingScreen
 import br.com.reconecta.screens.ScreenNames
+import br.com.reconecta.screens.SignUpScreen
 import br.com.reconecta.ui.theme.ReconectaTheme
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
@@ -26,11 +28,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-
             ReconectaTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = colorResource(id = R.color.reconecta_background),
+                    color = colorResource(id = R.color.white),
                 ) {
                     val navController = rememberAnimatedNavController()
                     AnimatedNavHost(
@@ -53,10 +54,16 @@ class MainActivity : ComponentActivity() {
                             LoginScreen(navController)
                         }
                         composable(route = ScreenNames.REGISTER.path) {
-                            RegisterScreen(navController)
+                            SignUpScreen(navController)
                         }
                         composable(route = ScreenNames.HOME.path) {
                             HomeScreen(navController)
+                        }
+                        composable(route = ScreenNames.ORGANIZATION_DETAILS.path) {
+                            OrganizationDetailsScreen(navController)
+                        }
+                        composable(route = ScreenNames.HOME_ESTABLISHMENT.path) {
+                            HomeEstablishmentScreen(navController)
                         }
                         composable(route = ScreenNames.SCHEDULING.path){
                             SchedulingScreen(navController)

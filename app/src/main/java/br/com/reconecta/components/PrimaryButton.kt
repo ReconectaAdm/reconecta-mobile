@@ -15,11 +15,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.reconecta.R
 
-
 @Composable
-fun AppButton(text: String, onClick: Unit) {
+fun PrimaryButton(text: String, onClick: ()-> Unit) {
     Button(
-        onClick = { onClick },
+        onClick = { onClick() },
         shape = RoundedCornerShape(7.dp),
         modifier = Modifier
             .height(40.dp)
@@ -29,7 +28,7 @@ fun AppButton(text: String, onClick: Unit) {
             text = text,
             fontSize = 14.5.sp,
             color = Color.White,
-            fontFamily = FontFamily(Font(R.font.sora)),
+            fontFamily = FontFamily(Font(R.font.poppins_medium)),
         )
     }
 }

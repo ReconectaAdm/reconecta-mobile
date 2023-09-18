@@ -15,13 +15,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.reconecta.R
 
 @Composable
-fun Header(text: String, onClick: Unit?) {
+fun Header(text: String, onClick: () -> Unit) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
@@ -30,7 +32,7 @@ fun Header(text: String, onClick: Unit?) {
     ) {
         IconButton(
             modifier = Modifier.weight(0.1f),
-            onClick = {onClick!!}
+            onClick = { onClick() }
         ) {
             Icon(
                 imageVector = ImageVector.vectorResource(R.drawable.baseline_arrow_back_ios_24),
@@ -41,8 +43,8 @@ fun Header(text: String, onClick: Unit?) {
         }
         Text(
             text = text,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.SemiBold,
+            fontSize = 18.sp,
+            fontFamily = FontFamily(Font(R.font.poppins_medium)),
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentWidth(Alignment.CenterHorizontally)
@@ -50,6 +52,4 @@ fun Header(text: String, onClick: Unit?) {
         )
         Spacer(modifier = Modifier.weight(0.1f))
     }
-
 }
-
