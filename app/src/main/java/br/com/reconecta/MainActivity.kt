@@ -16,7 +16,7 @@ import br.com.reconecta.screens.LoginScreen
 import br.com.reconecta.screens.OrganizationDetailsScreen
 import br.com.reconecta.screens.OrganizationListScreen
 import br.com.reconecta.screens.SchedulingScreen
-import br.com.reconecta.screens.ScreenNames
+import br.com.reconecta.screens.EScreenNames
 import br.com.reconecta.screens.SignUpScreen
 import br.com.reconecta.ui.theme.ReconectaTheme
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -24,6 +24,7 @@ import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
 class MainActivity : ComponentActivity() {
+
     @OptIn(ExperimentalAnimationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,10 +34,11 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = colorResource(id = R.color.white),
                 ) {
+
                     val navController = rememberAnimatedNavController()
                     AnimatedNavHost(
                         navController = navController,
-                        startDestination = ScreenNames.LOGIN.path,
+                        startDestination = EScreenNames.LOGIN.path,
                         exitTransition = {
                             slideOutOfContainer(
                                 towards = AnimatedContentScope.SlideDirection.End,
@@ -50,26 +52,26 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                     ) {
-                        composable(route = ScreenNames.LOGIN.path) {
-                            LoginScreen(navController)
+                        composable(route = EScreenNames.LOGIN.path) {
+                            LoginScreen(navController, applicationContext)
                         }
-                        composable(route = ScreenNames.REGISTER.path) {
-                            SignUpScreen(navController)
+                        composable(route = EScreenNames.REGISTER.path) {
+                            SignUpScreen(navController, applicationContext)
                         }
-                        composable(route = ScreenNames.HOME.path) {
+                        composable(route = EScreenNames.HOME.path) {
                             HomeScreen(navController)
                         }
-                        composable(route = ScreenNames.ORGANIZATION_DETAILS.path) {
+                        composable(route = EScreenNames.ORGANIZATION_DETAILS.path) {
                             OrganizationDetailsScreen(navController)
                         }
-                        composable(route = ScreenNames.HOME_ESTABLISHMENT.path) {
+                        composable(route = EScreenNames.HOME_ESTABLISHMENT.path) {
                             HomeEstablishmentScreen(navController)
                         }
-                        composable(route = ScreenNames.SCHEDULING.path){
+                        composable(route = EScreenNames.SCHEDULING.path){
                             SchedulingScreen(navController)
                         }
-                        composable(route = ScreenNames.ORGANIZATION_LIST.path){
-                            OrganizationListScreen(navController)
+                        composable(route = EScreenNames.ORGANIZATION_LIST.path){
+                            OrganizationListScreen(navController, applicationContext)
                         }
                     }
                 }
