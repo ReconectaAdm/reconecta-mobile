@@ -1,11 +1,14 @@
 package br.com.reconecta.components.scheduling
 
+import android.content.Context
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.SuggestionChipDefaults
 import androidx.compose.material3.Text
@@ -20,20 +23,23 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import br.com.reconecta.api.model.GetAvailabilityDto
+import br.com.reconecta.api.service.RetrofitFactory
+import br.com.reconecta.api.service.handleApiResponse
+import java.time.DayOfWeek
 
 @Composable
-fun HourSelection(hourChecked: (hourChecked: Boolean) -> Unit) {
-    val availableHours = listOf("09h00", "10h00", "11h00", "12h00")
-
-    var hourSelected by remember {
-        mutableStateOf("")
-    }
-
+fun HourSelection(
+    hourSelected: String,
+    setHourSelected: (hourSelected: String) -> Unit,
+    dayOfWeek: Int,
+    availableHours: List<GetAvailabilityDto>
+) {
     Column(
         horizontalAlignment = Alignment.Start, modifier = Modifier.fillMaxWidth()
     ) {
         Text(
-            text = "Selecione o horário",
+            text = "Horários Disponíveis",
             textAlign = TextAlign.Start,
             fontWeight = FontWeight.Medium
         )
@@ -43,15 +49,32 @@ fun HourSelection(hourChecked: (hourChecked: Boolean) -> Unit) {
         Row(
             modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            availableHours.forEach { hour ->
-                HourChip(hour, hourSelected == hour) { hourChecked(true); hourSelected = it; }
-            }
+            Log.i("availability", dayOfWeek.toString())
+
+            val dayAvailability =
+                availableHours.find { hour -> hour.day == dayOfWeek } ?: return
+
+            HourChip(
+                dayAvailability.startHour,
+                "Manhã",
+                hourSelected == dayAvailability.startHour
+            ) { setHourSelected(it); }
+            HourChip(
+                dayAvailability.endHour,
+                "Tarde",
+                hourSelected == dayAvailability.endHour
+            ) { setHourSelected(it); }
         }
     }
 }
 
 @Composable
-fun HourChip(hour: String, isSelectedHour: Boolean, selectHour: (hour: String) -> Unit) {
+fun HourChip(
+    hour: String,
+    period: String,
+    isSelectedHour: Boolean,
+    selectHour: (hour: String) -> Unit
+) {
     SuggestionChip(colors = SuggestionChipDefaults.suggestionChipColors(
         labelColor = if (isSelectedHour) Color.White else Color.Black,
         containerColor = if (isSelectedHour) Color(0xFF3E9629) else Color(0xFFEBEBEB)
@@ -60,5 +83,13 @@ fun HourChip(hour: String, isSelectedHour: Boolean, selectHour: (hour: String) -
             borderColor = Color(0xFFEBEBEB)
         ),
         onClick = { selectHour(hour) },
-        label = { Text(hour) })
+        label = {
+            Column(
+                Modifier.padding(8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Text(period)
+                Text(hour)
+            }
+        })
 }

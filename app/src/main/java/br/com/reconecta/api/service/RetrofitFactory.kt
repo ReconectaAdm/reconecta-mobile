@@ -10,6 +10,7 @@ class RetrofitFactory {
 
     private lateinit var organizationService: OrganizationService
     private lateinit var authService: AuthService
+    private lateinit var availabilityService: AvailabilityService
 
     companion object {
         private const val BASE_URL = "https://reconecta-app-dev.azurewebsites.net/"
@@ -29,6 +30,14 @@ class RetrofitFactory {
         }
 
         return authService
+    }
+
+    fun getAvailabilityService(context: Context): AvailabilityService {
+        if (!::availabilityService.isInitialized) {
+            availabilityService = baseRetrofit(context).create(AvailabilityService::class.java)
+        }
+
+        return availabilityService
     }
 
     private fun baseRetrofit(context: Context) =

@@ -18,11 +18,12 @@ import br.com.reconecta.components.kalendar.Kalendar
 import br.com.reconecta.components.kalendar.ui.component.day.KalendarDayKonfig
 import br.com.reconecta.components.kalendar.ui.firey.DaySelectionMode
 import kotlinx.datetime.Clock
+import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.todayIn
 
 @Composable
-fun Calendar(dateChecked: (isDateChecked: Boolean) -> Unit) {
+fun Calendar(setDate: (date: LocalDate) -> Unit) {
     Column(horizontalAlignment = Alignment.Start) {
         Text(
             text = "Selecione a data", textAlign = TextAlign.Start, fontWeight = FontWeight.Medium
@@ -45,7 +46,7 @@ fun Calendar(dateChecked: (isDateChecked: Boolean) -> Unit) {
                     "selectedDate",
                     date.toString()
                 )
-                dateChecked(true)
+                setDate(date)
             }
         )
     }

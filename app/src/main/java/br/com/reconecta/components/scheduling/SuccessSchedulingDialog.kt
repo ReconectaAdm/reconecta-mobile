@@ -31,13 +31,19 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavHostController
 import br.com.reconecta.screens.EScreenNames
+import kotlinx.datetime.LocalDate
+import java.time.format.DateTimeFormatter
+
 
 @Composable
 fun SuccessSchedulingDialog(
     navController: NavHostController,
+    dateSelected: LocalDate,
+    hourSelected: String,
     closeSuccessDialog: () -> Unit,
     openSchedulingDetailsDialogState: () -> Unit
 ) {
+
     Dialog(
         onDismissRequest = {},
     ) {
@@ -75,7 +81,9 @@ fun SuccessSchedulingDialog(
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
-                    text = "15/06 - 11h00",
+                    text = "${
+                        dateSelected.dayOfMonth.toString().padStart(2, '0')
+                    }/${dateSelected.monthNumber.toString().padStart(2, '0')}  | $hourSelected",
                     color = Color.Gray,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -88,8 +96,7 @@ fun SuccessSchedulingDialog(
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Button(
-                    modifier = Modifier
-                        .width(225.dp),
+                    modifier = Modifier.width(225.dp),
                     shape = RoundedCornerShape(10.dp),
                     colors = ButtonDefaults.buttonColors(
                         contentColor = Color.White,
