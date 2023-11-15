@@ -17,6 +17,7 @@ import br.com.reconecta.screens.OrganizationDetailsScreen
 import br.com.reconecta.screens.OrganizationListScreen
 import br.com.reconecta.screens.SchedulingScreen
 import br.com.reconecta.screens.EScreenNames
+import br.com.reconecta.screens.ResetPasswordScreen
 import br.com.reconecta.screens.SignUpScreen
 import br.com.reconecta.ui.theme.ReconectaTheme
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -72,6 +73,9 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(route = EScreenNames.ORGANIZATION_LIST.path){
                             OrganizationListScreen(navController, applicationContext)
+                        }
+                        composable(route = EScreenNames.RESET_PASSWORD.path){
+                            ResetPasswordScreen(navController, applicationContext)
                         }
                     }
                 }

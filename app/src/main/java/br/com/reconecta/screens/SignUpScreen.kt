@@ -37,7 +37,7 @@ import br.com.reconecta.api.model.CreateAccountRequest
 import br.com.reconecta.api.model.UserModel
 import br.com.reconecta.api.service.RetrofitFactory
 import br.com.reconecta.components.AccountType
-import br.com.reconecta.components.commons.PrimaryButton
+import br.com.reconecta.components.commons.buttons.PrimaryButton
 import br.com.reconecta.components.commons.RoundedTopBaseBox
 import br.com.reconecta.components.commons.text_field.BaseTextField
 import br.com.reconecta.components.commons.text_field.CnpjTextField
