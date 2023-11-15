@@ -29,7 +29,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.reconecta.R
-import br.com.reconecta.components.OrganizacaoItem
+import br.com.reconecta.components.CreateOrganizationItem2
 
 @Composable
 fun BottomSheetContent(openSuccessDialog: () -> Unit, closeSchedulingDetailsDialog: () -> Unit) {
@@ -107,7 +107,7 @@ fun BottomSheetContent(openSuccessDialog: () -> Unit, closeSchedulingDetailsDial
 fun SchedulingInfo() {
     Column {
         Text(text = "Empresa", fontWeight = FontWeight.Medium)
-        OrganizacaoItem(
+        CreateOrganizationItem2(
             painter = painterResource(id = R.drawable.logo_plasrecicla),
             contentDescription = "Descrição da organização 2",
             nome = "PlasRecicla",

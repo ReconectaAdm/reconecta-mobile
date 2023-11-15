@@ -32,7 +32,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import br.com.reconecta.components.Header
+import br.com.reconecta.components.commons.Header
 import br.com.reconecta.components.scheduling.BottomSheetContent
 import br.com.reconecta.components.scheduling.Calendar
 import br.com.reconecta.components.scheduling.FormQtd
@@ -83,7 +83,7 @@ fun SchedulingScreen(navController: NavHostController) {
                 .background(Color.White)
                 .fillMaxWidth()
         ) {
-            Header("Agendamento") { navController.navigate(ScreenNames.ORGANIZATION_DETAILS.path) }
+            Header("Agendamento") { navController.navigate(EScreenNames.ORGANIZATION_DETAILS.path) }
             Divider(thickness = 1.dp, color = Color.LightGray)
             Spacer(modifier = Modifier.height(20.dp))
 

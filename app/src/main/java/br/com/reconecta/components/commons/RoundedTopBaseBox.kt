@@ -1,4 +1,4 @@
-package br.com.reconecta.components
+package br.com.reconecta.components.commons
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -18,7 +18,7 @@ fun RoundedTopBaseBox(composable: @Composable () -> Unit) {
             .padding(top = 20.dp)
             .clip(RoundedCornerShape(topEnd = 35.dp, topStart = 35.dp))
             .fillMaxSize()
-            .background(Color.White)
+            .background(Color.White).fillMaxSize()
     )
     {
         composable()

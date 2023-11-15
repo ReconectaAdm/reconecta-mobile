@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavHostController
-import br.com.reconecta.screens.ScreenNames
+import br.com.reconecta.screens.EScreenNames
 
 @Composable
 fun SuccessSchedulingDialog(
@@ -102,7 +102,7 @@ fun SuccessSchedulingDialog(
                     Text(text = "Ver detalhes", color = Color.White)
                 }
 
-                TextButton(onClick = { closeSuccessDialog(); navController.navigate(ScreenNames.HOME.path) }) {
+                TextButton(onClick = { closeSuccessDialog(); navController.navigate(EScreenNames.HOME.path) }) {
                     Text("Início")
                 }
             }

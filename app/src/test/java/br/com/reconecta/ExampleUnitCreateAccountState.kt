@@ -9,7 +9,7 @@ import org.junit.Assert.*
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-class ExampleUnitTest {
+class ExampleUnitCreateAccountState {
     fun asd(asd:String?): String {
         return asd?: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
     }
