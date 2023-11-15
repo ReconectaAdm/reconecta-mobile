@@ -39,11 +39,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import br.com.reconecta.R
-import br.com.reconecta.components.Header
+import br.com.reconecta.components.commons.Header
 import br.com.reconecta.components.SecondaryButton
 import br.com.reconecta.components.organizarion_details.Carousel
 import br.com.reconecta.components.organizarion_details.EmailButton
-import br.com.reconecta.components.organizarion_details.NavigateBackHeader
 import br.com.reconecta.components.organizarion_details.Organization
 import br.com.reconecta.components.organizarion_details.PhoneButton
 import br.com.reconecta.components.organizarion_details.Residuo
@@ -71,7 +70,7 @@ fun OrganizationDetailsScreen(navController: NavHostController) {
         ) {
             Header(
                 "Organização"
-            ) { navController.navigate(ScreenNames.ORGANIZATION_LIST.path) }
+            ) { navController.navigate(EScreenNames.ORGANIZATION_LIST.path) }
             Divider(thickness = 1.dp, color = Color.LightGray)
             Spacer(modifier = Modifier.height(10.dp))
 
@@ -102,7 +101,7 @@ fun OrganizationDetailsScreen(navController: NavHostController) {
                     text = "Continuar",
                     selectedResiduos.size > 0,
                     modifier = Modifier.align(Alignment.CenterHorizontally),
-                    onClick = { navController.navigate(ScreenNames.SCHEDULING.path) }
+                    onClick = { navController.navigate(EScreenNames.SCHEDULING.path) }
                 )
             }
 

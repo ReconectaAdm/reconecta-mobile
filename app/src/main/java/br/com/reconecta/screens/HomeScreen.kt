@@ -40,9 +40,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import br.com.reconecta.R
-import br.com.reconecta.components.Navbar
 import br.com.reconecta.components.Organizacao
 import br.com.reconecta.components.Residuo
+import br.com.reconecta.components.commons.BottomNavBar
+import br.com.reconecta.components.commons.ENavMenuItems
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -153,7 +154,7 @@ fun HomeScreen(navController: NavHostController) {
                     )
                     {
                         // Ação a ser executada quando o Residuo for clicado
-                        navController.navigate(ScreenNames.ORGANIZATION_LIST.path)
+                        navController.navigate(EScreenNames.ORGANIZATION_LIST.path)
                     }
                     Residuo(
                         id = R.drawable.residuo_metal,
@@ -275,43 +276,9 @@ fun HomeScreen(navController: NavHostController) {
                 }
             }
         }
-        //dificuldade em colocar sombra somente em uma borda, botei divisor
+
         Divider(thickness = 1.dp, color = Color.LightGray)
-        //barra navegação
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(0.11f)){
-            Row(
-                horizontalArrangement = Arrangement.SpaceAround,
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(7.dp)){
-                Navbar(
-                    id = R.drawable.navbar_home,
-                    contentDescription = "Ícone início",
-                    text = "Início",
-                    color = Color(0xFF276246)
-                )
-                Navbar(
-                    id = R.drawable.navbar_coleta,
-                    contentDescription = "Ícone coleta",
-                    text = "Coleta"
-                )
-                Navbar(
-                    id = R.drawable.navbar_metrica,
-                    contentDescription = "Ícone métricas",
-                    text = "Métricas"
-                )
-                Navbar(
-                    id = R.drawable.navbar_perfil,
-                    contentDescription = "Ícone conta",
-                    text = "Conta"
-                )
-            }
-        }
+
+        BottomNavBar(ENavMenuItems.HOME)
     }
 }
