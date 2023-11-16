@@ -10,14 +10,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
+import br.com.reconecta.screens.EScreenNames
 import br.com.reconecta.screens.HomeEstablishmentScreen
 import br.com.reconecta.screens.HomeScreen
 import br.com.reconecta.screens.LoginScreen
 import br.com.reconecta.screens.OrganizationDetailsScreen
 import br.com.reconecta.screens.OrganizationListScreen
-import br.com.reconecta.screens.SchedulingScreen
-import br.com.reconecta.screens.EScreenNames
 import br.com.reconecta.screens.ResetPasswordScreen
+import br.com.reconecta.screens.SchedulingScreen
 import br.com.reconecta.screens.SignUpScreen
 import br.com.reconecta.ui.theme.ReconectaTheme
 import com.google.accompanist.navigation.animation.AnimatedNavHost

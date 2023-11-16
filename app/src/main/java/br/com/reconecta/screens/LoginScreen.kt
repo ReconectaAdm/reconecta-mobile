@@ -31,8 +31,8 @@ import br.com.reconecta.api.model.LoginRequest
 import br.com.reconecta.api.model.LoginResponse
 import br.com.reconecta.api.service.RetrofitFactory
 import br.com.reconecta.components.commons.LoadingCircularIndicator
-import br.com.reconecta.components.commons.buttons.PrimaryButton
 import br.com.reconecta.components.commons.RoundedTopBaseBox
+import br.com.reconecta.components.commons.buttons.PrimaryButton
 import br.com.reconecta.components.commons.text_field.EmailTextField
 import br.com.reconecta.components.commons.text_field.PasswordTextField
 import br.com.reconecta.core.AppConstants
