@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -25,10 +26,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import br.com.reconecta.R
-import br.com.reconecta.api.model.LoginRequest
 import br.com.reconecta.api.model.UpdatePasswordRequest
 import br.com.reconecta.api.service.RetrofitFactory
+import br.com.reconecta.api.service.handleApiResponse
 import br.com.reconecta.components.commons.AlertDialogExample
+import br.com.reconecta.components.commons.LoadingCircularIndicator
 import br.com.reconecta.components.commons.RoundedTopBaseBox
 import br.com.reconecta.components.commons.buttons.PrimaryButton
 import br.com.reconecta.components.commons.text_field.EmailTextField
@@ -39,11 +41,13 @@ import br.com.reconecta.utils.StringUtils
 
 @Composable
 fun ResetPasswordScreen(navController: NavHostController, applicationContext: Context) {
+    val isLoading = remember { mutableStateOf(false) }
     val correctFields = remember { mutableStateOf(false) }
     val openAlertDialog = remember { mutableStateOf(false) }
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
     val confirmPassword = remember { mutableStateOf("") }
+    val errorMessage = remember { mutableStateOf<String?>(null) }
 
     correctFields.value =
         StringUtils.isValidEmail(email.value) && password.value.length > 4 && password.value == confirmPassword.value
@@ -101,10 +105,25 @@ fun ResetPasswordScreen(navController: NavHostController, applicationContext: Co
                         horizontalArrangement = Arrangement.Center
                     ) {
                         PrimaryButton(text = "Enviar", enabled = correctFields, onClick = {
-                            openAlertDialog.value = true
-                        })
+                            handleApiResponse(call = RetrofitFactory().getAuthService(
+                                applicationContext
+                            ).updatePassword(
+                                UpdatePasswordRequest(
+                                    password = password.value,
+                                    email = email.value
+                                )
+                            ), isLoading = isLoading, func = {
+                                if (it.isSuccessful) openAlertDialog.value = true
+                                else errorMessage.value = "Email ou senha não conferem!"
+                            })
+                        }) {
+                            LoadingCircularIndicator(loading = isLoading.value)
+                        }
                     }
                     Spacer(modifier = Modifier.height(7.dp))
+
+                    errorMessage.value?.let { Text(text = it, color = Color.Red) }
+
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.Center
@@ -116,9 +135,4 @@ fun ResetPasswordScreen(navController: NavHostController, applicationContext: Co
             }
         }
     }
-}
-
-private fun handleUpdatePasswordCall(context: Context, updatePasswordRequest: UpdatePasswordRequest){
-    RetrofitFactory().getAuthService(context).updatePassword(updatePasswordRequest)
-
 }
