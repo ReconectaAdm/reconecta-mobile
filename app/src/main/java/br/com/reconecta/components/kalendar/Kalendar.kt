@@ -16,13 +16,13 @@ package br.com.reconecta.components.kalendar
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.himanshoe.kalendar.color.KalendarColors
 import br.com.reconecta.components.kalendar.ui.component.day.KalendarDayKonfig
 import br.com.reconecta.components.kalendar.ui.component.header.KalendarTextKonfig
 import br.com.reconecta.components.kalendar.ui.firey.DaySelectionMode
 import br.com.reconecta.components.kalendar.ui.firey.KalendarFirey
 import br.com.reconecta.components.kalendar.ui.firey.KalendarSelectedDayRange
 import br.com.reconecta.components.kalendar.ui.firey.RangeSelectionError
+import com.himanshoe.kalendar.color.KalendarColors
 import kotlinx.datetime.LocalDate
 import java.time.Month
 

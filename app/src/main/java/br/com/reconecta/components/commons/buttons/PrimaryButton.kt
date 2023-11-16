@@ -1,4 +1,4 @@
-package br.com.reconecta.components.commons
+package br.com.reconecta.components.commons.buttons
 
 
 import androidx.compose.foundation.layout.height

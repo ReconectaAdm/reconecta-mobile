@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import br.com.reconecta.R
 import br.com.reconecta.components.AccountType
-import br.com.reconecta.components.commons.PrimaryButton
+import br.com.reconecta.components.commons.buttons.PrimaryButton
 import br.com.reconecta.components.commons.text_field.EmailTextField
 import br.com.reconecta.components.commons.text_field.PasswordTextField
 import br.com.reconecta.screens.EScreenNames

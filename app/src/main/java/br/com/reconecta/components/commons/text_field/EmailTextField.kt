@@ -15,9 +15,9 @@ import br.com.reconecta.utils.StringUtils
 
 
 @Composable
-fun EmailTextField(text: MutableState<String>) {
+fun EmailTextField(text: MutableState<String>, label:String? = "Email") {
     BaseTextField(
-        label = "Email",
+        label = label!!,
         text = text,
         trailingIcon = {
             if (StringUtils.isValidEmail(text.value)) Icon(

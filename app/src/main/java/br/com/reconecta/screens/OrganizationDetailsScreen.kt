@@ -39,8 +39,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import br.com.reconecta.R
-import br.com.reconecta.components.commons.Header
 import br.com.reconecta.components.SecondaryButton
+import br.com.reconecta.components.commons.Header
 import br.com.reconecta.components.organizarion_details.Carousel
 import br.com.reconecta.components.organizarion_details.EmailButton
 import br.com.reconecta.components.organizarion_details.Organization
