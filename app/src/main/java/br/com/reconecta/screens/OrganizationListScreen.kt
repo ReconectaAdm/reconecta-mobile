@@ -20,17 +20,21 @@ import br.com.reconecta.api.model.GetOrganizationDto
 import br.com.reconecta.api.service.RetrofitFactory
 import br.com.reconecta.api.service.handleApiResponse
 import br.com.reconecta.components.CreateOrganizationItem
-import br.com.reconecta.components.commons.Header
 import br.com.reconecta.components.commons.BottomNavBar
-
+import br.com.reconecta.components.commons.Header
 import br.com.reconecta.utils.StringUtils
 
 
 @Composable
 fun OrganizationListScreen(navController: NavController, context: Context) {
-
+    val isLoading = remember { mutableStateOf(false) }
     val organizations = remember { mutableStateOf(listOf<GetOrganizationDto>()) }
-    handleApiResponse(RetrofitFactory().getOrganizationService(context).getAll(), organizations)
+
+    handleApiResponse(
+        call = RetrofitFactory().getOrganizationService(context).getAll(),
+        state = organizations,
+        isLoading = isLoading,
+    )
 
     Column {
         // barra superior
