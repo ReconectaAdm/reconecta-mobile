@@ -36,7 +36,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.reconecta.components.kalendar.KalendarEvent
 import br.com.reconecta.components.kalendar.KalendarEvents
-import com.himanshoe.kalendar.color.KalendarColors
 import br.com.reconecta.components.kalendar.ui.component.day.KalendarDay
 import br.com.reconecta.components.kalendar.ui.component.day.KalendarDayKonfig
 import br.com.reconecta.components.kalendar.ui.component.header.KalendarHeader
@@ -48,6 +47,7 @@ import br.com.reconecta.components.kalendar.ui.oceanic.util.getNext7Dates
 import br.com.reconecta.components.kalendar.ui.oceanic.util.getPrevious7Dates
 import br.com.reconecta.components.kalendar.util.MultiplePreviews
 import br.com.reconecta.components.kalendar.util.onDayClicked
+import com.himanshoe.kalendar.color.KalendarColors
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.DayOfWeek

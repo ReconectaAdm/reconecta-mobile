@@ -37,12 +37,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEachIndexed
 import br.com.reconecta.components.kalendar.KalendarEvent
 import br.com.reconecta.components.kalendar.KalendarEvents
-import com.himanshoe.kalendar.color.KalendarColor
 import br.com.reconecta.components.kalendar.ui.component.day.modifier.circleLayout
 import br.com.reconecta.components.kalendar.ui.component.day.modifier.dayBackgroundColor
 import br.com.reconecta.components.kalendar.ui.component.indicator.KalendarIndicator
 import br.com.reconecta.components.kalendar.ui.firey.KalendarSelectedDayRange
 import br.com.reconecta.components.kalendar.util.MultiplePreviews
+import com.himanshoe.kalendar.color.KalendarColor
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.LocalDate

@@ -14,14 +14,11 @@
 
 package br.com.reconecta.components.kalendar.ui.firey
 
-import android.util.Log
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -36,7 +33,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import br.com.reconecta.components.kalendar.KalendarEvent
 import br.com.reconecta.components.kalendar.KalendarEvents
-import com.himanshoe.kalendar.color.KalendarColors
 import br.com.reconecta.components.kalendar.ui.component.day.KalendarDay
 import br.com.reconecta.components.kalendar.ui.component.day.KalendarDayKonfig
 import br.com.reconecta.components.kalendar.ui.component.header.KalendarHeader
@@ -44,6 +40,7 @@ import br.com.reconecta.components.kalendar.ui.component.header.KalendarTextKonf
 import br.com.reconecta.components.kalendar.ui.oceanic.util.isLeapYear
 import br.com.reconecta.components.kalendar.util.MultiplePreviews
 import br.com.reconecta.components.kalendar.util.onDayClicked
+import com.himanshoe.kalendar.color.KalendarColors
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
