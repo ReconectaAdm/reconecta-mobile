@@ -54,15 +54,21 @@ import java.time.LocalDateTime
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SchedulingScreen(navController: NavHostController, context: Context) {
+    val isLoading = remember { mutableStateOf(false) }
+
     val availableHours = remember { mutableStateOf(listOf<GetAvailabilityDto>()) }
-    handleApiResponse(RetrofitFactory().getAvailabilityService(context).getAll(), availableHours)
+    handleApiResponse(
+        call = RetrofitFactory().getAvailabilityService(context).getAll(),
+        state = availableHours,
+        isLoading = isLoading
+    )
 
     var qtd by remember {
         mutableStateOf("")
     }
 
     var dateSelected by remember {
-        mutableStateOf(LocalDate(0, 1 ,1))
+        mutableStateOf(LocalDate(0, 1, 1))
     }
 
     var hourSelected by remember {
@@ -83,7 +89,7 @@ fun SchedulingScreen(navController: NavHostController, context: Context) {
         sheetContainerColor = Color.White,
         sheetSwipeEnabled = false,
         scaffoldState = scaffoldState,
-        sheetPeekHeight = if(openSchedulingDetailsDialog) 575.dp else 0.dp,
+        sheetPeekHeight = if (openSchedulingDetailsDialog) 575.dp else 0.dp,
         sheetShadowElevation = 10.dp,
         sheetContent = {
             if (openSchedulingDetailsDialog) BottomSheetContent(
@@ -114,15 +120,20 @@ fun SchedulingScreen(navController: NavHostController, context: Context) {
                 Calendar { dateSelected = it }
                 Spacer(modifier = Modifier.height(10.dp))
 
-                if (dateSelected.year != 0){
-                    Log.i( "availability","Entrei")
+                if (dateSelected.year != 0) {
+                    Log.i("availability", "Entrei")
                     var dayOfWeek = 0
 
-                    if (dateSelected.dayOfWeek != DayOfWeek.SUNDAY){
+                    if (dateSelected.dayOfWeek != DayOfWeek.SUNDAY) {
                         dayOfWeek = dateSelected.dayOfWeek.value
                     }
 
-                    HourSelection(hourSelected, { hourSelected = it }, dayOfWeek, availableHours.value)
+                    HourSelection(
+                        hourSelected,
+                        { hourSelected = it },
+                        dayOfWeek,
+                        availableHours.value
+                    )
                     Spacer(modifier = Modifier.height(20.dp))
                 }
 

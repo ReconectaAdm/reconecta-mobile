@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
+import br.com.reconecta.screens.CollectDetailsScreen
 import br.com.reconecta.screens.EScreenNames
 import br.com.reconecta.screens.HomeEstablishmentScreen
 import br.com.reconecta.screens.HomeScreen
@@ -73,6 +74,9 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(route = EScreenNames.ORGANIZATION_LIST.path){
                             OrganizationListScreen(navController, applicationContext)
+                        }
+                        composable(route = EScreenNames.COLLECT_DETAILS.path){
+                            CollectDetailsScreen(navController, applicationContext)
                         }
                         composable(route = EScreenNames.RESET_PASSWORD.path){
                             ResetPasswordScreen(navController, applicationContext)
