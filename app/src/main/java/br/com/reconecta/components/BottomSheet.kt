@@ -6,6 +6,7 @@ import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import br.com.reconecta.components.scheduling.BottomSheetContent
 
@@ -14,6 +15,7 @@ import br.com.reconecta.components.scheduling.BottomSheetContent
 fun BottomSheet(
     openBottomSheet: MutableState<Boolean>,
     openDialog: MutableState<Boolean>? = null,
+    size: Dp,
     content: (@Composable () -> Unit),
     child: (@Composable () -> Unit)
 ) {
@@ -21,7 +23,7 @@ fun BottomSheet(
         sheetContainerColor = Color.White,
         sheetSwipeEnabled = false,
         scaffoldState = rememberBottomSheetScaffoldState(),
-        sheetPeekHeight = if (openBottomSheet.value) 575.dp else 0.dp,
+        sheetPeekHeight = if (openBottomSheet.value) size else 0.dp,
         sheetShadowElevation = 10.dp,
         sheetContent =  {
             if (openBottomSheet.value && openDialog != null) BottomSheetContent(

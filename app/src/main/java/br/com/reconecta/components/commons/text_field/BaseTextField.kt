@@ -13,6 +13,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -36,7 +37,7 @@ fun BaseTextField(
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
 
-) {
+    ) {
     val showIcon = text.value.isNotEmpty()
 
     Column {
@@ -72,7 +73,7 @@ fun BaseTextField(
                 .height(45.dp)
                 .fillMaxWidth()
                 .border(
-                    BorderStroke(width = 2.dp, color = if(error) Color.Red else Color.LightGray),
+                    BorderStroke(width = 2.dp, color = if (error) Color.Red else Color.LightGray),
                     shape = RoundedCornerShape(20)
                 ),
             textStyle = TextStyle(
@@ -81,3 +82,53 @@ fun BaseTextField(
         )
     }
 }
+
+@Composable
+fun BaseTextField(
+    text: MutableState<String>,
+    label: @Composable (() -> Unit),
+    modifier: Modifier? = Modifier,
+    keyboardType: KeyboardType? = KeyboardType.Text,
+    error: Boolean = false,
+    enable: Boolean = true,
+    visualTransformation: VisualTransformation? = VisualTransformation.None,
+    leadingIcon: @Composable (() -> Unit)? = null,
+    trailingIcon: @Composable (() -> Unit)? = null,
+) {
+    val showIcon = text.value.isNotEmpty()
+
+    Column {
+        label()
+
+        TextField(
+            value = text.value,
+            enabled = enable,
+            leadingIcon = if (showIcon) leadingIcon else null,
+            trailingIcon = if (showIcon) trailingIcon else null,
+            visualTransformation = visualTransformation!!,
+            keyboardOptions = KeyboardOptions(keyboardType = keyboardType!!),
+            onValueChange = { text.value = it },
+            colors = TextFieldDefaults.colors(
+                focusedContainerColor = Color.Unspecified,
+                unfocusedContainerColor = Color.Unspecified,
+                disabledContainerColor = Color.Unspecified,
+                focusedIndicatorColor = Color.Unspecified,
+                unfocusedIndicatorColor = Color.Unspecified,
+                disabledIndicatorColor = Color.Unspecified,
+            ),
+            modifier = modifier!!
+                .height(45.dp)
+                .fillMaxWidth()
+                .border(
+                    BorderStroke(width = 2.dp, color = if (error) Color.Red else Color.LightGray),
+                    shape = RoundedCornerShape(20)
+                ),
+            textStyle = TextStyle(
+                fontSize = 12.sp,
+                fontFamily = FontFamily(Font(R.font.sora_semi_bold)),
+                color = Color.Black
+            )
+        )
+    }
+}
+

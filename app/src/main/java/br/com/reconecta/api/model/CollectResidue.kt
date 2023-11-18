@@ -1,7 +1,7 @@
 package br.com.reconecta.api.model
 
 import com.google.gson.annotations.SerializedName
-data class Residues(
+data class CollectResidue(
     @SerializedName("id") val id: Int? = null,
     @SerializedName("quantity") val quantity: Int? = null,
     @SerializedName("creationDate") val creationDate: String? = null,

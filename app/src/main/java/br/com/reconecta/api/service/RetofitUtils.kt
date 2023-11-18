@@ -2,6 +2,7 @@ package br.com.reconecta.api.service
 
 import android.util.Log
 import androidx.compose.runtime.MutableState
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,3 +30,4 @@ fun <T> handleApiResponse(
         }
     })
 }
+

@@ -16,6 +16,6 @@ data class GetCollectDto(
     @SerializedName("establishment") val establishment: Establishment? = null,
     @SerializedName("organization") val organization: Organization? = null,
     @SerializedName("company") val company: String? = null,
-    @SerializedName("residues") val residues: ArrayList<Residues> = arrayListOf(),
+    @SerializedName("residues") val residues: ArrayList<CollectResidue> = arrayListOf(),
     @SerializedName("rating") val rating: String? = null
 )

@@ -58,7 +58,7 @@ fun SchedulingScreen(navController: NavHostController, context: Context) {
 
     val availableHours = remember { mutableStateOf(listOf<GetAvailabilityDto>()) }
     handleApiResponse(
-        call = RetrofitFactory().getAvailabilityService(context).getAll(),
+        call = RetrofitFactory().getAvailabilityService(context).getByOrganizationId(20),
         state = availableHours,
         isLoading = isLoading
     )
