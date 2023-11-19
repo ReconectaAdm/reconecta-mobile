@@ -56,40 +56,34 @@ fun EstablishmentCollectDetailsScreen(navController: NavHostController, context:
             )
         },
         {
-            Column(
-                modifier = Modifier
-//                    .fillMaxSize()
-                    .padding(start = 25.dp, end = 25.dp, bottom = 35.dp),
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
             ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    Text(
-                        text = "Coleta ${mapCollecStatus(collect.value.status!!)}",
-                        fontWeight = FontWeight.Medium,
-                        fontSize = 18.sp
-                    )
-                }
-
-                OrganizationInfo(
-                    label = "Organização",
-                    organization = collect.value.organization!!,
-                    context = context
+                Text(
+                    text = "Coleta ${mapCollecStatus(collect.value.status!!)}",
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 18.sp
                 )
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                if (collect.value.status == CollectStatus.CONCLUDED) {
-                    CollectRating(collect = collect.value, context = context)
-                }
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                ResidueInfo("Dados da coleta", residues = collect.value.residues)
-
-                CollectValue(collectValue = collect.value.value!!)
             }
+
+            OrganizationInfo(
+                label = "Organização",
+                organization = collect.value.organization!!,
+                context = context
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            if (collect.value.status == CollectStatus.CONCLUDED) {
+                CollectRating(collect = collect.value, context = context)
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            ResidueInfo("Dados da coleta", residues = collect.value.residues)
+
+            CollectValue(collectValue = collect.value.value!!)
         })
 
 //    BottomSheet(openBottomSheet = openCollectDetail, size = 700.dp, content = {

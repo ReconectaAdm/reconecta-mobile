@@ -57,116 +57,111 @@ fun OrganizationCollectDetail(
         setState = { collect = it }
     )
 
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 0.dp, start = 25.dp, end = 25.dp, bottom = 30.dp)
+
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.Center
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            if (collect.status != null) {
-                TextMedium(
-                    "Coleta ${mapCollecStatus(collect.status!!).lowercase()}",
-                )
-            }
+        if (collect.status != null) {
+            TextMedium(
+                "Coleta ${mapCollecStatus(collect.status!!).lowercase()}",
+            )
         }
+    }
 
-        when (collect.status) {
-            CollectStatus.CONCLUDED -> {
-                CompanyInfo.EstablishmentInfo(
-                    label = "Empresa",
-                    establishment = collect.establishment,
-                    context = context
-                )
+    when (collect.status) {
+        CollectStatus.CONCLUDED -> {
+            CompanyInfo.EstablishmentInfo(
+                label = "Empresa",
+                establishment = collect.establishment,
+                context = context
+            )
 
-                Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
-                if (collect.rating != null) {
-                    TextMedium("Avaliação do cliente")
+            if (collect.rating != null) {
+                TextMedium("Avaliação do cliente")
+                Column(Modifier.padding(12.dp)) {
+                    Rating(
+                        label = "Pontualidade:",
+                        ratingValue = collect.rating!!.punctuality!!,
+                        isEditable = false
+                    )
+
+                    Rating(
+                        label = "Satisfação:",
+                        ratingValue = collect.rating!!.satisfaction!!,
+                        isEditable = false
+                    )
+
+                    Text(text = "Comentários: \"${collect.rating!!.comment!!}\"")
+                }
+            }
+
+            if (collect.date != null) {
+                Column {
+                    TextMedium("Dados da coleta")
                     Column(Modifier.padding(12.dp)) {
-                        Rating(
-                            label = "Pontualidade:",
-                            ratingValue = collect.rating!!.punctuality!!,
-                            isEditable = false
+                        Text(
+                            text = "Data agendada: ${
+                                DateTimeFormatter.getFormattedExtendedDate(
+                                    collect.date!!
+                                )
+                            }", fontSize = 15.sp
                         )
-
-                        Rating(
-                            label = "Satisfação:",
-                            ratingValue = collect.rating!!.satisfaction!!,
-                            isEditable = false
+                        Text(
+                            text = "Período agendado: entre ${collect.hour}",
+                            fontSize = 15.sp
                         )
-
-                        Text(text = "Comentários: \"${collect.rating!!.comment!!}\"")
-                    }
-                }
-
-                if (collect.date != null) {
-                    Column {
-                        TextMedium("Dados da coleta")
-                        Column(Modifier.padding(12.dp)) {
-                            Text(
-                                text = "Data agendada: ${
-                                    DateTimeFormatter.getFormattedExtendedDate(
-                                        collect.date!!
-                                    )
-                                }", fontSize = 15.sp
-                            )
-                            Text(
-                                text = "Período agendado: entre ${collect.hour}",
-                                fontSize = 15.sp
-                            )
-                        }
                     }
                 }
             }
-
-            CollectStatus.SCHEDULED -> {
-                Row(
-                    Modifier
-                        .fillMaxWidth()
-                        .height(75.dp)
-                        .padding(vertical = 10.dp)
-                        .border(
-                            1.dp, Color.Yellow, RoundedCornerShape(5.dp)
-                        ),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Start
-                ) {
-                    Icon(
-                        modifier = Modifier.padding(horizontal = 5.dp),
-                        imageVector = Icons.Filled.CheckCircle,
-                        contentDescription = "Ícone de agendamento",
-                        tint = Color.Yellow
-                    )
-                    Spacer(modifier = Modifier.width(2.dp))
-                    TextMedium(
-                        DateTimeFormatter.getFormattedExtendedDate(collect.date!!),
-                        fontSize = 13.sp
-                    )
-                    TextMedium(" / ", fontSize = 13.sp)
-                    TextMedium(collect.hour!!, fontSize = 13.sp)
-
-                }
-
-                CompanyInfo.EstablishmentInfo(
-                    label = "Empresa",
-                    establishment = collect.establishment!!,
-                    context = context
-                )
-
-                ResidueInfo(label = "Resumo", residues = collect.residues)
-
-                CollectValue(collectValue = collect.value!!)
-
-            }
-
-            CollectStatus.IN_PROGRESS -> {
-                navController.navigate("${EScreenNames.ORGANIZATION_COLLECT_IN_PROGRESS.path}/${collect.id}")
-            }
-
-            else -> {}
         }
+
+        CollectStatus.SCHEDULED -> {
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .height(75.dp)
+                    .padding(vertical = 10.dp)
+                    .border(
+                        1.dp, Color.Yellow, RoundedCornerShape(5.dp)
+                    ),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Start
+            ) {
+                Icon(
+                    modifier = Modifier.padding(horizontal = 5.dp),
+                    imageVector = Icons.Filled.CheckCircle,
+                    contentDescription = "Ícone de agendamento",
+                    tint = Color.Yellow
+                )
+                Spacer(modifier = Modifier.width(2.dp))
+                TextMedium(
+                    DateTimeFormatter.getFormattedExtendedDate(collect.date!!),
+                    fontSize = 13.sp
+                )
+                TextMedium(" / ", fontSize = 13.sp)
+                TextMedium(collect.hour!!, fontSize = 13.sp)
+
+            }
+
+            CompanyInfo.EstablishmentInfo(
+                label = "Empresa",
+                establishment = collect.establishment!!,
+                context = context
+            )
+
+            ResidueInfo(label = "Resumo", residues = collect.residues)
+
+            CollectValue(collectValue = collect.value!!)
+
+        }
+
+        CollectStatus.IN_PROGRESS -> {
+            navController.navigate("${EScreenNames.ORGANIZATION_COLLECT_IN_PROGRESS.path}/${collect.id}")
+        }
+
+        else -> {}
     }
 }

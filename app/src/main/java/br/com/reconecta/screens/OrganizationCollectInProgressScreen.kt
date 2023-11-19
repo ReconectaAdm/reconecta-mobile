@@ -20,6 +20,7 @@ import androidx.compose.material.icons.outlined.KeyboardArrowDown
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -83,16 +84,16 @@ fun OrganizationCollectInProgressScreen(
     collectId: Int
 ) {
 
-    val openCollectDetail = remember {
+    var openCollectDetail by remember {
         mutableStateOf(false)
     }
+
+    var collect by remember { mutableStateOf(GetCollectDto()) }
+    var residues by remember { mutableStateOf(listOf<GetResidueDto>()) }
 
     val loadingCollect = remember { mutableStateOf(false) }
     val loadingResidue = remember { mutableStateOf(false) }
     val loadingUpdateStatus = remember { mutableStateOf(false) }
-
-    val collect = remember { mutableStateOf(GetCollectDto()) }
-    val residues = remember { mutableStateOf(listOf<GetResidueDto>()) }
 
     val isValid = remember {
         mutableStateOf(true)
@@ -100,164 +101,165 @@ fun OrganizationCollectInProgressScreen(
 
     handleApiResponse(
         call = RetrofitFactory().getCollectService(context).getById(collectId),
-        state = collect,
+        setState = { collect = it },
         isLoading = loadingCollect
     )
 
     handleApiResponse(
         call = RetrofitFactory().getResidueService(context).getAll(),
-        state = residues,
+        setState = { residues = it },
         isLoading = loadingResidue
     )
 
-    BottomSheet(openBottomSheet = openCollectDetail, size = 710.dp, content = {
-        Column(
+    BottomSheet(
+        openBottomSheet = openCollectDetail,
+        setOpenBottomSheet = { openCollectDetail = it },
+        appContent = {
+            Column {
+                Header("Coleta em andamento") { navController.navigate(EScreenNames.ORGANIZATION_COLLECT_DETAILS.path) }
+                Divider(thickness = 1.dp, color = Color.LightGray)
+                Card(
+                    modifier = Modifier.drawBorder(Color.Red, Color.White),
+                    colors = CardDefaults.cardColors(containerColor = Color.White),
+                    shape = RoundedCornerShape(20.dp)
+                ) {
+                    Column(
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 40.dp, vertical = 10.dp)
+                    ) {
+                        if (collect.establishment != null) {
+                            EstablishmentInfo(
+                                label = "Empresa",
+                                establishment = collect.establishment,
+                                context = context
+                            )
+                        }
+                    }
+                }
+                Image(
+                    modifier = Modifier
+                        .width(500.dp)
+                        .height(365.dp),
+                    painter = painterResource(id = R.drawable.mapa),
+                    contentDescription = "Mapa",
+                )
+
+                Card(
+                    modifier = Modifier.semiBorder(2.dp, Color.LightGray, 10.dp),
+                    colors = CardDefaults.cardColors(containerColor = Color.White),
+                    shape = RoundedCornerShape(20.dp)
+                ) {
+                    Column(Modifier.padding(horizontal = 40.dp)) {
+                        ResidueInfo(label = "Informações", residues = collect.residues)
+                        if (collect.value != null) {
+                            CollectValue(collectValue = collect.value!!)
+                        }
+                    }
+                    Column(
+                        Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+
+                        SecondaryButton(
+                            text = "Cheguei!",
+                            enabled = true,
+                            Modifier.width(320.dp),
+                        ) {
+                            openCollectDetail = true
+                        }
+                        OutlinedButton(
+                            onClick = {
+                                handleCallChangeStatus(
+                                    loadingUpdateStatus, collectId, CollectStatus.CANCELLED, context
+                                )
+
+                                navController.navigate(EScreenNames.ORGANIZATION_COLLECT_DETAILS.path)
+                            },
+                            border = BorderStroke(1.dp, Color(0xFFC2C2C2)),
+                            shape = RoundedCornerShape(10.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = Color(0xFFF5F5F5),
+                                disabledContainerColor = DisabledButton
+                            ),
+                            modifier = Modifier
+                                .height(35.dp)
+                                .width(175.dp)
+                        ) {
+                            if (loadingUpdateStatus.value) {
+                                LoadingCircularIndicator(
+                                    loading = loadingUpdateStatus.value,
+                                    height = 20.dp,
+                                    width = 20.dp
+                                )
+                            } else {
+                                Text("Cancelar")
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+    )
+    {
+
+        EstablishmentInfo(
+            label = "Empresa",
+            establishment = collect.establishment,
+            context = context
+        )
+
+        Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 10.dp),
+                .border(2.dp, Color.LightGray, RoundedCornerShape(15.dp))
+                .padding(20.dp),
+            colors = CardDefaults.cardColors(containerColor = Color.White),
         ) {
-            EstablishmentInfo(
-                label = "Empresa", establishment = collect.value.establishment!!, context = context
+            ResidueInfo(
+                label = "Foi solicitado: ",
+                residues = collect.residues,
+                alignment = Alignment.CenterHorizontally
             )
+        }
 
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .border(2.dp, Color.LightGray, RoundedCornerShape(15.dp))
-                    .padding(20.dp),
-                colors = CardDefaults.cardColors(containerColor = Color.White),
-            ) {
-                ResidueInfo(
-                    label = "Foi solicitado: ",
-                    residues = collect.value.residues,
-                    alignment = Alignment.CenterHorizontally
-                )
-            }
+        Spacer(modifier = Modifier.height(20.dp))
 
-            Spacer(modifier = Modifier.height(20.dp))
+        collect.residues.map { it ->
+            ResidueReceiveConfirmation(
+                residues = residues, relativeResidue = it
+            ) { isValid.value = it }
+        }
 
-            if (residues.value.isNotEmpty()) {
-                collect.value.residues.map { it ->
-                    ResidueReceiveConfirmation(
-                        residues = residues.value, relativeResidue = it
-                    ) { isValid.value = it }
-                }
-            }
-
-            Column(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 10.dp, vertical = 15.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                SecondaryButton(enabled = isValid.value, modifier = Modifier.fillMaxWidth(), onClick = {
+        Column(
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 10.dp, vertical = 15.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            SecondaryButton(
+                enabled = isValid.value,
+                modifier = Modifier.fillMaxWidth(),
+                onClick = {
                     handleCallChangeStatus(
                         loadingUpdateStatus, collectId, CollectStatus.CONCLUDED, context
                     )
                     navController.navigate(EScreenNames.ORGANIZATION_COLLECT_DETAILS.path)
                 }) {
-                    if (loadingUpdateStatus.value) {
-                        LoadingCircularIndicator(
-                            loadingUpdateStatus.value
-                        )
-                    } else {
-                        Text(
-                            text = "Finalizar coleta",
-                            color = Color.White,
-                            fontFamily = FontFamily(Font(R.font.poppins_semi_bold))
-                        )
-                    }
+                if (loadingUpdateStatus.value) {
+                    LoadingCircularIndicator(
+                        loadingUpdateStatus.value
+                    )
+                } else {
+                    Text(
+                        text = "Finalizar coleta",
+                        color = Color.White,
+                        fontFamily = FontFamily(Font(R.font.poppins_semi_bold))
+                    )
                 }
             }
-
-        }
-    }) {
-        Column {
-            Header("Coleta em andamento") { navController.navigate(EScreenNames.ORGANIZATION_COLLECT_DETAILS.path) }
-            Card(
-                modifier = Modifier.drawBorder(Color.Red, Color.White),
-                colors = CardDefaults.cardColors(containerColor = Color.White),
-                shape = RoundedCornerShape(20.dp)
-            ) {
-                Column(
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 40.dp, vertical = 10.dp)
-                ) {
-                    if (collect.value.establishment != null) {
-                        EstablishmentInfo(
-                            label = "Empresa",
-                            establishment = collect.value.establishment!!,
-                            context = context
-                        )
-                    }
-                }
-            }
-            Image(
-                modifier = Modifier
-                    .width(500.dp)
-                    .height(365.dp),
-                painter = painterResource(id = R.drawable.mapa),
-                contentDescription = "Mapa",
-            )
-
-            Card(
-                modifier = Modifier.semiBorder(2.dp, Color.LightGray, 10.dp),
-                colors = CardDefaults.cardColors(containerColor = Color.White),
-                shape = RoundedCornerShape(20.dp)
-            ) {
-                Column(Modifier.padding(horizontal = 40.dp)) {
-                    ResidueInfo(label = "Informações", residues = collect.value.residues)
-                    if (collect.value.value != null) {
-                        CollectValue(collectValue = collect.value.value!!)
-                    }
-                }
-                Column(
-                    Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-
-                    SecondaryButton(
-                        text = "Cheguei!",
-                        enabled = true,
-                        Modifier.width(320.dp),
-                    ) {
-                        openCollectDetail.value = true
-                    }
-                    OutlinedButton(
-                        onClick = {
-                            handleCallChangeStatus(
-                                loadingUpdateStatus, collectId, CollectStatus.CANCELLED, context
-                            )
-
-                            navController.navigate(EScreenNames.ORGANIZATION_COLLECT_DETAILS.path)
-                        },
-                        border = BorderStroke(1.dp, Color(0xFFC2C2C2)),
-                        shape = RoundedCornerShape(10.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = Color(0xFFF5F5F5),
-                            disabledContainerColor = DisabledButton
-                        ),
-                        modifier = Modifier
-                            .height(35.dp)
-                            .width(175.dp)
-                    ) {
-                        if (loadingUpdateStatus.value) {
-                            LoadingCircularIndicator(
-                                loading = loadingUpdateStatus.value, height = 20.dp, width = 20.dp
-                            )
-                        } else {
-                            Text("Cancelar")
-                        }
-                    }
-
-
-                }
-            }
-
         }
     }
-
-
 }
 
 
@@ -267,7 +269,6 @@ fun ResidueReceiveConfirmation(
     relativeResidue: GetCollectResidueDto,
     setIsValid: (Boolean) -> Unit
 ) {
-
     val collectQtd = remember {
         mutableStateOf(relativeResidue.quantity.toString())
     }
