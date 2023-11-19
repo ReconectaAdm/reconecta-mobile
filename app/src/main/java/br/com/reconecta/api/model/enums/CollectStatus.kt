@@ -12,5 +12,15 @@ enum class CollectStatus(val value: Int) {
     @SerializedName("4")
     CANCELLED(4),
     @SerializedName("5")
-    SCHEDULED(5),
+    SCHEDULED(5);
+}
+
+fun mapCollecStatus(status: CollectStatus): String {
+    return when (status) {
+        CollectStatus.IN_PROGRESS -> "Em andamento"
+        CollectStatus.PENDING -> "Pendente"
+        CollectStatus.CONCLUDED -> "Concluída"
+        CollectStatus.SCHEDULED -> "Agendada"
+        CollectStatus.CANCELLED -> "Cancelada"
+    }
 }

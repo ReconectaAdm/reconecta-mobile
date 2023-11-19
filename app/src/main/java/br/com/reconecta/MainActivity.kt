@@ -10,11 +10,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
-import br.com.reconecta.screens.CollectDetailsScreen
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
+import br.com.reconecta.screens.BottomSheetScreen
+import br.com.reconecta.screens.OrganizationCollectDetailsScreen
 import br.com.reconecta.screens.EScreenNames
+import br.com.reconecta.screens.EstablishmentCollectDetailsScreen
 import br.com.reconecta.screens.HomeEstablishmentScreen
 import br.com.reconecta.screens.HomeScreen
 import br.com.reconecta.screens.LoginScreen
+import br.com.reconecta.screens.OrganizationCollectInProgressScreen
 import br.com.reconecta.screens.OrganizationDetailsScreen
 import br.com.reconecta.screens.OrganizationListScreen
 import br.com.reconecta.screens.ResetPasswordScreen
@@ -69,17 +74,35 @@ class MainActivity : ComponentActivity() {
                         composable(route = EScreenNames.HOME_ESTABLISHMENT.path) {
                             HomeEstablishmentScreen(navController)
                         }
-                        composable(route = EScreenNames.SCHEDULING.path){
+                        composable(route = EScreenNames.SCHEDULING.path) {
                             SchedulingScreen(navController, applicationContext)
                         }
-                        composable(route = EScreenNames.ORGANIZATION_LIST.path){
+                        composable(route = EScreenNames.ORGANIZATION_LIST.path) {
                             OrganizationListScreen(navController, applicationContext)
                         }
-                        composable(route = EScreenNames.COLLECT_DETAILS.path){
-                            CollectDetailsScreen(navController, applicationContext)
+                        composable(route = EScreenNames.ORGANIZATION_COLLECT_DETAILS.path) {
+                            OrganizationCollectDetailsScreen(navController, applicationContext)
                         }
-                        composable(route = EScreenNames.RESET_PASSWORD.path){
+                        composable(
+                            route = "${EScreenNames.ORGANIZATION_COLLECT_IN_PROGRESS.path}/{collectId}", arguments = (
+                                listOf(navArgument("collectId") { type = NavType.IntType }))
+                        ) {
+                            val collectId: Int? =
+                                it.arguments?.getInt("collectId", 0)
+                            OrganizationCollectInProgressScreen(
+                                navController,
+                                applicationContext,
+                                collectId!!
+                            )
+                        }
+                        composable(route = EScreenNames.ESTABLISHMENT_COLLECT_DETAILS.path) {
+                            EstablishmentCollectDetailsScreen(navController, applicationContext)
+                        }
+                        composable(route = EScreenNames.RESET_PASSWORD.path) {
                             ResetPasswordScreen(navController, applicationContext)
+                        }
+                        composable(route = EScreenNames.BOTTOM_SHEET.path) {
+                            BottomSheetScreen(navController, applicationContext)
                         }
                     }
                 }

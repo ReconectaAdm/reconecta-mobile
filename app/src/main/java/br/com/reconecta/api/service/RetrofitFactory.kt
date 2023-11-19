@@ -2,6 +2,7 @@ package br.com.reconecta.api.service
 
 import android.content.Context
 import br.com.reconecta.core.AuthInterceptor
+import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -12,6 +13,7 @@ class RetrofitFactory {
     private lateinit var authService: AuthService
     private lateinit var availabilityService: AvailabilityService
     private lateinit var collectService: CollectService
+    private lateinit var residueService: ResidueService
 
     companion object {
         private const val BASE_URL = "https://reconecta-app-dev.azurewebsites.net/"
@@ -49,8 +51,20 @@ class RetrofitFactory {
         return collectService
     }
 
+    fun getResidueService(context: Context): ResidueService {
+        if (!::residueService.isInitialized) {
+            residueService = baseRetrofit(context).create(ResidueService::class.java)
+        }
+
+        return residueService
+    }
+
     private fun baseRetrofit(context: Context) =
-        Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create())
+        Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(
+            GsonConverterFactory.create(
+                GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create()
+            )
+        )
             .client(okhttpClient(context)).build()
 
 

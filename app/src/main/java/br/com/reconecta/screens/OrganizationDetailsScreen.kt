@@ -56,6 +56,7 @@ import br.com.reconecta.ui.theme.MediumGreenReconecta
 @Composable
 fun OrganizationDetailsScreen(navController: NavHostController) {
 
+    val id = 20
     val selectedResiduos: MutableList<Residuo> = remember { mutableStateListOf() }
     val myList: MutableList<String> = mutableStateListOf()
     var activeResiduo by remember { mutableStateOf<Residuo?>(null) }

@@ -8,5 +8,14 @@ enum class UnitMeasure(val value: Int) {
     @SerializedName("2")
     LITER(2),
     @SerializedName("3")
-    KILO(3)
+    KILO(3);
 }
+
+fun mapUnitMeasure(unitMeasure: UnitMeasure): String {
+    return when (unitMeasure) {
+        UnitMeasure.KILO -> "Quilo(s)"
+        UnitMeasure.LITER -> "Litro(s)"
+        UnitMeasure.UNITY -> "Unidade(s)"
+    }
+}
+

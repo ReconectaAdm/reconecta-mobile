@@ -1,21 +1,23 @@
 package br.com.reconecta.api.model
 
 import br.com.reconecta.api.model.enums.CollectStatus
-import com.google.gson.annotations.SerializedName
+import com.google.type.DateTime
+import java.time.LocalDateTime
+import java.util.Date
 
 data class GetCollectDto(
-    @SerializedName("id") val id: Int? = null,
-    @SerializedName("status") val status: CollectStatus? = null,
-    @SerializedName("value") val value: Double? = null,
-    @SerializedName("creationDate") val creationDate: String? = null,
-    @SerializedName("updateDate") val updateDate: String? = null,
-    @SerializedName("establishmentId") val establishmentId: Int? = null,
-    @SerializedName("organizationId") val organizationId: Int? = null,
-    @SerializedName("date") val date: String? = null,
-    @SerializedName("hour") val hour: String? = null,
-    @SerializedName("establishment") val establishment: Establishment? = null,
-    @SerializedName("organization") val organization: Organization? = null,
-    @SerializedName("company") val company: String? = null,
-    @SerializedName("residues") val residues: ArrayList<CollectResidue> = arrayListOf(),
-    @SerializedName("rating") val rating: String? = null
+    val id: Int? = null,
+    val status: CollectStatus? = null,
+    val value: Float? = null,
+    val creationDate: Date? = null,
+    val updateDate: Date? = null,
+    val establishmentId: Int? = null,
+    val organizationId: Int? = null,
+    val date: Date? = null,
+    val hour: String? = null,
+    val establishment: GetEstablishmentDto? = null,
+    val organization: GetOrganizationDto? = null,
+    val company: String? = null,
+    val residues: ArrayList<GetCollectResidueDto> = arrayListOf(),
+    val rating: GetCollectRatingDto? = null
 )
