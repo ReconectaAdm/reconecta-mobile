@@ -16,4 +16,7 @@ interface ResidueService {
     @GET("api/residue")
     fun getAll(): Call<List<GetResidueDto>>
 
+    @GET("api/residue/organization/{organizationId}")
+    fun getResiduesByOrganizationId(@Path("organizationId") organizationId: Int): Call<List<GetResidueDto>>
+
 }

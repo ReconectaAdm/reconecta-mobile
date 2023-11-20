@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import br.com.reconecta.components.commons.formatters.CurrencyFormatter
 import java.text.NumberFormat
 import java.util.Currency
 import java.util.Locale
@@ -24,9 +25,6 @@ fun CollectValue(collectValue: Float) {
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(text = "Valor: ", fontWeight = FontWeight.Medium)
-        val formatter: NumberFormat = NumberFormat.getCurrencyInstance()
-        formatter.maximumFractionDigits = 2
-        formatter.currency = Currency.getInstance(Locale("pt", "BR"))
-        Text(text = formatter.format(collectValue), fontSize = 14.sp)
+        Text(text = CurrencyFormatter.format(collectValue), fontSize = 14.sp)
     }
 }

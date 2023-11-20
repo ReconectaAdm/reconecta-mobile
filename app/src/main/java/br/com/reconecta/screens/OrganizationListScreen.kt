@@ -59,18 +59,18 @@ fun OrganizationListScreen(navController: NavController, context: Context) {
                 .weight(1f)
 //                .verticalScroll(rememberScrollState())
         ) {
-            items(items = organizations.value, itemContent = {
-                CreateOrganizationItem(
-                    bitmap = StringUtils.convertBase64StringToBitmap(it.logo),
-                    contentDescription = it.description,
-                    nome = it.name,
-                    avaliacao = it.rating,
-                    distanciaKm = 1.0,
-                    isFavorito = it.isFavorite,
-                    onFavoriteClick = { it.isFavorite = !it.isFavorite },
-                    onImageClick = {}
-                )
-            })
+//            items(items = organizations.value, itemContent = {
+//                CreateOrganizationItem(
+//                    bitmap = StringUtils.convertBase64StringToBitmap(it.logo?: ""),
+//                    contentDescription = it.description?: "",
+//                    nome = it.name,
+//                    avaliacao = it.rating!!,
+//                    distanciaKm = 1.0,
+//                    isFavorito = it.isFavorite!!,
+//                    onFavoriteClick = { it.isFavorite = !it.isFavorite!! },
+//                    onImageClick = {}
+//                )
+//            })
         }
 
         Divider(thickness = 1.dp, color = Color.LightGray)

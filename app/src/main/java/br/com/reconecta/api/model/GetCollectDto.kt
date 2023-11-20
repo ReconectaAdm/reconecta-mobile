@@ -6,7 +6,7 @@ import java.time.LocalDateTime
 import java.util.Date
 
 data class GetCollectDto(
-    val id: Int? = null,
+    val id: Int = 0,
     val status: CollectStatus? = null,
     val value: Float? = null,
     val creationDate: Date? = null,

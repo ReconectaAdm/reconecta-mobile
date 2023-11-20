@@ -35,10 +35,10 @@ import br.com.reconecta.components.collect_details.organization.CollectRating
 
 @Composable
 fun EstablishmentCollectDetailsScreen(navController: NavHostController, context: Context) {
-    val isLoading = remember { mutableStateOf(false) }
     var openCollectDetail by rememberSaveable { mutableStateOf(false) }
 
     val collect = remember { mutableStateOf(GetCollectDto()) }
+    var isLoading = remember { mutableStateOf(false) }
 
     handleApiResponse(
         call = RetrofitFactory().getCollectService(context).getById(4),

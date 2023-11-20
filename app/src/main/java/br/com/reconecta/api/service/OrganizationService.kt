@@ -16,6 +16,9 @@ interface OrganizationService {
     @GET("api/organization")
     fun getAll(): Call<List<GetOrganizationDto>>
 
+    @GET("api/organization/{id}")
+    fun getById(@Path("id") id: Int): Call<GetOrganizationDto>
+
     @POST("api/organization")
     fun create(@Body createOrganization: CreateAccountRequest): Call<CreateAccountRequest>
 }

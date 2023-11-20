@@ -19,3 +19,10 @@ fun mapUnitMeasure(unitMeasure: UnitMeasure): String {
     }
 }
 
+fun mapAbrevUnitMeasure(unitMeasure: UnitMeasure): String {
+    return when (unitMeasure) {
+        UnitMeasure.KILO -> "kg"
+        UnitMeasure.LITER -> "lt"
+        UnitMeasure.UNITY -> "und"
+    }
+}

@@ -1,6 +1,7 @@
 package br.com.reconecta
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedContentScope
@@ -69,13 +70,21 @@ class MainActivity : ComponentActivity() {
                             HomeScreen(navController)
                         }
                         composable(route = EScreenNames.ORGANIZATION_DETAILS.path) {
-                            OrganizationDetailsScreen(navController)
+                            OrganizationDetailsScreen(navController, applicationContext)
                         }
                         composable(route = EScreenNames.HOME_ESTABLISHMENT.path) {
                             HomeEstablishmentScreen(navController)
                         }
-                        composable(route = EScreenNames.SCHEDULING.path) {
-                            SchedulingScreen(navController, applicationContext)
+                        composable(
+                            route = "${EScreenNames.SCHEDULING.path}?residueIds={residueIds}",
+                            arguments = (
+                                    listOf(navArgument("residueIds") {
+                                        type = NavType.IntArrayType
+                                    })
+                                    )
+                        ) { it ->
+                            val residueIds = it.arguments?.getIntArray("residueIds")!!
+                            SchedulingScreen(navController, applicationContext, residueIds.map { residueId -> residueId })
                         }
                         composable(route = EScreenNames.ORGANIZATION_LIST.path) {
                             OrganizationListScreen(navController, applicationContext)
@@ -84,8 +93,9 @@ class MainActivity : ComponentActivity() {
                             OrganizationCollectDetailsScreen(navController, applicationContext)
                         }
                         composable(
-                            route = "${EScreenNames.ORGANIZATION_COLLECT_IN_PROGRESS.path}/{collectId}", arguments = (
-                                listOf(navArgument("collectId") { type = NavType.IntType }))
+                            route = "${EScreenNames.ORGANIZATION_COLLECT_IN_PROGRESS.path}/{collectId}",
+                            arguments = (
+                                    listOf(navArgument("collectId") { type = NavType.IntType }))
                         ) {
                             val collectId: Int? =
                                 it.arguments?.getInt("collectId", 0)

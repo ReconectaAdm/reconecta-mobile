@@ -31,6 +31,7 @@ import br.com.reconecta.api.model.enums.CollectStatus
 import br.com.reconecta.api.model.enums.mapCollecStatus
 import br.com.reconecta.api.service.RetrofitFactory
 import br.com.reconecta.api.service.handleApiResponse
+import br.com.reconecta.components.collect_details.CollectScheduled
 import br.com.reconecta.components.collect_details.CollectValue
 import br.com.reconecta.components.collect_details.CompanyInfo
 import br.com.reconecta.components.collect_details.ResidueInfo
@@ -47,16 +48,15 @@ fun OrganizationCollectDetail(
 ) {
     var collect by remember { mutableStateOf(GetCollectDto()) }
 
-    val isLoading = remember {
+    var isLoading by remember {
         mutableStateOf(false)
     }
 
     handleApiResponse(
         call = RetrofitFactory().getCollectService(context).getById(collectId),
-        isLoading = isLoading,
-        setState = { collect = it }
+        setState = { collect = it },
+        setIsLoading = { isLoading = it }
     )
-
 
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -84,13 +84,13 @@ fun OrganizationCollectDetail(
                 Column(Modifier.padding(12.dp)) {
                     Rating(
                         label = "Pontualidade:",
-                        ratingValue = collect.rating!!.punctuality!!,
+                        ratingValue = collect.rating!!.punctuality,
                         isEditable = false
                     )
 
                     Rating(
                         label = "Satisfação:",
-                        ratingValue = collect.rating!!.satisfaction!!,
+                        ratingValue = collect.rating!!.satisfaction,
                         isEditable = false
                     )
 
@@ -104,7 +104,7 @@ fun OrganizationCollectDetail(
                     Column(Modifier.padding(12.dp)) {
                         Text(
                             text = "Data agendada: ${
-                                DateTimeFormatter.getFormattedExtendedDate(
+                                DateTimeFormatter.formatToExtendedDate(
                                     collect.date!!
                                 )
                             }", fontSize = 15.sp
@@ -119,47 +119,7 @@ fun OrganizationCollectDetail(
         }
 
         CollectStatus.SCHEDULED -> {
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .height(75.dp)
-                    .padding(vertical = 10.dp)
-                    .border(
-                        1.dp, Color.Yellow, RoundedCornerShape(5.dp)
-                    ),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Start
-            ) {
-                Icon(
-                    modifier = Modifier.padding(horizontal = 5.dp),
-                    imageVector = Icons.Filled.CheckCircle,
-                    contentDescription = "Ícone de agendamento",
-                    tint = Color.Yellow
-                )
-                Spacer(modifier = Modifier.width(2.dp))
-                TextMedium(
-                    DateTimeFormatter.getFormattedExtendedDate(collect.date!!),
-                    fontSize = 13.sp
-                )
-                TextMedium(" / ", fontSize = 13.sp)
-                TextMedium(collect.hour!!, fontSize = 13.sp)
-
-            }
-
-            CompanyInfo.EstablishmentInfo(
-                label = "Empresa",
-                establishment = collect.establishment!!,
-                context = context
-            )
-
-            ResidueInfo(label = "Resumo", residues = collect.residues)
-
-            CollectValue(collectValue = collect.value!!)
-
-        }
-
-        CollectStatus.IN_PROGRESS -> {
-            navController.navigate("${EScreenNames.ORGANIZATION_COLLECT_IN_PROGRESS.path}/${collect.id}")
+            CollectScheduled(collect = collect, context = context)
         }
 
         else -> {}

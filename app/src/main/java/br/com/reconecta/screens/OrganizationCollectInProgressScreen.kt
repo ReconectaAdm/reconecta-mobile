@@ -91,8 +91,8 @@ fun OrganizationCollectInProgressScreen(
     var collect by remember { mutableStateOf(GetCollectDto()) }
     var residues by remember { mutableStateOf(listOf<GetResidueDto>()) }
 
-    val loadingCollect = remember { mutableStateOf(false) }
-    val loadingResidue = remember { mutableStateOf(false) }
+    var loadingCollect by remember { mutableStateOf(false) }
+    var loadingResidue by remember { mutableStateOf(false) }
     val loadingUpdateStatus = remember { mutableStateOf(false) }
 
     val isValid = remember {
@@ -102,13 +102,13 @@ fun OrganizationCollectInProgressScreen(
     handleApiResponse(
         call = RetrofitFactory().getCollectService(context).getById(collectId),
         setState = { collect = it },
-        isLoading = loadingCollect
+        setIsLoading = { loadingCollect = it }
     )
 
     handleApiResponse(
         call = RetrofitFactory().getResidueService(context).getAll(),
         setState = { residues = it },
-        isLoading = loadingResidue
+        setIsLoading = { loadingResidue = it }
     )
 
     BottomSheet(
@@ -533,7 +533,6 @@ fun Modifier.drawBorder(
 fun handleCallChangeStatus(
     loading: MutableState<Boolean>, collectId: Int, status: CollectStatus, context: Context
 ) {
-
     loading.value = true
     val call = RetrofitFactory().getCollectService(context).updateStatus(collectId, status)
 

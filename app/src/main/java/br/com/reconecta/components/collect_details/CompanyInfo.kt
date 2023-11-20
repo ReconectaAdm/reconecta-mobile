@@ -17,7 +17,7 @@ import br.com.reconecta.api.model.GetEstablishmentDto
 import br.com.reconecta.api.model.GetOrganizationDto
 import br.com.reconecta.api.model.enums.CompanyType
 import br.com.reconecta.components.commons.CompanyLogo
-import br.com.reconecta.components.commons.formatters.phoneNumberFormatter
+import br.com.reconecta.components.commons.formatters.PhoneNumberFormatter
 import br.com.reconecta.components.commons.texts.TextMedium
 import br.com.reconecta.components.commons.texts.TextSemiBold
 
@@ -25,17 +25,24 @@ import br.com.reconecta.components.commons.texts.TextSemiBold
 object CompanyInfo {
     @Composable
     fun OrganizationInfo(label: String, organization: GetOrganizationDto, context: Context) {
+
         TextMedium(label)
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-            CompanyLogo(organization.id, CompanyType.ORGANIZATION, context)
+            CompanyLogo(organization.id!!, CompanyType.ORGANIZATION, context)
             Spacer(modifier = Modifier.width(15.dp))
             Column {
                 TextSemiBold(organization.name, fontSize = 16.sp)
-                Text(
-                    text = phoneNumberFormatter(organization.phone),
-                    fontSize = 12.sp,
-                    color = Color.Gray
-                )
+
+                if (organization.phone != null){
+                    Text(
+                        text = PhoneNumberFormatter.format(
+                            organization.phone
+                        ),
+                        fontSize = 12.sp,
+                        color = Color.Gray
+                    )
+
+                }
             }
 
         }
@@ -52,7 +59,9 @@ object CompanyInfo {
                     TextSemiBold(establishment.name, fontSize = 16.sp)
                     if (establishment.phone != null) {
                         Text(
-                            text = phoneNumberFormatter(establishment.phone),
+                            text = PhoneNumberFormatter.format(
+                                establishment.phone
+                            ),
                             fontSize = 12.sp,
                             color = Color.Gray
                         )
