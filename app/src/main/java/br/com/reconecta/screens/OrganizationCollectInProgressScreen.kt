@@ -67,7 +67,7 @@ import br.com.reconecta.components.SecondaryButton
 import br.com.reconecta.components.collect_details.CollectValue
 import br.com.reconecta.components.collect_details.CompanyInfo.EstablishmentInfo
 import br.com.reconecta.components.collect_details.ResidueInfo
-import br.com.reconecta.components.commons.Header
+import br.com.reconecta.components.commons.HeaderWithArrow
 import br.com.reconecta.components.commons.LoadingCircularIndicator
 import br.com.reconecta.components.commons.text_field.BaseTextField
 import br.com.reconecta.components.commons.texts.TextMedium
@@ -116,7 +116,7 @@ fun OrganizationCollectInProgressScreen(
         setOpenBottomSheet = { openCollectDetail = it },
         appContent = {
             Column {
-                Header("Coleta em andamento") { navController.navigate(EScreenNames.ORGANIZATION_COLLECT_DETAILS.path) }
+                HeaderWithArrow("Coleta em andamento") { navController.navigate(EScreenNames.ORGANIZATION_COLLECT_DETAILS.path) }
                 Divider(thickness = 1.dp, color = Color.LightGray)
                 Card(
                     modifier = Modifier.drawBorder(Color.Red, Color.White),

@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
-import br.com.reconecta.screens.ColetaEstablishmentScreen
+import br.com.reconecta.screens.EstablishmentCollectScreen
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import br.com.reconecta.screens.BottomSheetScreen
@@ -21,6 +21,7 @@ import br.com.reconecta.screens.HomeEstablishmentScreen
 import br.com.reconecta.screens.HomeScreen
 import br.com.reconecta.screens.LoginScreen
 import br.com.reconecta.screens.OrganizationCollectInProgressScreen
+import br.com.reconecta.screens.OrganizationCollectScreen
 import br.com.reconecta.screens.OrganizationDetailsScreen
 import br.com.reconecta.screens.OrganizationListScreen
 import br.com.reconecta.screens.ResetPasswordScreen
@@ -46,7 +47,7 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberAnimatedNavController()
                     AnimatedNavHost(
                         navController = navController,
-                        startDestination = EScreenNames.ESTABLISHMENT_COLLECT.path,
+                        startDestination = EScreenNames.ORGANIZATION_COLLECT.path,
                         exitTransition = {
                             slideOutOfContainer(
                                 towards = AnimatedContentScope.SlideDirection.End,
@@ -112,7 +113,10 @@ class MainActivity : ComponentActivity() {
                             ResetPasswordScreen(navController, applicationContext)
                         }
                         composable(route = EScreenNames.ESTABLISHMENT_COLLECT.path){
-                            ColetaEstablishmentScreen(navController, applicationContext)
+                            EstablishmentCollectScreen(navController, applicationContext)
+                        }
+                        composable(route = EScreenNames.ORGANIZATION_COLLECT.path) {
+                            OrganizationCollectScreen(navController, applicationContext)
                         }
                         composable(route = EScreenNames.BOTTOM_SHEET.path) {
                             BottomSheetScreen(navController, applicationContext)

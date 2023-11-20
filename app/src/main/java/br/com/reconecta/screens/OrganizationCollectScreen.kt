@@ -47,7 +47,7 @@ import br.com.reconecta.components.commons.HeaderWithoutArrow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EstablishmentCollectScreen(navController: NavHostController, applicationContext: Context) {
+fun OrganizationCollectScreen(navController: NavHostController, applicationContext: Context) {
 
     var pesquisaState by remember {
         mutableStateOf("")
@@ -55,8 +55,6 @@ fun EstablishmentCollectScreen(navController: NavHostController, applicationCont
     Column {
         //header
         HeaderWithoutArrow(text = "Minhas coletas")
-
-//        Spacer(modifier = Modifier.height(5.dp))
 
         //pesquisa
         Column(
@@ -128,12 +126,12 @@ fun EstablishmentCollectScreen(navController: NavHostController, applicationCont
                     tint = Color.Yellow)
             }
             CreateOrganizationItem3(
-                agendamento = "Hoje • 09h00 - 12h00",
+                agendamento = "Hoje • 16h00 - 18h00",
                 id = R.drawable.no_image_svgrepo_com,
                 contentDescription = "",
-                nome = "Restaurante Tagline",
-                descricao = "Garrafa PET",
-                valor = "19,50"
+                nome = "ReVidro",
+                descricao = "Garrafas de vidro",
+                valor = "12,80"
             )
             //Agendadas
             Spacer(modifier = Modifier.size(20.dp))
@@ -154,7 +152,7 @@ fun EstablishmentCollectScreen(navController: NavHostController, applicationCont
                 agendamento = "15 de julho de 2023 • 13h00 - 19h00",
                 id = R.drawable.no_image_svgrepo_com,
                 contentDescription = "",
-                nome = "Restaurante do Zé",
+                nome = "PlasRecicla",
                 descricao = "Garrafa PET",
                 valor = "14,75"
             )
@@ -174,12 +172,21 @@ fun EstablishmentCollectScreen(navController: NavHostController, applicationCont
                     tint = Color.Green)
             }
             CreateOrganizationItem3(
-                agendamento = "10 de julho de 2023 • 17h33",
+                agendamento = "12 de junho de 2023 • 15h30",
                 id = R.drawable.no_image_svgrepo_com,
                 contentDescription = "",
-                nome = "Petiscaria Dalvina",
-                descricao = "Garrafa PET",
-                valor = "9,25"
+                nome = "Recicla +",
+                descricao = "Sacolas PEBD",
+                valor = "9,42"
+            )
+            Spacer(modifier = Modifier.size(20.dp))
+            CreateOrganizationItem3(
+                agendamento = "07 de junho de 2023 • 10h00",
+                id = R.drawable.no_image_svgrepo_com,
+                contentDescription = "",
+                nome = "ReUtiliza",
+                descricao = "Plásticos PP",
+                valor = "11,10"
             )
             Spacer(modifier = Modifier.size(20.dp))
         }
