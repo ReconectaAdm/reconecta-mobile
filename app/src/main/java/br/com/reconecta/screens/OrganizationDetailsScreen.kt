@@ -52,7 +52,6 @@ import br.com.reconecta.api.service.RetrofitFactory
 import br.com.reconecta.api.service.handleApiResponse
 import br.com.reconecta.components.SecondaryButton
 import br.com.reconecta.components.commons.HeaderWithArrow
-import br.com.reconecta.components.commons.Header
 import br.com.reconecta.components.commons.formatters.CurrencyFormatter
 import br.com.reconecta.components.commons.texts.TextLight
 import br.com.reconecta.components.commons.texts.TextMedium

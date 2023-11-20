@@ -1,7 +1,6 @@
 package br.com.reconecta
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedContentScope
@@ -47,7 +46,7 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberAnimatedNavController()
                     AnimatedNavHost(
                         navController = navController,
-                        startDestination = EScreenNames.COLETA_ESTABLISHMENT.path,
+                        startDestination = EScreenNames.ESTABLISHMENT_COLLECT.path,
                         exitTransition = {
                             slideOutOfContainer(
                                 towards = AnimatedContentScope.SlideDirection.End,
@@ -112,7 +111,7 @@ class MainActivity : ComponentActivity() {
                         composable(route = EScreenNames.RESET_PASSWORD.path) {
                             ResetPasswordScreen(navController, applicationContext)
                         }
-                        composable(route = EScreenNames.COLETA_ESTABLISHMENT.path){
+                        composable(route = EScreenNames.ESTABLISHMENT_COLLECT.path){
                             ColetaEstablishmentScreen(navController, applicationContext)
                         }
                         composable(route = EScreenNames.BOTTOM_SHEET.path) {
