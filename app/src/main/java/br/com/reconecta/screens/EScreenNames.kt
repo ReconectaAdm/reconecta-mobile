@@ -10,4 +10,9 @@ enum class EScreenNames(val path: String) {
     ORGANIZATION_LIST("organizationList"),
     RESET_PASSWORD("resetPassword"),
     COLETA_ESTABLISHMENT("coletaEstablishment")
+    RESET_PASSWORD("resetPassword"),
+    ORGANIZATION_COLLECT_DETAILS("organizationCollectDetails"),
+    ORGANIZATION_COLLECT_IN_PROGRESS("organizationCollectInProgress"),
+    ESTABLISHMENT_COLLECT_DETAILS("establishmentCollectDetails"),
+    BOTTOM_SHEET("bottomSheet"),
 }

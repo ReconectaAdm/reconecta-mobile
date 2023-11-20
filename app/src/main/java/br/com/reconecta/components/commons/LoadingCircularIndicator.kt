@@ -8,18 +8,19 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import br.com.reconecta.ui.theme.DarkGreenReconecta
 import br.com.reconecta.ui.theme.LightGreenReconecta
 
 @Composable
-fun LoadingCircularIndicator(loading: Boolean) {
+fun LoadingCircularIndicator(loading: Boolean, width: Dp = 30.dp, height: Dp = 30.dp) {
     if (loading)
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             CircularProgressIndicator(
                 modifier = Modifier
-                    .width(30.dp)
-                    .height(30.dp),
+                    .width(width)
+                    .height(height),
                 color = DarkGreenReconecta,
                 trackColor = LightGreenReconecta,
             )

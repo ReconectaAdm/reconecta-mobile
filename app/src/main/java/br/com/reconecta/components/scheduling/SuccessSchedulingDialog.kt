@@ -30,14 +30,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavHostController
+import br.com.reconecta.api.model.GetCollectDto
+import br.com.reconecta.components.commons.formatters.DateTimeFormatter
 import br.com.reconecta.screens.EScreenNames
 
 @Composable
 fun SuccessSchedulingDialog(
     navController: NavHostController,
+    collect: GetCollectDto,
     closeSuccessDialog: () -> Unit,
     openSchedulingDetailsDialogState: () -> Unit
 ) {
+
     Dialog(
         onDismissRequest = {},
     ) {
@@ -75,7 +79,7 @@ fun SuccessSchedulingDialog(
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
-                    text = "15/06 - 11h00",
+                    text = "${DateTimeFormatter.formatToShortDate(collect.date!!)}  | ${collect.hour}",
                     color = Color.Gray,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -88,8 +92,7 @@ fun SuccessSchedulingDialog(
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Button(
-                    modifier = Modifier
-                        .width(225.dp),
+                    modifier = Modifier.width(225.dp),
                     shape = RoundedCornerShape(10.dp),
                     colors = ButtonDefaults.buttonColors(
                         contentColor = Color.White,

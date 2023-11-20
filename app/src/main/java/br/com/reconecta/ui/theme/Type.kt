@@ -13,11 +13,12 @@ import br.com.reconecta.R
 val Typography = Typography(
     bodyLarge = TextStyle(
         fontFamily = FontFamily(
-            Font(R.font.sora_thin, FontWeight.Thin),
-            Font(R.font.sora_regular),
-            Font(R.font.sora_medium, FontWeight.Medium),
-            Font(R.font.sora_semi_bold, FontWeight.SemiBold),
-            Font(R.font.sora_bold, FontWeight.Bold)
+            Font(R.font.poppins_thin, FontWeight.Thin),
+            Font(R.font.poppins_light, FontWeight.Light),
+            Font(R.font.poppins_regular),
+            Font(R.font.poppins_medium, FontWeight.Medium),
+            Font(R.font.poppins_semi_bold, FontWeight.SemiBold),
+            Font(R.font.poppins_bold, FontWeight.Bold)
         ),
         fontSize = 16.sp,
         lineHeight = 24.sp,

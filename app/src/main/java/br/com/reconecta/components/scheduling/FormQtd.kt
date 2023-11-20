@@ -3,9 +3,7 @@ package br.com.reconecta.components.scheduling
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -16,22 +14,17 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import br.com.reconecta.api.model.GetResidueDto
+import br.com.reconecta.api.model.enums.mapUnitMeasure
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun FormQtd(qtd: String, qtdState: (qtd: String) -> Unit) {
+fun FormQtd(residue: GetResidueDto, qtd: String, qtdState: (qtd: String) -> Unit) {
     Column {
-        Text(
-            text = "Informe a quantidade",
-            textAlign = TextAlign.Start,
-            fontWeight = FontWeight.Medium
-        )
-        Spacer(modifier = Modifier.height(10.dp))
+        Text(residue.name)
         Row(
             modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -59,7 +52,7 @@ fun FormQtd(qtd: String, qtdState: (qtd: String) -> Unit) {
                 shape = RoundedCornerShape(12.dp)
             )
             OutlinedTextField(
-                value = "UNI",
+                value = mapUnitMeasure(residue.unitMeasure),
                 readOnly = true,
                 onValueChange = {},
                 colors = TextFieldDefaults.outlinedTextFieldColors(
