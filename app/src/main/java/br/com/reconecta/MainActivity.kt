@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
+import br.com.reconecta.screens.ColetaEstablishmentScreen
 import br.com.reconecta.screens.EScreenNames
 import br.com.reconecta.screens.HomeEstablishmentScreen
 import br.com.reconecta.screens.HomeScreen
@@ -39,7 +40,7 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberAnimatedNavController()
                     AnimatedNavHost(
                         navController = navController,
-                        startDestination = EScreenNames.LOGIN.path,
+                        startDestination = EScreenNames.COLETA_ESTABLISHMENT.path,
                         exitTransition = {
                             slideOutOfContainer(
                                 towards = AnimatedContentScope.SlideDirection.End,
@@ -76,6 +77,9 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(route = EScreenNames.RESET_PASSWORD.path){
                             ResetPasswordScreen(navController, applicationContext)
+                        }
+                        composable(route = EScreenNames.COLETA_ESTABLISHMENT.path){
+                            ColetaEstablishmentScreen(navController, applicationContext)
                         }
                     }
                 }

@@ -40,7 +40,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import br.com.reconecta.R
 import br.com.reconecta.components.SecondaryButton
-import br.com.reconecta.components.commons.Header
+import br.com.reconecta.components.commons.HeaderWithArrow
 import br.com.reconecta.components.organizarion_details.Carousel
 import br.com.reconecta.components.organizarion_details.EmailButton
 import br.com.reconecta.components.organizarion_details.Organization
@@ -68,7 +68,7 @@ fun OrganizationDetailsScreen(navController: NavHostController) {
                 .background(Color.White)
                 .verticalScroll(rememberScrollState())
         ) {
-            Header(
+            HeaderWithArrow(
                 "Organização"
             ) { navController.navigate(EScreenNames.ORGANIZATION_LIST.path) }
             Divider(thickness = 1.dp, color = Color.LightGray)

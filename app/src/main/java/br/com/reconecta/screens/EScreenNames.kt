@@ -8,5 +8,6 @@ enum class EScreenNames(val path: String) {
     ORGANIZATION_DETAILS("organizationetails"),
     HOME_ESTABLISHMENT("homeEstablishment"),
     ORGANIZATION_LIST("organizationList"),
-    RESET_PASSWORD("resetPassword")
+    RESET_PASSWORD("resetPassword"),
+    COLETA_ESTABLISHMENT("coletaEstablishment")
 }
