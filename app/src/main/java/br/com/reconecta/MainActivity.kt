@@ -1,5 +1,6 @@
 package br.com.reconecta
 
+import EditPerfilScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -16,6 +17,11 @@ import br.com.reconecta.screens.HomeScreen
 import br.com.reconecta.screens.LoginScreen
 import br.com.reconecta.screens.OrganizationDetailsScreen
 import br.com.reconecta.screens.OrganizationListScreen
+import br.com.reconecta.screens.AccountInformationScreen
+import br.com.reconecta.screens.EditAvailabilityScreen
+import br.com.reconecta.screens.EditBankAccountScreen
+import br.com.reconecta.screens.EditPasswordScreen
+import br.com.reconecta.screens.EditResiduesScreen
 import br.com.reconecta.screens.ResetPasswordScreen
 import br.com.reconecta.screens.SchedulingScreen
 import br.com.reconecta.screens.SignUpScreen
@@ -76,6 +82,24 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(route = EScreenNames.RESET_PASSWORD.path){
                             ResetPasswordScreen(navController, applicationContext)
+                        }
+                        composable(route = EScreenNames.ACCOUNT_INFO.path){
+                            AccountInformationScreen(applicationContext, navController)
+                        }
+                        composable(route = EScreenNames.ACCOUNT_INFO_EDIT_PASSWORD.path){
+                            EditPasswordScreen(applicationContext, navController)
+                        }
+                        composable(route = EScreenNames.ACCOUNT_INFO_EDIT_PERFIL.path){
+                            EditPerfilScreen(applicationContext, navController)
+                        }
+                        composable(route = EScreenNames.ACCOUNT_INFO_EDIT_WALLET.path){
+                            EditBankAccountScreen(applicationContext, navController)
+                        }
+                        composable(route = EScreenNames.ACCOUNT_INFO_EDIT_AVAILABILITY.path){
+                            EditAvailabilityScreen(applicationContext, navController)
+                        }
+                        composable(route = EScreenNames.ACCOUNT_INFO_EDIT_RESIDUES.path){
+                            EditResiduesScreen(applicationContext, navController)
                         }
                     }
                 }
