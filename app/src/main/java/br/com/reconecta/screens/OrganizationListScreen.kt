@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.com.reconecta.api.model.GetOrganizationDto
 import br.com.reconecta.api.service.RetrofitFactory
-import br.com.reconecta.api.service.handleApiResponse
+import br.com.reconecta.api.service.handleRetrofitApiCall
 import br.com.reconecta.components.CreateOrganizationItem
 import br.com.reconecta.components.commons.BottomNavBar
 import br.com.reconecta.components.commons.Header
@@ -30,10 +30,12 @@ fun OrganizationListScreen(navController: NavController, context: Context) {
     val isLoading = remember { mutableStateOf(false) }
     val organizations = remember { mutableStateOf(listOf<GetOrganizationDto>()) }
 
-    handleApiResponse(
+    handleRetrofitApiCall(
         call = RetrofitFactory().getOrganizationService(context).getAll(),
-        state = organizations,
         isLoading = isLoading,
+        onResponse = {
+            if(it.isSuccessful) organizations.value = it.body()!!
+        }
     )
 
     Column {
@@ -75,7 +77,7 @@ fun OrganizationListScreen(navController: NavController, context: Context) {
 
         Divider(thickness = 1.dp, color = Color.LightGray)
 
-        BottomNavBar()
+        BottomNavBar(navController = navController)
     }
 }
 
