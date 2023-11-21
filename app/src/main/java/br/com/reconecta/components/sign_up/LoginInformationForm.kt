@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -22,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import br.com.reconecta.R
-import br.com.reconecta.components.AccountType
+import br.com.reconecta.components.EAccountType
 import br.com.reconecta.components.commons.buttons.PrimaryButton
 import br.com.reconecta.components.commons.text_field.EmailTextField
 import br.com.reconecta.components.commons.text_field.PasswordTextField
@@ -32,8 +33,8 @@ import br.com.reconecta.ui.theme.DarkGreenReconecta
 
 @Composable
 fun LoginInformationForm(
-    accountType: MutableState<AccountType>,
-    errorMessage: MutableState<String>,
+    eAccountType: MutableState<EAccountType>,
+    errorMessage: MutableState<String?>,
     navController: NavHostController,
     isLoginInfo: MutableState<Boolean>,
     isValidLogin: MutableState<Boolean>,
@@ -49,7 +50,7 @@ fun LoginInformationForm(
         fontSize = 13.sp
     )
 
-    SelectAccountType(accountType)
+    SelectAccountType(eAccountType)
     Spacer(modifier = Modifier.height(20.dp))
     Text(
         text = "Informações Login",
@@ -92,26 +93,40 @@ fun LoginInformationForm(
 
 
 @Composable
-private fun SelectAccountType(accountType: MutableState<AccountType>) {
+private fun SelectAccountType(eAccountType: MutableState<EAccountType>) {
+    val isOranizarion = eAccountType.value == EAccountType.ORGANIZATION
+
     Row(
         horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Icon(painter = painterResource(id = if (accountType.value == AccountType.ESTABLISHMENT) R.drawable.selected_radio_button else R.drawable.radio_button),
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.clickable { eAccountType.value = EAccountType.ESTABLISHMENT }) {
+            Icon(
+                painter = painterResource(
+                    id = if (!isOranizarion) R.drawable.selected_radio_button else R.drawable.radio_button
+                ),
+                tint = if (!isOranizarion) DarkGreenReconecta else Color.Black,
                 contentDescription = "Selecionar Estabelecimento",
                 modifier = Modifier
                     .height(16.dp)
                     .width(16.dp)
-                    .clickable { accountType.value = AccountType.ESTABLISHMENT })
+            )
             Text(text = "Estabelecimento")
         }
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Icon(painter = painterResource(id = if (accountType.value == AccountType.ORGANIZATION) R.drawable.selected_radio_button else R.drawable.radio_button),
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.clickable { eAccountType.value = EAccountType.ORGANIZATION }) {
+            Icon(
+                painter = painterResource(
+                    id = if (isOranizarion) R.drawable.selected_radio_button else R.drawable.radio_button
+                ),
                 contentDescription = "Selecionar Empresa Coletora",
+                tint = if (isOranizarion) DarkGreenReconecta else Color.Black,
                 modifier = Modifier
                     .height(16.dp)
                     .width(16.dp)
-                    .clickable { accountType.value = AccountType.ORGANIZATION })
+            )
             Text(text = "Empresa coletora")
         }
     }
