@@ -1,28 +1,30 @@
 package br.com.reconecta.components.commons
 
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import br.com.reconecta.R
+import br.com.reconecta.screens.EScreenNames
 
 
 @Composable
-fun BottomNavBar(activeMenu: ENavMenuItems? = null) {
+fun BottomNavBar(activeMenu: ENavMenuItems? = null, navController: NavController) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
@@ -41,25 +43,29 @@ fun BottomNavBar(activeMenu: ENavMenuItems? = null) {
                 id = R.drawable.navbar_home,
                 contentDescription = "Ícone início",
                 text = ENavMenuItems.HOME.value,
-                color = getActiveMenuItemColor(activeMenu, ENavMenuItems.HOME)
+                color = getActiveMenuItemColor(activeMenu, ENavMenuItems.HOME),
+                onClick = { navController.navigate(EScreenNames.HOME.path) }
             )
             NavbarItem(
                 id = R.drawable.navbar_coleta,
                 contentDescription = "Ícone coleta",
                 text = ENavMenuItems.COLLECT.value,
-                color = getActiveMenuItemColor(activeMenu, ENavMenuItems.COLLECT)
+                color = getActiveMenuItemColor(activeMenu, ENavMenuItems.COLLECT),
+                onClick = { navController.navigate("TODO") }
             )
             NavbarItem(
                 id = R.drawable.navbar_metrica,
                 contentDescription = "Ícone métricas",
                 text = ENavMenuItems.METRICS.value,
-                color = getActiveMenuItemColor(activeMenu, ENavMenuItems.METRICS)
+                color = getActiveMenuItemColor(activeMenu, ENavMenuItems.METRICS),
+                onClick = { navController.navigate("TODO") }
             )
             NavbarItem(
-                id = R.drawable.navbar_perfil,
+                id = R.drawable.navbar_perfil_svg,
                 contentDescription = "Ícone conta",
                 text = ENavMenuItems.ACCOUNT.value,
-                color = getActiveMenuItemColor(activeMenu, ENavMenuItems.ACCOUNT)
+                color = getActiveMenuItemColor(activeMenu, ENavMenuItems.ACCOUNT),
+                onClick = { navController.navigate(EScreenNames.ACCOUNT_INFO.path) }
             )
         }
     }
@@ -71,17 +77,20 @@ private fun NavbarItem(
     id: Int,
     contentDescription: String,
     text: String,
-    color: Color = Color(0xFF999999)
+    color: Color = Color(0xFF999999),
+    onClick: () -> Unit
 ) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Image(
+        Icon(
             painter = painterResource(id = id),
             contentDescription = contentDescription,
-            modifier = Modifier.size(27.dp),
-            colorFilter = ColorFilter.tint(color)
+            modifier = Modifier
+                .size(27.dp)
+                .clickable { onClick() },
+            tint = color
         )
 
         Text(
@@ -95,4 +104,4 @@ private fun NavbarItem(
 
 
 private fun getActiveMenuItemColor(activeMenu: ENavMenuItems?, thisMenu: ENavMenuItems) =
-    if (activeMenu != null && activeMenu == thisMenu) Color(0xFF276246)  else Color(0xFF999999)
+    if (activeMenu != null && activeMenu == thisMenu) Color(0xFF276246) else Color(0xFF999999)

@@ -39,13 +39,10 @@ import androidx.compose.material3.TimePicker
 import androidx.compose.material3.TimePickerDefaults
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -58,7 +55,7 @@ import androidx.navigation.NavController
 import br.com.reconecta.api.model.CreateAvailabilityRequest
 import br.com.reconecta.api.model.GetAvailabilityDto
 import br.com.reconecta.api.service.RetrofitFactory
-import br.com.reconecta.api.service.handleApiResponse
+import br.com.reconecta.api.service.handleRetrofitApiCall
 import br.com.reconecta.components.commons.Header
 import br.com.reconecta.components.commons.LoadingCircularIndicator
 import br.com.reconecta.components.commons.buttons.SecondaryButton
@@ -67,9 +64,7 @@ import br.com.reconecta.ui.theme.DarkGreenReconecta
 import br.com.reconecta.ui.theme.LightGreenReconecta
 import br.com.reconecta.utils.EnumUtils.mapDayOfWeek
 import br.com.reconecta.utils.StringUtils.capitalizeText
-import com.google.gson.Gson
 import okhttp3.ResponseBody
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -86,7 +81,7 @@ fun AvailabilityScreen(navController: NavController, context: Context) {
         mutableStateOf(false)
     }
 
-    handleApiResponse(
+    handleRetrofitApiCall(
         call = RetrofitFactory().getAvailabilityService(context).getByOrganizationId(20),
         setState = { days = it },
         setIsLoading = { loadingAvailability = it },

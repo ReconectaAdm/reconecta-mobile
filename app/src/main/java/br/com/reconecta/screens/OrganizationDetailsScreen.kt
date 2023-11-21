@@ -49,7 +49,7 @@ import br.com.reconecta.api.model.GetResidueDto
 import br.com.reconecta.api.model.enums.UnitMeasure
 import br.com.reconecta.api.model.enums.mapAbrevUnitMeasure
 import br.com.reconecta.api.service.RetrofitFactory
-import br.com.reconecta.api.service.handleApiResponse
+import br.com.reconecta.api.service.handleRetrofitApiCall
 import br.com.reconecta.components.SecondaryButton
 import br.com.reconecta.components.commons.Header
 import br.com.reconecta.components.commons.formatters.CurrencyFormatter
@@ -61,9 +61,7 @@ import br.com.reconecta.components.organization_details.PhoneInfo
 import br.com.reconecta.components.organization_details.StarRating
 import br.com.reconecta.components.organization_details.TextMenuItem
 import br.com.reconecta.ui.theme.MediumGreenReconecta
-import br.com.reconecta.utils.EnumUtils
 import br.com.reconecta.utils.EnumUtils.mapDayOfWeek
-import kotlinx.datetime.DayOfWeek
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.time.format.TextStyle
@@ -92,13 +90,13 @@ fun OrganizationDetailsScreen(navController: NavHostController, context: Context
 
     val selectedResidues = remember { mutableStateListOf<Int>() }
 
-    handleApiResponse(
+    handleRetrofitApiCall(
         call = RetrofitFactory().getOrganizationService(context).getById(id),
         setState = { organization = it },
         setIsLoading = { loadingOrganization = it }
     )
 
-    handleApiResponse(
+    handleRetrofitApiCall(
         call = RetrofitFactory().getCollectService(context).getRatingByOrganizationId(id),
         setState = { organizationCollectRatings = it },
         setIsLoading = { loadingCollectRating = it }

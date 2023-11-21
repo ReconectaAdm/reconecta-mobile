@@ -1,6 +1,7 @@
 package br.com.reconecta.api.model
 
-import java.util.Date
+import java.time.LocalDateTime
+
 data class GetAddressDto(
     val id: Int = 0,
     val street: String = "",
@@ -10,8 +11,8 @@ data class GetAddressDto(
     val postalCode: String = "",
     val latitude: Float? = null,
     val longitude: Float? = null,
-    val creationDate: Date,
-    val updatedDate: Date? = null,
+    val creationDate: LocalDateTime,
+    val updatedDate: LocalDateTime? = null,
     val companyId: Int = 0,
     val distance: Float = 0f
 )

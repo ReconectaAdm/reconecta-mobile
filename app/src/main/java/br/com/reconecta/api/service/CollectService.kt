@@ -4,6 +4,7 @@ import br.com.reconecta.api.model.CreateCollectRatingRequest
 import br.com.reconecta.api.model.CreateCollectRequest
 import br.com.reconecta.api.model.GetCollectDto
 import br.com.reconecta.api.model.GetCollectRatingDto
+import br.com.reconecta.api.model.GetSummaryResponse
 import br.com.reconecta.api.model.enums.CollectStatus
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -25,6 +26,9 @@ interface CollectService {
 
     @PATCH("api/collect/{id}/status/{status}")
     fun updateStatus(@Path("id") id: Int, @Path("status") status: CollectStatus): Call<ResponseBody>
+
+    @GET("api/collect/summary")
+    fun getSummary(): Call<GetSummaryResponse>
 
     @GET("api/collect/rating/{collectId}")
     fun getRatingByCollectId(@Path("collectId") collectId: Int): Call<GetCollectRatingDto>

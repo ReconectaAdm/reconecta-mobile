@@ -26,10 +26,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import br.com.reconecta.R
-import br.com.reconecta.api.model.UpdatePasswordRequest
-import br.com.reconecta.api.service.RetrofitFactory
-import br.com.reconecta.api.service.handleApiResponse
-import br.com.reconecta.components.commons.AlertDialogExample
+import br.com.reconecta.api.service.RetrofitService
+import br.com.reconecta.components.commons.ResetPasswordAlertDialog
 import br.com.reconecta.components.commons.LoadingCircularIndicator
 import br.com.reconecta.components.commons.RoundedTopBaseBox
 import br.com.reconecta.components.commons.buttons.PrimaryButton
@@ -61,7 +59,7 @@ fun ResetPasswordScreen(navController: NavHostController, applicationContext: Co
             Column(modifier = Modifier.padding(start = 40.dp, end = 40.dp)) {
                 when {
                     openAlertDialog.value -> {
-                        AlertDialogExample(
+                        ResetPasswordAlertDialog(
                             onClick = {
                                 openAlertDialog.value = false
                                 navController.navigate(EScreenNames.LOGIN.path)
@@ -105,18 +103,16 @@ fun ResetPasswordScreen(navController: NavHostController, applicationContext: Co
                         horizontalArrangement = Arrangement.Center
                     ) {
                         PrimaryButton(text = "Enviar", enabled = correctFields, onClick = {
-                            handleApiResponse(call = RetrofitFactory().getAuthService(
-                                applicationContext
-                            ).updatePassword(
-                                UpdatePasswordRequest(
-                                    password = password.value,
-                                    email = email.value
-                                )
-                            ), isLoading = isLoading, func = {
-                                if (it.isSuccessful) openAlertDialog.value = true
-                                else errorMessage.value = "Email ou senha não conferem!"
-                            })
-                        }) {
+                            RetrofitService.handleUpdatePassword(
+                                applicationContext = applicationContext,
+                                isLoading = isLoading,
+                                password = password.value,
+                                email = email.value,
+                                errorMessage = errorMessage,
+                                openAlertDialog = openAlertDialog
+                            )
+                        }
+                        ) {
                             LoadingCircularIndicator(loading = isLoading.value)
                         }
                     }

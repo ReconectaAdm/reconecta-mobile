@@ -31,7 +31,7 @@ import br.com.reconecta.api.model.CreateCollectRatingRequest
 import br.com.reconecta.api.model.GetCollectDto
 import br.com.reconecta.api.model.GetCollectRatingDto
 import br.com.reconecta.api.service.RetrofitFactory
-import br.com.reconecta.api.service.handleApiResponse
+import br.com.reconecta.api.service.handleRetrofitApiCall
 import br.com.reconecta.components.commons.LoadingCircularIndicator
 import br.com.reconecta.components.commons.rating.Rating
 import br.com.reconecta.components.commons.text_field.BaseTextField
@@ -60,10 +60,10 @@ fun CollectRating(
 
     val collectRating = remember { mutableStateOf(GetCollectRatingDto()) }
 
-    handleApiResponse(
+    handleRetrofitApiCall(
         call = RetrofitFactory().getCollectService(context).getRatingByCollectId(collect.id),
-        state = collectRating,
-        isLoading = isLoading
+        setState = { collectRating.value = it },
+        setIsLoading = { isLoading.value = it }
     )
 
     if (collectRating.value.collectId != null) {

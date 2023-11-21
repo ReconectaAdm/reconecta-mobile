@@ -2,13 +2,10 @@ package br.com.reconecta.screens
 
 import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,7 +23,7 @@ import br.com.reconecta.api.model.GetCollectDto
 import br.com.reconecta.api.model.enums.CollectStatus
 import br.com.reconecta.api.model.enums.mapCollecStatus
 import br.com.reconecta.api.service.RetrofitFactory
-import br.com.reconecta.api.service.handleApiResponse
+import br.com.reconecta.api.service.handleRetrofitApiCall
 import br.com.reconecta.components.BottomSheet
 import br.com.reconecta.components.collect_details.CollectValue
 import br.com.reconecta.components.collect_details.CompanyInfo.OrganizationInfo
@@ -40,10 +37,10 @@ fun EstablishmentCollectDetailsScreen(navController: NavHostController, context:
     val collect = remember { mutableStateOf(GetCollectDto()) }
     val isLoading = remember { mutableStateOf(false) }
 
-    handleApiResponse(
+    handleRetrofitApiCall(
         call = RetrofitFactory().getCollectService(context).getById(4),
-        state = collect,
-        isLoading = isLoading
+        setState = { collect.value = it },
+        setIsLoading = { isLoading.value = it }
     )
 
     BottomSheet(openBottomSheet = openCollectDetail,

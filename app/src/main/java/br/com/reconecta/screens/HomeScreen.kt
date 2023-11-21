@@ -279,6 +279,6 @@ fun HomeScreen(navController: NavHostController) {
 
         Divider(thickness = 1.dp, color = Color.LightGray)
 
-        BottomNavBar(ENavMenuItems.HOME)
+        BottomNavBar(ENavMenuItems.HOME, navController)
     }
 }

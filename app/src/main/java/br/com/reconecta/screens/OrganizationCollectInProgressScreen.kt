@@ -61,7 +61,7 @@ import br.com.reconecta.api.model.enums.CollectStatus
 import br.com.reconecta.api.model.enums.UnitMeasure
 import br.com.reconecta.api.model.enums.mapUnitMeasure
 import br.com.reconecta.api.service.RetrofitFactory
-import br.com.reconecta.api.service.handleApiResponse
+import br.com.reconecta.api.service.handleRetrofitApiCall
 import br.com.reconecta.components.BottomSheet
 import br.com.reconecta.components.SecondaryButton
 import br.com.reconecta.components.collect_details.CollectValue
@@ -99,13 +99,13 @@ fun OrganizationCollectInProgressScreen(
         mutableStateOf(true)
     }
 
-    handleApiResponse(
+    handleRetrofitApiCall(
         call = RetrofitFactory().getCollectService(context).getById(collectId),
         setState = { collect = it },
         setIsLoading = { loadingCollect = it }
     )
 
-    handleApiResponse(
+    handleRetrofitApiCall(
         call = RetrofitFactory().getResidueService(context).getAll(),
         setState = { residues = it },
         setIsLoading = { loadingResidue = it }
@@ -318,7 +318,7 @@ fun ResidueReceiveConfirmation(
                 }
 
                 DropdownUnitMeasures(
-                    selectedLabel = mapUnitMeasure(relativeResidue.residue!!.unitMeasure!!),
+                    selectedLabel = mapUnitMeasure(relativeResidue.residue!!.unitMeasure),
                     setSelectedValue = { },
                     setSelectedLabel = { },
                     enabled = false
@@ -376,9 +376,9 @@ fun DropdownResidues(
             expanded = expanded,
             onDismissRequest = { expanded = false }) {
             residues.forEach { item ->
-                DropdownMenuItem(text = { Text(text = item.name!!) }, onClick = {
-                    setSelectedValue(item.id!!)
-                    setSelectedLabel(item.name!!)
+                DropdownMenuItem(text = { Text(text = item.name) }, onClick = {
+                    setSelectedValue(item.id)
+                    setSelectedLabel(item.name)
                     expanded = false
 //                        Toast.makeText(context, item.id.toString(), Toast.LENGTH_SHORT).show()
                 })

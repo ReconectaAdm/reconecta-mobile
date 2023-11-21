@@ -37,7 +37,7 @@ import br.com.reconecta.api.model.GetCollectDto
 import br.com.reconecta.api.model.GetResidueDto
 import br.com.reconecta.api.model.enums.CollectStatus
 import br.com.reconecta.api.service.RetrofitFactory
-import br.com.reconecta.api.service.handleApiResponse
+import br.com.reconecta.api.service.handleRetrofitApiCall
 import br.com.reconecta.components.BottomSheet
 import br.com.reconecta.components.collect_details.CollectScheduled
 import br.com.reconecta.components.commons.Header
@@ -66,13 +66,13 @@ fun SchedulingScreen(navController: NavHostController, context: Context, organiz
     var days by remember { mutableStateOf(listOf<GetAvailabilityDto>()) }
     var residues by remember { mutableStateOf(listOf<GetResidueDto>()) }
 
-    handleApiResponse(
+    handleRetrofitApiCall(
         call = RetrofitFactory().getAvailabilityService(context).getByOrganizationId(organizationId),
         setState = { days = it },
         setIsLoading = { loadingAvailability = it },
     )
 
-    handleApiResponse(call = RetrofitFactory().getResidueService(context)
+    handleRetrofitApiCall(call = RetrofitFactory().getResidueService(context)
         .getResiduesByOrganizationId(20),
         setState = { residues = it },
         setIsLoading = { loadingResidue = it })
@@ -102,7 +102,7 @@ fun SchedulingScreen(navController: NavHostController, context: Context, organiz
     }
 
     if (collect.id != 0) {
-        handleApiResponse(call = RetrofitFactory().getCollectService(context)
+        handleRetrofitApiCall(call = RetrofitFactory().getCollectService(context)
             .getById(collect.id),
             setState = { collect = it },
             setIsLoading = { loadingResidue = it })
