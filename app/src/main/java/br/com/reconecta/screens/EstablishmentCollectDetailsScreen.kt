@@ -38,7 +38,7 @@ fun EstablishmentCollectDetailsScreen(navController: NavHostController, context:
     var openCollectDetail by rememberSaveable { mutableStateOf(false) }
 
     val collect = remember { mutableStateOf(GetCollectDto()) }
-    var isLoading = remember { mutableStateOf(false) }
+    val isLoading = remember { mutableStateOf(false) }
 
     handleApiResponse(
         call = RetrofitFactory().getCollectService(context).getById(4),
@@ -46,53 +46,39 @@ fun EstablishmentCollectDetailsScreen(navController: NavHostController, context:
         isLoading = isLoading
     )
 
-    BottomSheet(
-        openBottomSheet = openCollectDetail,
+    BottomSheet(openBottomSheet = openCollectDetail,
         setOpenBottomSheet = { openCollectDetail = it },
         appContent = {
-            Button(
-                onClick = { openCollectDetail = true },
-                content = { Text(text = "Abrir modal") }
+            Button(onClick = { openCollectDetail = true }, content = { Text(text = "Abrir modal") })
+        }
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = "Coleta ${mapCollecStatus(collect.value.status!!)}",
+                fontWeight = FontWeight.Medium,
+                fontSize = 18.sp
             )
-        },
-        {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Text(
-                    text = "Coleta ${mapCollecStatus(collect.value.status!!)}",
-                    fontWeight = FontWeight.Medium,
-                    fontSize = 18.sp
-                )
-            }
+        }
 
-            OrganizationInfo(
-                label = "Organização",
-                organization = collect.value.organization!!,
-                context = context
-            )
+        OrganizationInfo(
+            label = "Organização",
+            organization = collect.value.organization!!,
+            context = context
+        )
 
-            Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(8.dp))
 
-            if (collect.value.status == CollectStatus.CONCLUDED) {
-                CollectRating(collect = collect.value, context = context)
-            }
+        if (collect.value.status == CollectStatus.CONCLUDED) {
+            CollectRating(collect = collect.value, context = context)
+        }
 
-            Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(8.dp))
 
-            ResidueInfo("Dados da coleta", residues = collect.value.residues)
+        ResidueInfo("Dados da coleta", residues = collect.value.residues)
 
-            CollectValue(collectValue = collect.value.value!!)
-        })
-
-//    BottomSheet(openBottomSheet = openCollectDetail, size = 700.dp, content = {
-
-//    }) {
-//        Button(
-//            onClick = { openCollectDetail.value = true },
-//            content = { Text(text = "Abrir modal") })
-//    }
-
+        CollectValue(collectValue = collect.value.value!!)
+    }
 }
 

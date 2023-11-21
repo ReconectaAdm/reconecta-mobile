@@ -14,16 +14,18 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
+import br.com.reconecta.api.model.GetAvailabilityDto
 import br.com.reconecta.components.kalendar.Kalendar
 import br.com.reconecta.components.kalendar.ui.component.day.KalendarDayKonfig
 import br.com.reconecta.components.kalendar.ui.firey.DaySelectionMode
+import br.com.reconecta.utils.EnumUtils.mapDayOfWeek
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.todayIn
 
 @Composable
-fun Calendar(setDate: (date: LocalDate) -> Unit) {
+fun Calendar(setDate: (date: LocalDate) -> Unit, availableDays: List<GetAvailabilityDto>) {
     Column(horizontalAlignment = Alignment.Start) {
         Text(
             text = "Selecione a data", textAlign = TextAlign.Start, fontWeight = FontWeight.Medium
@@ -40,6 +42,7 @@ fun Calendar(setDate: (date: LocalDate) -> Unit) {
             ),
             dayContent = null,
             daySelectionMode = DaySelectionMode.Single,
+            availableDays = availableDays.map { mapDayOfWeek(it.day) },
             showLabel = true,
             onDayClick = { date, _ ->
                 Log.i(

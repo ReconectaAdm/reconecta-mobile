@@ -19,7 +19,7 @@ import br.com.reconecta.ui.theme.LightGreenReconecta
 
 @Composable
 fun SecondaryButton(
-    text: String,
+    text: String? = null,
     onClick: () -> Unit,
     composable: @Composable () -> Unit? = {}
 ) {
@@ -35,12 +35,14 @@ fun SecondaryButton(
             .width(250.dp)
 
     ) {
-        Text(
-            text = text,
-            fontSize = 14.5.sp,
-            color = Color.White,
-            fontFamily = FontFamily(Font(R.font.poppins_medium)),
-        )
+        if(text != null){
+            Text(
+                text = text,
+                fontSize = 14.5.sp,
+                color = Color.White,
+                fontFamily = FontFamily(Font(R.font.poppins_medium)),
+            )
+        }
         composable()
     }
 }

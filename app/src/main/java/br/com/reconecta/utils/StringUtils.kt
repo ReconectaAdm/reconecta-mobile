@@ -3,11 +3,16 @@ package br.com.reconecta.utils
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import java.util.Base64
+import java.util.Locale
 
 
 object StringUtils {
 
     private const val emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\$"
+
+    fun String.capitalizeText(): String {
+        return this.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+    }
 
     fun convertBase64StringToBitmap(base64Str: String): Bitmap = try {
         val byteArr: ByteArray = Base64.getDecoder().decode(base64Str)

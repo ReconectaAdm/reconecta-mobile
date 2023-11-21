@@ -38,7 +38,7 @@ fun FormQtd(residue: GetResidueDto, qtd: String, qtdState: (qtd: String) -> Unit
                 },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number,
-                    imeAction = ImeAction.Done
+                    imeAction = ImeAction.Next
                 ),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     focusedBorderColor = Color.White,

@@ -55,12 +55,14 @@ import br.com.reconecta.components.commons.Header
 import br.com.reconecta.components.commons.formatters.CurrencyFormatter
 import br.com.reconecta.components.commons.texts.TextLight
 import br.com.reconecta.components.commons.texts.TextMedium
-import br.com.reconecta.components.organizarion_details.Carousel
-import br.com.reconecta.components.organizarion_details.EmailInfo
-import br.com.reconecta.components.organizarion_details.PhoneInfo
-import br.com.reconecta.components.organizarion_details.StarRating
-import br.com.reconecta.components.organizarion_details.TextMenuItem
+import br.com.reconecta.components.organization_details.Carousel
+import br.com.reconecta.components.organization_details.EmailInfo
+import br.com.reconecta.components.organization_details.PhoneInfo
+import br.com.reconecta.components.organization_details.StarRating
+import br.com.reconecta.components.organization_details.TextMenuItem
 import br.com.reconecta.ui.theme.MediumGreenReconecta
+import br.com.reconecta.utils.EnumUtils
+import br.com.reconecta.utils.EnumUtils.mapDayOfWeek
 import kotlinx.datetime.DayOfWeek
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -145,7 +147,15 @@ fun OrganizationDetailsScreen(navController: NavHostController, context: Context
                     text = "Continuar",
                     selectedResidues.isNotEmpty(),
                     modifier = Modifier.align(Alignment.CenterHorizontally),
-                    onClick = { navController.navigate("${EScreenNames.SCHEDULING.path}?${getResidueIdsQueryValues(selectedResidues)}") }
+                    onClick = {
+                        navController.navigate(
+                            "${EScreenNames.SCHEDULING.path}/$id?${
+                                getResidueIdsQueryValues(
+                                    selectedResidues
+                                )
+                            }"
+                        )
+                    }
                 )
             }
 
@@ -362,20 +372,19 @@ fun Availability(availability: List<GetAvailabilityDto>) {
 
     if (availableDays.size > 1) {
         Text(
-            text = "${getRangeAvailableDays(availableDays.first().day + 1)} a ${
-                getRangeAvailableDays(
-                    availableDays.last().day + 1
-                )
-            } das ${availableDays.first().startHour} até às ${availableDays.first().endHour}",
+            text =
+            "${getRangeAvailableDays(availableDays)} das ${availableDays.first().startHour} até às ${availableDays.first().endHour}",
             fontSize = 13.sp
         )
     }
 }
 
 
-fun getRangeAvailableDays(day: Int): String {
+fun getRangeAvailableDays(days: List<GetAvailabilityDto>): String {
     val locale = Locale("pt-BR")
-    return DayOfWeek(day).getDisplayName(TextStyle.SHORT, locale)
+    return "${mapDayOfWeek(days.first().day).getDisplayName(TextStyle.SHORT, locale)} a ${
+        mapDayOfWeek(days.last().day).getDisplayName(TextStyle.SHORT, locale)
+    }"
 }
 
 fun getResidueIdsQueryValues(residueIds: List<Int>): String {

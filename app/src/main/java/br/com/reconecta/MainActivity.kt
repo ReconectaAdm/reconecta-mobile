@@ -1,7 +1,6 @@
 package br.com.reconecta
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedContentScope
@@ -13,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
-import br.com.reconecta.screens.BottomSheetScreen
+import br.com.reconecta.screens.AvailabilityScreen
 import br.com.reconecta.screens.OrganizationCollectDetailsScreen
 import br.com.reconecta.screens.EScreenNames
 import br.com.reconecta.screens.EstablishmentCollectDetailsScreen
@@ -76,15 +75,20 @@ class MainActivity : ComponentActivity() {
                             HomeEstablishmentScreen(navController)
                         }
                         composable(
-                            route = "${EScreenNames.SCHEDULING.path}?residueIds={residueIds}",
-                            arguments = (
-                                    listOf(navArgument("residueIds") {
-                                        type = NavType.IntArrayType
-                                    })
-                                    )
-                        ) { it ->
+                            route = "${EScreenNames.SCHEDULING.path}/{organizationId}?residueIds={residueIds}",
+                            arguments = (listOf(
+                                navArgument("residueIds") { type = NavType.IntArrayType },
+                                navArgument("organizationId") { type = NavType.IntType }
+                            )))
+                        { it ->
                             val residueIds = it.arguments?.getIntArray("residueIds")!!
-                            SchedulingScreen(navController, applicationContext, residueIds.map { residueId -> residueId })
+                            val organizationId: Int? = it.arguments?.getInt("organizationId", 0)
+
+                            SchedulingScreen(
+                                navController,
+                                applicationContext,
+                                organizationId!!,
+                                residueIds.map { residueId -> residueId })
                         }
                         composable(route = EScreenNames.ORGANIZATION_LIST.path) {
                             OrganizationListScreen(navController, applicationContext)
@@ -97,8 +101,7 @@ class MainActivity : ComponentActivity() {
                             arguments = (
                                     listOf(navArgument("collectId") { type = NavType.IntType }))
                         ) {
-                            val collectId: Int? =
-                                it.arguments?.getInt("collectId", 0)
+                            val collectId: Int? = it.arguments?.getInt("collectId", 0)
                             OrganizationCollectInProgressScreen(
                                 navController,
                                 applicationContext,
@@ -111,8 +114,8 @@ class MainActivity : ComponentActivity() {
                         composable(route = EScreenNames.RESET_PASSWORD.path) {
                             ResetPasswordScreen(navController, applicationContext)
                         }
-                        composable(route = EScreenNames.BOTTOM_SHEET.path) {
-                            BottomSheetScreen(navController, applicationContext)
+                        composable(route = EScreenNames.AVAILABILITY.path) {
+                            AvailabilityScreen(navController, applicationContext)
                         }
                     }
                 }

@@ -1,4 +1,4 @@
-package br.com.reconecta.components.organizarion_details
+package br.com.reconecta.components.organization_details
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement

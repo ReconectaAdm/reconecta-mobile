@@ -44,7 +44,7 @@ fun <T> handleApiResponse(
             response: Response<T>
         ) {
             setIsLoading(false)
-            response.body()?.let { setState(it) }
+            response.body()?.let { Log.i("response", it.toString()); setState(it) }
             func(response)
         }
 

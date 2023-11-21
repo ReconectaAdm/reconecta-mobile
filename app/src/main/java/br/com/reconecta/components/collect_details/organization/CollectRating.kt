@@ -60,18 +60,16 @@ fun CollectRating(
 
     val collectRating = remember { mutableStateOf(GetCollectRatingDto()) }
 
-    if (collect.id != null) {
-        handleApiResponse(
-            call = RetrofitFactory().getCollectService(context).getRatingByCollectId(4),
-            state = collectRating,
-            isLoading = isLoading
-        )
+    handleApiResponse(
+        call = RetrofitFactory().getCollectService(context).getRatingByCollectId(collect.id),
+        state = collectRating,
+        isLoading = isLoading
+    )
 
-        if (collectRating.value.collectId != null) {
-            punctuality.value = collectRating.value.punctuality!!
-            satisfaction.value = collectRating.value.satisfaction!!
-            comment.value = collectRating.value.comment!!
-        }
+    if (collectRating.value.collectId != null) {
+        punctuality.value = collectRating.value.punctuality
+        satisfaction.value = collectRating.value.satisfaction
+        comment.value = collectRating.value.comment!!
     }
 
     val isNewCollectRating = collectRating.value.collectId == null
@@ -112,7 +110,8 @@ fun CollectRating(
 
             Row(Modifier.fillMaxWidth()) {
                 BaseTextField(
-                    text = comment,
+                    text = comment.value,
+                    onChange = { comment.value = it },
                     maxLines = 3,
                     label = {
                         Row {
@@ -123,7 +122,7 @@ fun CollectRating(
                     enable = isNewCollectRating,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 15.dp),
+                        .padding(vertical = 5.dp),
                 ) {
 
                 }

@@ -308,7 +308,8 @@ fun ResidueReceiveConfirmation(
 
             Row(horizontalArrangement = Arrangement.SpaceAround) {
                 BaseTextField(
-                    text = collectQtd,
+                    text = collectQtd.value,
+                    onChange = {collectQtd.value = it},
                     keyboardType = KeyboardType.Number,
                     label = { Text("Quantidade:") },
                     modifier = Modifier.width(100.dp)

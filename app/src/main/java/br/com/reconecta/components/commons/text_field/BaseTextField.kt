@@ -86,7 +86,7 @@ fun BaseTextField(
 
 @Composable
 fun BaseTextField(
-    text: MutableState<String>,
+    text: String,
     label: @Composable (() -> Unit),
     modifier: Modifier? = Modifier,
     keyboardType: KeyboardType? = KeyboardType.Text,
@@ -94,23 +94,24 @@ fun BaseTextField(
     enable: Boolean = true,
     visualTransformation: VisualTransformation? = VisualTransformation.None,
     maxLines: Int = 1,
+    onChange: (String) -> Unit,
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
 ) {
-    val showIcon = text.value.isNotEmpty()
+    val showIcon = text.isNotEmpty()
 
     Column {
         label()
 
         OutlinedTextField(
-            value = text.value,
+            value = text,
             enabled = enable,
             leadingIcon = if (showIcon) leadingIcon else null,
             trailingIcon = if (showIcon) trailingIcon else null,
             visualTransformation = visualTransformation!!,
             keyboardOptions = KeyboardOptions(keyboardType = keyboardType!!),
             maxLines = maxLines,
-            onValueChange = { text.value = it },
+            onValueChange = { onChange(it) },
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = Color(0xFFEBEBEB),
                 unfocusedContainerColor = Color(0xFFEBEBEB),

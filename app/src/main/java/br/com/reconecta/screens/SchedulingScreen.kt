@@ -1,11 +1,7 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package br.com.reconecta.screens
 
 import android.content.Context
 import android.util.Log
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,19 +10,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -53,12 +42,11 @@ import br.com.reconecta.components.BottomSheet
 import br.com.reconecta.components.collect_details.CollectScheduled
 import br.com.reconecta.components.commons.Header
 import br.com.reconecta.components.commons.LoadingCircularIndicator
-import br.com.reconecta.components.commons.formatters.DateTimeFormatter
 import br.com.reconecta.components.scheduling.Calendar
 import br.com.reconecta.components.scheduling.FormQtd
 import br.com.reconecta.components.scheduling.HourSelection
-import br.com.reconecta.components.scheduling.SchedulingInfo
 import br.com.reconecta.components.scheduling.SuccessSchedulingDialog
+import br.com.reconecta.utils.EnumUtils.mapDayOfWeekInteger
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.atStartOfDayIn
@@ -66,22 +54,21 @@ import kotlinx.datetime.toJavaInstant
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.time.DayOfWeek
 import java.util.Date
 
 @Composable
-fun SchedulingScreen(navController: NavHostController, context: Context, residueIds: List<Int>) {
+fun SchedulingScreen(navController: NavHostController, context: Context, organizationId: Int, residueIds: List<Int>) {
 
     var loadingAvailability by remember { mutableStateOf(false) }
     var loadingResidue by remember { mutableStateOf(false) }
     var loadingCollectCreation by remember { mutableStateOf(false) }
 
-    var availableHours by remember { mutableStateOf(listOf<GetAvailabilityDto>()) }
+    var days by remember { mutableStateOf(listOf<GetAvailabilityDto>()) }
     var residues by remember { mutableStateOf(listOf<GetResidueDto>()) }
 
     handleApiResponse(
-        call = RetrofitFactory().getAvailabilityService(context).getByOrganizationId(20),
-        setState = { availableHours = it },
+        call = RetrofitFactory().getAvailabilityService(context).getByOrganizationId(organizationId),
+        setState = { days = it },
         setIsLoading = { loadingAvailability = it },
     )
 
@@ -146,6 +133,7 @@ fun SchedulingScreen(navController: NavHostController, context: Context, residue
                         fontWeight = FontWeight.Medium
                     )
                     Spacer(modifier = Modifier.height(10.dp))
+
                     residuesCollect.map { residueCollect ->
                         var qtd by remember {
                             mutableStateOf("")
@@ -165,18 +153,14 @@ fun SchedulingScreen(navController: NavHostController, context: Context, residue
                     }
                     Spacer(modifier = Modifier.height(20.dp))
 
-                    Calendar { selectedDate = it }
+                    val availableDays = days.filter { it.available }
+
+                    Calendar(availableDays = availableDays, setDate = { selectedDate = it })
                     Spacer(modifier = Modifier.height(10.dp))
 
                     if (selectedDate.year != 0) {
-                        var dayOfWeek = 0
-
-                        if (selectedDate.dayOfWeek != DayOfWeek.SUNDAY) {
-                            dayOfWeek = selectedDate.dayOfWeek.value
-                        }
-
                         HourSelection(
-                            hourSelected, { hourSelected = it }, dayOfWeek, availableHours
+                            hourSelected, { hourSelected = it }, mapDayOfWeekInteger(selectedDate.dayOfWeek), availableDays
                         )
                         Spacer(modifier = Modifier.height(20.dp))
                     }
@@ -230,7 +214,7 @@ fun SchedulingScreen(navController: NavHostController, context: Context, residue
                         ) {
                             if (loadingCollectCreation) {
                                 LoadingCircularIndicator(
-                                    loading = loadingCollectCreation, height = 20.dp, width = 20.dp
+                                    loading = true, height = 20.dp, width = 20.dp
                                 )
                             } else {
                                 Text(text = "Agendar", color = Color.White, fontSize = 18.sp)
@@ -275,7 +259,7 @@ fun handleCallCreateCollect(
 
         override fun onFailure(call: Call<GetCollectDto>, t: Throwable) {
             setLoading(false)
-            Log.e("UpdateStatus", t.message ?: "")
+            Log.e("CollectCreation", t.message ?: "")
         }
     })
 }
@@ -287,7 +271,6 @@ fun calculateAmount(
     residuesCollect.map { residueCollect ->
         val relativeResidue = residues.find { residue -> residue.id == residueCollect.residueId }
         if (relativeResidue != null) amount += relativeResidue.amountPaid * residueCollect.quantity
-
     }
     return amount
 }
