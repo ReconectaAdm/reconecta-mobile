@@ -23,6 +23,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.reconecta.R
+import br.com.reconecta.ui.theme.DisabledTestField
 
 @Composable
 fun BaseTextField(
@@ -33,10 +34,10 @@ fun BaseTextField(
     isRequired: Boolean = false,
     error: Boolean = false,
     visualTransformation: VisualTransformation? = VisualTransformation.None,
+    enabled: Boolean = true,
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
-
-) {
+    ) {
     val showIcon = text.value.isNotEmpty()
 
     Column {
@@ -60,10 +61,11 @@ fun BaseTextField(
             visualTransformation = visualTransformation!!,
             keyboardOptions = KeyboardOptions(keyboardType = keyboardType!!),
             onValueChange = { text.value = it },
+            enabled = enabled,
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = Color.Unspecified,
                 unfocusedContainerColor = Color.Unspecified,
-                disabledContainerColor = Color.Unspecified,
+                disabledContainerColor = DisabledTestField,
                 focusedIndicatorColor = Color.Unspecified,
                 unfocusedIndicatorColor = Color.Unspecified,
                 disabledIndicatorColor = Color.Unspecified,
@@ -72,7 +74,7 @@ fun BaseTextField(
                 .height(45.dp)
                 .fillMaxWidth()
                 .border(
-                    BorderStroke(width = 2.dp, color = if(error) Color.Red else Color.LightGray),
+                    BorderStroke(width = 2.dp, color = if (error) Color.Red else Color.LightGray),
                     shape = RoundedCornerShape(20)
                 ),
             textStyle = TextStyle(
