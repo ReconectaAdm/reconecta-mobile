@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,6 +24,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Edit
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
@@ -78,7 +80,7 @@ import java.util.Locale
 @Composable
 fun AvailabilityScreen(navController: NavController, context: Context) {
     var loadingAvailability by remember { mutableStateOf(false) }
-    var loadingCreateAvailability = remember { mutableStateOf(false) }
+    var loadingCreateAvailability by remember { mutableStateOf(false) }
     var days by remember { mutableStateOf(listOf(GetAvailabilityDto())) }
     var isEdit by remember {
         mutableStateOf(false)
@@ -201,10 +203,10 @@ fun AvailabilityScreen(navController: NavController, context: Context) {
                     }
 
                     handleCallUpdateAvailability(
-                        loadingCreateAvailability, availabilityRequest, context
+                        { loadingCreateAvailability = it }, availabilityRequest, context
                     )
                 }) {
-                    if (loadingCreateAvailability.value) {
+                    if (loadingCreateAvailability) {
                         LoadingCircularIndicator(loading = true, height = 20.dp, width = 20.dp)
                     } else {
                         Text(text = "Salvar", color = Color.White)
@@ -223,7 +225,13 @@ fun AvailabilityScreen(navController: NavController, context: Context) {
 fun AvailabilityGrid(days: List<GetAvailabilityDto>, setIsEdit: () -> Unit) {
     AvailabilityCard(header = {
         TextMedium("Horários")
-        TextButton(onClick = { setIsEdit() }) {
+        TextButton(
+            onClick = { setIsEdit() },
+            colors = ButtonDefaults.textButtonColors(),
+            contentPadding = PaddingValues(
+                0.dp
+            )
+        ) {
             Icon(
                 Icons.Outlined.Edit, contentDescription = null, tint = LightGreenReconecta
             )
@@ -231,9 +239,9 @@ fun AvailabilityGrid(days: List<GetAvailabilityDto>, setIsEdit: () -> Unit) {
         }
     }) {
         FlowRow(
-            modifier = Modifier.padding(4.dp),
+            modifier = Modifier.padding(horizontal = 5.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
+            horizontalArrangement = Arrangement.spacedBy(5.dp, Alignment.CenterHorizontally),
             maxItemsInEachRow = 3
         ) {
             val itemModifier = Modifier
@@ -400,12 +408,9 @@ fun TimePickerDialog(
 }
 
 fun handleCallUpdateAvailability(
-    loading: MutableState<Boolean>, request: List<CreateAvailabilityRequest>, context: Context
+    setLoading: (Boolean) -> Unit, request: List<CreateAvailabilityRequest>, context: Context
 ) {
-    loading.value = true
-
-    val gson = Gson()
-    val json = gson.toJson(request)
+    setLoading(true)
 
     val call = RetrofitFactory().getAvailabilityService(context).update(request)
 
@@ -424,11 +429,11 @@ fun handleCallUpdateAvailability(
                 Log.e("Availability", response.message())
             }
 
-            loading.value = false
+            setLoading(false)
         }
 
         override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-            loading.value = false
+            setLoading(false)
             Log.e("Availability", t.message ?: "")
         }
     })
