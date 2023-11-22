@@ -26,7 +26,6 @@ fun OrganizationCollectDetailsScreen(navController: NavHostController, context: 
                 content = { Text(text = "Abrir modal") })
         }, {
             OrganizationCollectDetail(
-                navController = navController,
                 context = context,
                 collectId = id
             )

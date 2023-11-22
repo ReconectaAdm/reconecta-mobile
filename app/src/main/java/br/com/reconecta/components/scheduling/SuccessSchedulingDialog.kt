@@ -38,8 +38,7 @@ import br.com.reconecta.screens.EScreenNames
 fun SuccessSchedulingDialog(
     navController: NavHostController,
     collect: GetCollectDto,
-    closeSuccessDialog: () -> Unit,
-    openSchedulingDetailsDialogState: () -> Unit
+    closeSuccessDialog: () -> Unit
 ) {
 
     Dialog(
@@ -100,7 +99,7 @@ fun SuccessSchedulingDialog(
                         disabledContentColor = Color.White.copy(alpha = 0.7f),
                         disabledContainerColor = Color(0xFF3E9629).copy(alpha = 0.7f)
                     ),
-                    onClick = { closeSuccessDialog(); openSchedulingDetailsDialogState() },
+                    onClick = { closeSuccessDialog(); },
                 ) {
                     Text(text = "Ver detalhes", color = Color.White)
                 }

@@ -18,27 +18,34 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import br.com.reconecta.api.model.GetCollectDto
 import br.com.reconecta.api.model.enums.CollectStatus
+import br.com.reconecta.api.model.enums.CompanyType
 import br.com.reconecta.api.model.enums.mapCollecStatus
 import br.com.reconecta.api.service.RetrofitFactory
 import br.com.reconecta.api.service.handleRetrofitApiCall
 import br.com.reconecta.components.BottomSheet
+import br.com.reconecta.components.collect_details.CollectScheduled
 import br.com.reconecta.components.collect_details.CollectValue
 import br.com.reconecta.components.collect_details.CompanyInfo.OrganizationInfo
 import br.com.reconecta.components.collect_details.ResidueInfo
+import br.com.reconecta.components.collect_details.establishment.CollectConcluded
+import br.com.reconecta.components.collect_details.establishment.CollectInProgress
+import br.com.reconecta.components.collect_details.establishment.EstablishmentCollectDetail
 import br.com.reconecta.components.collect_details.organization.CollectRating
 
 @Composable
-fun EstablishmentCollectDetailsScreen(navController: NavHostController, context: Context) {
+fun EstablishmentCollectDetailsScreen(navController: NavController, context: Context) {
+    val id = 4
     var openCollectDetail by rememberSaveable { mutableStateOf(false) }
 
     val collect = remember { mutableStateOf(GetCollectDto()) }
     val isLoading = remember { mutableStateOf(false) }
 
     handleRetrofitApiCall(
-        call = RetrofitFactory().getCollectService(context).getById(4),
+        call = RetrofitFactory().getCollectService(context).getById(id),
         setState = { collect.value = it },
         setIsLoading = { isLoading.value = it }
     )
@@ -49,33 +56,6 @@ fun EstablishmentCollectDetailsScreen(navController: NavHostController, context:
             Button(onClick = { openCollectDetail = true }, content = { Text(text = "Abrir modal") })
         }
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = "Coleta ${mapCollecStatus(collect.value.status!!)}",
-                fontWeight = FontWeight.Medium,
-                fontSize = 18.sp
-            )
-        }
-
-        OrganizationInfo(
-            label = "Organização",
-            organization = collect.value.organization!!,
-            context = context
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        if (collect.value.status == CollectStatus.CONCLUDED) {
-            CollectRating(collect = collect.value, context = context)
-        }
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        ResidueInfo("Dados da coleta", residues = collect.value.residues)
-
-        CollectValue(collectValue = collect.value.value!!)
+        EstablishmentCollectDetail(collectId = id, context = context)
     }
 }
-
