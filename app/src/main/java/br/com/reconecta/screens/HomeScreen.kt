@@ -44,6 +44,7 @@ import br.com.reconecta.components.Organizacao
 import br.com.reconecta.components.Residuo
 import br.com.reconecta.components.commons.BottomNavBar
 import br.com.reconecta.components.commons.ENavMenuItems
+import br.com.reconecta.enums.EScreenNames
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

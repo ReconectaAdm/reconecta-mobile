@@ -28,7 +28,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextDecoration
@@ -37,12 +36,13 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import br.com.reconecta.R
 import br.com.reconecta.api.model.Address
+import br.com.reconecta.components.YesOrNoOption
 import br.com.reconecta.components.commons.Header
 import br.com.reconecta.components.commons.buttons.SecondaryButton
 import br.com.reconecta.components.commons.text_field.BaseTextField
 import br.com.reconecta.components.commons.text_field.masks.MaskVisualTransformation
 import br.com.reconecta.core.SessionManager
-import br.com.reconecta.screens.EScreenNames
+import br.com.reconecta.enums.EScreenNames
 import br.com.reconecta.ui.theme.LightGreenReconecta
 
 @Composable
@@ -274,32 +274,6 @@ fun RemoveAddressModal(isOpenDialialog: MutableState<Boolean>) {
     AlertDialog(containerColor = Color.White, title = {
         Text(text = "Tem certeza que deseja excluir este endereço?")
     }, text = {
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 30.dp)
-        ) {
-            Row(Modifier.clickable { isOpenDialialog.value = false }) {
-                Icon(
-                    painterResource(id = R.drawable.cancel_icon),
-                    contentDescription = "Cancel icon",
-                    tint = Color.Red
-                )
-                Spacer(modifier = Modifier.width(7.dp))
-                Text(text = AnnotatedString(text = "Não"))
-            }
-
-            Row {
-                Icon(
-                    painterResource(id = R.drawable.confirm_icon),
-                    contentDescription = "Confirm icon",
-                    tint = LightGreenReconecta,
-                )
-                Spacer(modifier = Modifier.width(7.dp))
-                Text(text = AnnotatedString(text = "Sim"))
-            }
-        }
-
+        YesOrNoOption(cancelAction = { isOpenDialialog.value = false }, confirmAction = {})
     }, onDismissRequest = {}, confirmButton = {})
 }

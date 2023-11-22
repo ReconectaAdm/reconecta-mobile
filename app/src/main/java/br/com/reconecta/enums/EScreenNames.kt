@@ -1,4 +1,4 @@
-package br.com.reconecta.screens
+package br.com.reconecta.enums
 
 enum class EScreenNames(val path: String) {
     LOGIN("login"),

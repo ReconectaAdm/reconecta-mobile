@@ -49,6 +49,7 @@ import br.com.reconecta.components.organizarion_details.Residuo
 import br.com.reconecta.components.organizarion_details.StarRating
 import br.com.reconecta.components.organizarion_details.TextMenuItem
 import br.com.reconecta.components.organizarion_details.orgMock
+import br.com.reconecta.enums.EScreenNames
 import br.com.reconecta.ui.theme.MediumGreenReconecta
 
 

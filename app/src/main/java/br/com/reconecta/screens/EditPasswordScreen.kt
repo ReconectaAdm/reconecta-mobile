@@ -24,6 +24,7 @@ import br.com.reconecta.components.commons.Header
 import br.com.reconecta.components.commons.LoadingCircularIndicator
 import br.com.reconecta.components.commons.buttons.SecondaryButton
 import br.com.reconecta.components.commons.text_field.PasswordTextField
+import br.com.reconecta.enums.EScreenNames
 
 @Composable
 fun EditPasswordScreen(context: Context, navController: NavController) {

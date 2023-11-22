@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -20,13 +19,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import br.com.reconecta.R
-import br.com.reconecta.api.model.LoginRequest
-import br.com.reconecta.api.service.RetrofitFactory
-import br.com.reconecta.api.service.handleRetrofitApiCall
 import br.com.reconecta.components.commons.RoundedTopBaseBox
 import br.com.reconecta.components.login.FormLogin
 import br.com.reconecta.components.login.LoginHeader
-import br.com.reconecta.core.SessionManager
+import br.com.reconecta.enums.EScreenNames
 import br.com.reconecta.ui.theme.DarkGreenReconecta
 
 
