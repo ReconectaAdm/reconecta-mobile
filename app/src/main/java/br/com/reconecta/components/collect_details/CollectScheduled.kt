@@ -37,11 +37,15 @@ fun CollectScheduled(
     context: Context
 ) {
     Column(
-        Modifier.fillMaxWidth(),
+        Modifier.fillMaxWidth().padding(bottom = 15.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        TextMedium(content = "Detalhes agendamento", textAlign = TextAlign.Center)
+        TextMedium(
+            modifier = Modifier.padding(bottom = 15.dp),
+            content = "Detalhes agendamento",
+            textAlign = TextAlign.Center
+        )
         Row(
             Modifier
                 .fillMaxWidth()
@@ -56,7 +60,7 @@ fun CollectScheduled(
             Icon(
                 modifier = Modifier.padding(horizontal = 5.dp),
                 imageVector = Icons.Filled.CheckCircle,
-                contentDescription = "Ícone de agendamento",
+                contentDescription = null,
                 tint = Color.Yellow
             )
             Spacer(modifier = Modifier.width(2.dp))

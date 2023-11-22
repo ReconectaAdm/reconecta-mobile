@@ -27,7 +27,7 @@ fun EstablishmentCollectDetail(collectId: Int, context: Context) {
 
     when (collect.status) {
         CollectStatus.CONCLUDED -> CollectConcluded(collect = collect, context = context)
-        CollectStatus.PENDING -> CollectInProgress(collect = collect, context = context)
+        CollectStatus.IN_PROGRESS -> CollectInProgress(collect = collect, context = context)
         CollectStatus.SCHEDULED -> CollectScheduled(
             collect = collect,
             companyType = CompanyType.ESTABLISHMENT,

@@ -18,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import br.com.reconecta.api.model.GetAvailabilityDto
 import br.com.reconecta.components.commons.texts.TextMedium
-import br.com.reconecta.screens.AvailabilityStatus
 import br.com.reconecta.ui.theme.LightGreenReconecta
 
 @OptIn(ExperimentalLayoutApi::class)

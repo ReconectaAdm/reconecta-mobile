@@ -14,7 +14,6 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -25,7 +24,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.reconecta.R
-import br.com.reconecta.ui.theme.DisabledTestField
+import br.com.reconecta.ui.theme.DisabledTextField
 
 @Composable
 fun BaseTextField(
@@ -67,7 +66,7 @@ fun BaseTextField(
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = Color.Unspecified,
                 unfocusedContainerColor = Color.Unspecified,
-                disabledContainerColor = DisabledTestField,
+                disabledContainerColor = DisabledTextField,
                 focusedIndicatorColor = Color.Unspecified,
                 unfocusedIndicatorColor = Color.Unspecified,
                 disabledIndicatorColor = Color.Unspecified,

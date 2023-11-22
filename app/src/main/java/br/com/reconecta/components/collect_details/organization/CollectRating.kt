@@ -18,8 +18,10 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -47,33 +49,24 @@ fun CollectRating(
     context: Context
 ) {
 
-    val punctuality = remember { mutableStateOf(0f) }
-    val satisfaction = remember { mutableStateOf(0f) }
+    var punctuality by remember { mutableStateOf(0f) }
+    var satisfaction by remember { mutableStateOf(0f) }
 
-    val comment = remember {
+    var comment by remember {
         mutableStateOf("")
     }
 
-    val isLoading = remember {
-        mutableStateOf(false)
+    if (collect.rating != null) {
+        punctuality = collect.rating!!.punctuality
+        satisfaction = collect.rating!!.satisfaction
+        comment = collect.rating!!.comment!!
     }
 
-    val collectRating = remember { mutableStateOf(GetCollectRatingDto()) }
-
-    handleRetrofitApiCall(
-        call = RetrofitFactory().getCollectService(context).getRatingByCollectId(collect.id),
-        setState = { collectRating.value = it },
-        setIsLoading = { isLoading.value = it }
-    )
-
-    if (collectRating.value.collectId != null) {
-        punctuality.value = collectRating.value.punctuality
-        satisfaction.value = collectRating.value.satisfaction
-        comment.value = collectRating.value.comment!!
+    var isNewCollectRating by remember {
+        mutableStateOf(collect.rating == null)
     }
 
-    val isNewCollectRating = collectRating.value.collectId == null
-    val collectRatingLoading = remember { mutableStateOf(false) }
+    var collectRatingLoading by remember { mutableStateOf(false) }
 
     Card(
         modifier = Modifier
@@ -94,15 +87,15 @@ fun CollectRating(
 
             Rating(
                 label = "Pontualidade",
-                ratingValue = punctuality.value,
-                setRatingValue = { punctuality.value = it },
+                ratingValue = punctuality,
+                setRatingValue = { punctuality = it },
                 isEditable = isNewCollectRating
             )
 
             Rating(
                 label = "Satisfação",
-                ratingValue = satisfaction.value,
-                setRatingValue = { satisfaction.value = it },
+                ratingValue = satisfaction,
+                setRatingValue = { satisfaction = it },
                 isEditable = isNewCollectRating
             )
 
@@ -110,8 +103,8 @@ fun CollectRating(
 
             Row(Modifier.fillMaxWidth()) {
                 BaseTextField(
-                    text = comment.value,
-                    onChange = { comment.value = it },
+                    text = comment,
+                    onChange = { comment = it },
                     maxLines = 3,
                     label = {
                         Row {
@@ -128,26 +121,24 @@ fun CollectRating(
                 }
             }
 
-
-
             if (!isNewCollectRating) {
                 Text(
                     text = "Obrigado, sua opinião ajuda a melhorar nossos serviços!",
                     fontWeight = FontWeight.Medium,
                     textAlign = TextAlign.Center
                 )
-            } else {
+            } else if (punctuality != 0f && satisfaction != 0f) {
                 OutlinedButton(
                     onClick = {
                         handleCallCollectRating(
-                            collectRatingLoading,
+                            setLoading = { collectRatingLoading = it },
+                            setNewCollectRating = { isNewCollectRating = it },
                             CreateCollectRatingRequest(
-                                comment.value,
-                                punctuality.value,
-                                satisfaction.value,
-                                4
+                                comment,
+                                punctuality,
+                                satisfaction,
+                                collect.id
                             ),
-                            collectRating,
                             context
                         )
                     },
@@ -155,15 +146,15 @@ fun CollectRating(
                     shape = RoundedCornerShape(15.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color.White,
-                        disabledContainerColor = DisabledButton
                     ),
                     modifier = Modifier
+                        .padding(top = 10.dp)
                         .height(35.dp)
                         .width(175.dp)
                 ) {
 
-                    if (collectRatingLoading.value) LoadingCircularIndicator(
-                        loading = collectRatingLoading.value,
+                    if (collectRatingLoading) LoadingCircularIndicator(
+                        loading = true,
                         height = 20.dp,
                         width = 20.dp
                     )
@@ -177,14 +168,14 @@ fun CollectRating(
 }
 
 fun handleCallCollectRating(
-    loading: MutableState<Boolean>,
+    setLoading: (Boolean) -> Unit,
+    setNewCollectRating: (Boolean) -> Unit,
     collectRating: CreateCollectRatingRequest,
-    collectRatingDto: MutableState<GetCollectRatingDto>,
     context: Context
 ) {
     Log.i("CollectRating", collectRating.toString())
 
-    loading.value = true
+    setLoading(true)
     val call = RetrofitFactory().getCollectService(context).createRating(collectRating)
 
     call.enqueue(object : Callback<GetCollectRatingDto> {
@@ -192,7 +183,7 @@ fun handleCallCollectRating(
             call: Call<GetCollectRatingDto>, response: Response<GetCollectRatingDto>
         ) {
             if (response.isSuccessful) {
-                response.body()?.let { collectRatingDto.value = it }
+                setNewCollectRating(false)
             } else if (response.errorBody() != null) {
                 val resp = response.errorBody()!!.string()
                 Log.i("CollectRating", resp)
@@ -201,11 +192,11 @@ fun handleCallCollectRating(
                 Log.i("CollectRating", response.message())
             }
 
-            loading.value = false
+            setLoading(false)
         }
 
         override fun onFailure(call: Call<GetCollectRatingDto>, t: Throwable) {
-            loading.value = false
+            setLoading(false)
             Log.i("CollectRating", t.message ?: "")
         }
     })

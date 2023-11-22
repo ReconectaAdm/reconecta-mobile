@@ -38,7 +38,7 @@ import br.com.reconecta.components.collect_details.organization.CollectRating
 
 @Composable
 fun EstablishmentCollectDetailsScreen(navController: NavController, context: Context) {
-    val id = 4
+    val id = 12
     var openCollectDetail by rememberSaveable { mutableStateOf(false) }
 
     val collect = remember { mutableStateOf(GetCollectDto()) }

@@ -17,5 +17,5 @@ data class GetCollectDto(
     val organization: GetOrganizationDto? = null,
     val company: String? = null,
     val residues: ArrayList<GetCollectResidueDto> = arrayListOf(),
-    val rating: GetCollectRatingDto? = null
+    var rating: GetCollectRatingDto? = null
 )
