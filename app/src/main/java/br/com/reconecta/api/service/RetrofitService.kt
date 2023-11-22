@@ -7,7 +7,7 @@ import br.com.reconecta.api.model.CreateAccountRequest
 import br.com.reconecta.api.model.UpdatePasswordRequest
 import br.com.reconecta.components.EAccountType
 import br.com.reconecta.core.AppConstants
-import br.com.reconecta.screens.EScreenNames
+import br.com.reconecta.enums.EScreenNames
 
 object RetrofitService {
 
