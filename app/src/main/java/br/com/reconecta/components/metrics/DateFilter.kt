@@ -19,6 +19,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
@@ -74,8 +75,11 @@ fun DateFilter(
                 }
             )
         }
-        Text(text = "${startDate}-${endDate}")
-        Spacer(modifier = Modifier.weight(1f))
+        Text(
+            text = "${startDate}-${endDate}",
+            textAlign = TextAlign.Center,
+            modifier = Modifier.weight(1f)
+        )
         Icon(
             imageVector = Icons.Outlined.DateRange,
             contentDescription = "Calendar icon",
