@@ -1,5 +1,6 @@
 package br.com.reconecta.components.metrics
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -23,6 +24,7 @@ import br.com.reconecta.api.model.TypeResidueItem
 
 @Composable
 fun MostCollectedWasteTypes(residues: List<TypeResidueItem>) {
+    Log.d("Debug", "Residues: $residues")
     Card(
         modifier = Modifier
             .width(391.dp)
@@ -49,7 +51,6 @@ fun MostCollectedWasteTypes(residues: List<TypeResidueItem>) {
                 fontSize = 20.sp
             )
 
-            // Itera sobre a lista de resíduos ordenada por quantidade
             residues.forEach { residue ->
                 WasteTypeItem(residue)
             }
@@ -83,6 +84,22 @@ fun WasteTypeItem(residue: TypeResidueItem) {
             ),
             modifier = Modifier.weight(1f)
         )
+
+        Box(
+            modifier = Modifier
+                .width(40.dp)
+                .height(22.dp),
+            contentAlignment = Alignment.CenterEnd
+        ) {
+            Text(
+                text = residue.qtd.toString(),
+                style = TextStyle(
+                    fontSize = 16.sp,
+                    color = Color(0xFF000000),
+                    fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                )
+            )
+        }
 
         Spacer(modifier = Modifier.width(16.dp))
     }

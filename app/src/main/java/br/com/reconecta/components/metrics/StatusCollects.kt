@@ -35,7 +35,7 @@ fun StatusCollects(
                 color = Color(0xFFE4E4E4),
                 shape = RoundedCornerShape(size = 10.dp)
             ),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFFFFFFFF)),
+        colors = CardDefaults.cardColors(containerColor = Color.White),
         shape = RoundedCornerShape(size = 10.dp)
     ) {
         Column(

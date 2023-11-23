@@ -28,7 +28,7 @@ fun TotalCollectsPoints(
             .width(391.dp)
             .height(75.dp)
             .padding(horizontal = 2.dp),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFFFFFFFF)),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFF3E9629)),
         shape = RoundedCornerShape(size = 10.dp)
     ) {
         Row(
@@ -69,7 +69,7 @@ private fun TextElement(title: String, value: Int) {
     Text(
         text = title,
         style = TextStyle(
-            fontSize = 16.sp,
+            fontSize = 20.sp,
             fontWeight = FontWeight(600),
             color = Color.White,
         )
@@ -84,5 +84,7 @@ private fun TextElement(title: String, value: Int) {
         )
     )
 }
+
+
 
 

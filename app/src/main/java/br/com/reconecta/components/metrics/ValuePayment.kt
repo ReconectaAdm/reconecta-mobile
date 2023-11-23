@@ -1,5 +1,6 @@
 package br.com.reconecta.components.metrics
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -22,12 +23,19 @@ fun ValueCard(
     titleColor: Color,
     valueColor: Color,
     cardColor: Color,
+    showBorder: Boolean = true,
+    borderColor: Color = Color(0xFFE4E4E4)
 ) {
     Card(
         modifier = Modifier
             .width(391.dp)
             .height(75.dp)
-            .padding(horizontal = 2.dp),
+            .padding(horizontal = 2.dp)
+            .border(
+                width = if (showBorder) 1.dp else 0.dp,
+                color = borderColor,
+                shape = RoundedCornerShape(size = 10.dp)
+            ),
         colors = CardDefaults.cardColors(containerColor = cardColor),
         shape = RoundedCornerShape(size = 10.dp)
     ) {
