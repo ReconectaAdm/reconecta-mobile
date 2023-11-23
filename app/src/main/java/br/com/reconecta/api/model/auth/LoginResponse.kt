@@ -37,6 +37,6 @@ data class Address(
     val city: String,
     val state: String,
     val postalCode: String,
-    val latitude: Int? = null,
-    val longitude: Int? = null,
+    val latitude: Float? = null,
+    val longitude: Float? = null,
 )

@@ -27,7 +27,7 @@ import retrofit2.Response
 
 @Composable
 fun OrganizationCollectInProgressScreen(
-    navController: NavHostController, context: Context, collectId: Int
+    navController: NavHostController, context: Context, collectId: Int = 12
 ) {
     var openCollectInfo by remember {
         mutableStateOf(false)

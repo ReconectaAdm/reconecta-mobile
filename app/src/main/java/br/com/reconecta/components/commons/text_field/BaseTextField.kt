@@ -71,6 +71,7 @@ fun BaseTextField(
                 unfocusedIndicatorColor = Color.Unspecified,
                 disabledIndicatorColor = Color.Unspecified,
             ),
+            maxLines = 1,
             modifier = modifier!!
                 .height(45.dp)
                 .fillMaxWidth()
@@ -91,7 +92,6 @@ fun BaseTextField(
     label: @Composable (() -> Unit),
     modifier: Modifier? = Modifier,
     keyboardType: KeyboardType? = KeyboardType.Text,
-    error: Boolean = false,
     enable: Boolean = true,
     visualTransformation: VisualTransformation? = VisualTransformation.None,
     maxLines: Int = 1,

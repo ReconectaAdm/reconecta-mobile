@@ -56,7 +56,7 @@ fun BottomSheet(
         ) {
             Column(
                 Modifier
-                    .height(600.dp)
+//                    .height(600.dp)
                     .fillMaxWidth()
                     .padding(start = 25.dp, end = 25.dp, bottom = 30.dp)
             ) {
