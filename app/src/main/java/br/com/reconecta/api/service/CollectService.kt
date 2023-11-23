@@ -30,6 +30,9 @@ interface CollectService {
     @GET("api/collect/summary")
     fun getSummary(): Call<GetSummaryResponse>
 
+    @GET("api/collect/summary")
+    suspend fun getSummaryAsync(): GetSummaryResponse
+
     @GET("api/collect/rating/{collectId}")
     fun getRatingByCollectId(@Path("collectId") collectId: Int): Call<GetCollectRatingDto>
 

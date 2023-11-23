@@ -28,6 +28,8 @@ import br.com.reconecta.screens.EditAvailabilityScreen
 import br.com.reconecta.screens.EditBankAccountScreen
 import br.com.reconecta.screens.EditPasswordScreen
 import br.com.reconecta.screens.EditResiduesScreen
+import br.com.reconecta.screens.EstablishmentMetricsScreen
+import br.com.reconecta.screens.OrganizationMetricsScreen
 import br.com.reconecta.screens.ResetPasswordScreen
 import br.com.reconecta.screens.SchedulingScreen
 import br.com.reconecta.screens.SignUpScreen
@@ -140,6 +142,12 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(route = EScreenNames.ACCOUNT_INFO_EDIT_RESIDUES.path){
                             EditResiduesScreen(applicationContext, navController)
+                        }
+                        composable(route = EScreenNames.ESTABLISHMENT_METRICS.path){
+                            EstablishmentMetricsScreen(applicationContext, navController)
+                        }
+                        composable(route = EScreenNames.ORGANIZATION_METRICS.path){
+                            OrganizationMetricsScreen(applicationContext, navController)
                         }
                     }
                 }

@@ -1,9 +1,9 @@
 package br.com.reconecta.api.service
 
 import android.content.Context
+import androidx.navigation.NavHostController
 import br.com.reconecta.core.AuthInterceptor
 import br.com.reconecta.core.createGsonSerializer
-import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -29,7 +29,7 @@ class RetrofitFactory {
         return organizationService
     }
 
-    fun getCollectService(context: Context): CollectService {
+    fun getCollectService(context: NavHostController): CollectService {
         if (!::collectService.isInitialized) {
             collectService = baseRetrofit(context).create(CollectService::class.java)
         }

@@ -17,7 +17,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -33,11 +32,9 @@ import br.com.reconecta.api.model.CreateCollectRatingRequest
 import br.com.reconecta.api.model.GetCollectDto
 import br.com.reconecta.api.model.GetCollectRatingDto
 import br.com.reconecta.api.service.RetrofitFactory
-import br.com.reconecta.api.service.handleRetrofitApiCall
 import br.com.reconecta.components.commons.LoadingCircularIndicator
 import br.com.reconecta.components.commons.rating.Rating
 import br.com.reconecta.components.commons.text_field.BaseTextField
-import br.com.reconecta.ui.theme.DisabledButton
 import br.com.reconecta.ui.theme.LightGreenReconecta
 import retrofit2.Call
 import retrofit2.Callback

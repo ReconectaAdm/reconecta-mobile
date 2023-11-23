@@ -19,4 +19,6 @@ enum class EScreenNames(val path: String) {
     ACCOUNT_INFO_EDIT_WALLET("accountInfoEditWallet"),
     ACCOUNT_INFO_EDIT_AVAILABILITY("accountInfoEditAvailability"),
     ACCOUNT_INFO_EDIT_RESIDUES("accountInfoEditResidues"),
+    ESTABLISHMENT_METRICS("establishmentMetrics"),
+    ORGANIZATION_METRICS("organizationMetrics"),
 }
