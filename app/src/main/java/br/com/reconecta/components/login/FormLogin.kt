@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import br.com.reconecta.R
-import br.com.reconecta.api.model.LoginRequest
+import br.com.reconecta.api.model.auth.LoginRequest
 import br.com.reconecta.api.service.RetrofitFactory
 import br.com.reconecta.api.service.handleRetrofitApiCall
 import br.com.reconecta.components.commons.LoadingCircularIndicator

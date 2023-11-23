@@ -1,6 +1,5 @@
 package br.com.reconecta.screens
 
-import android.annotation.SuppressLint
 import android.content.Context
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
@@ -53,7 +52,6 @@ import br.com.reconecta.ui.theme.LightGreenReconecta
 import br.com.reconecta.utils.StringUtils
 
 
-@SuppressLint("UnrememberedMutableState")
 @Composable
 fun EditResiduesScreen(context: Context, navController: NavController) {
     val errorMessage = remember { mutableStateOf("") }
@@ -99,7 +97,7 @@ fun EditResiduesScreen(context: Context, navController: NavController) {
             showDialogBox.value -> {
                 val value = selectedResidueToEdit.value
 
-                if(value != null){
+                if (value != null) {
                     name.value = value.name
                     valor.value = "${value.amountPaid}"
                     unitMeasure.value = mapAbrevUnitMeasure(value.unitMeasure)
@@ -139,13 +137,14 @@ fun EditResiduesScreen(context: Context, navController: NavController) {
                                         )
                                     ), isLoading = isLoading,
                                 onResponse = {
-                                    if(it.isSuccessful)
+                                    if (it.isSuccessful)
                                         showDialogBox.value = false
                                 }
                             )
                         }
                     })
             }
+
             showAlertDeleteResidue.value -> {
                 CreateDeleteAlertDialog(
                     showAlertDeleteResidue, context, selectedResidueToEdit, isLoading

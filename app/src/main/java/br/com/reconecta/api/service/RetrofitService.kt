@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.compose.runtime.MutableState
 import androidx.navigation.NavHostController
 import br.com.reconecta.api.model.CreateAccountRequest
-import br.com.reconecta.api.model.UpdatePasswordRequest
+import br.com.reconecta.api.model.auth.UpdatePasswordRequest
 import br.com.reconecta.components.EAccountType
 import br.com.reconecta.core.AppConstants
 import br.com.reconecta.enums.EScreenNames
