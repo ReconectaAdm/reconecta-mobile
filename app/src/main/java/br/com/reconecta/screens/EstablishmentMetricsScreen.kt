@@ -1,7 +1,6 @@
 package br.com.reconecta.screens
 
 import android.content.Context
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -21,7 +20,7 @@ import androidx.navigation.NavHostController
 import br.com.reconecta.api.model.GetSummaryResponse
 import br.com.reconecta.api.service.RetrofitFactory
 import br.com.reconecta.api.service.handleRetrofitApiCall
-import br.com.reconecta.components.commons.Header
+import br.com.reconecta.components.commons.HeaderWithoutArrow
 import br.com.reconecta.components.metrics.MostCollectedWasteTypes
 import br.com.reconecta.components.metrics.StatusCollects
 import br.com.reconecta.components.metrics.TotalCollectsPoints
@@ -54,8 +53,7 @@ fun EstablishmentMetricsScreen(
             .fillMaxWidth()
     ) {
 
-        Header(text = "Métricas", onClick = {
-        })
+        HeaderWithoutArrow(text = "Métricas")
 
         Divider(thickness = 1.dp, color = Color.LightGray)
 
@@ -67,8 +65,6 @@ fun EstablishmentMetricsScreen(
                 .weight(1f)
                 .verticalScroll(rememberScrollState())
         ) {
-            Spacer(modifier = Modifier.height(20.dp))
-
 
             DateFilter(
                 startDate = startDate,
@@ -79,12 +75,10 @@ fun EstablishmentMetricsScreen(
                     .fillMaxWidth()
                     .padding(16.dp)
             )
-
             if (isLoading) {
                 // Loading indicator
                 CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
             } else {
-
                 TotalCollectsPoints(
                     collects = establishmentMetrics.collects,
                     points = establishmentMetrics.points
@@ -98,18 +92,16 @@ fun EstablishmentMetricsScreen(
                     titleColor = Color.White,
                     valueColor = Color.White,
                     cardColor = Color(0xFF3E9629),
+                    showBorder = false
                 )
 
                 Spacer(modifier = Modifier.height(20.dp))
 
                 StatusCollects(
                     title = "Status coletas",
-                    quantidadeConcluidas = establishmentMetrics.status.find { it.name == "CONCLUDED" }?.qtd
-                        ?: 0,
-                    quantidadeAgendadas = establishmentMetrics.status.find { it.name == "SCHEDULED" }?.qtd
-                        ?: 0,
-                    quantidadeCanceladas = establishmentMetrics.status.find { it.name == "CANCELLED" }?.qtd
-                        ?: 0
+                    quantidadeConcluidas = establishmentMetrics.status.find { it.name == "CONCLUDED" }?.qtd ?: 0,
+                    quantidadeAgendadas = establishmentMetrics.status.find { it.name == "SCHEDULED" }?.qtd ?: 0,
+                    quantidadeCanceladas = establishmentMetrics.status.find { it.name == "CANCELLED" }?.qtd ?: 0
                 )
 
                 Spacer(modifier = Modifier.height(20.dp))
@@ -127,4 +119,6 @@ fun EstablishmentMetricsScreen(
 
     }
 }
+
+
 
