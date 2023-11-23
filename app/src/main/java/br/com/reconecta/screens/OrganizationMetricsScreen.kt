@@ -1,16 +1,13 @@
 package br.com.reconecta.screens
 
 import android.content.Context
-import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
@@ -22,12 +19,13 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import br.com.reconecta.api.model.GetSummaryResponse
 import br.com.reconecta.api.service.RetrofitFactory
-import br.com.reconecta.components.commons.Header
-import br.com.reconecta.components.metrics.MostCollectedWasteTypes
+import br.com.reconecta.api.service.handleRetrofitApiCall
+import br.com.reconecta.components.commons.HeaderWithoutArrow
 import br.com.reconecta.components.metrics.StatusCollects
 import br.com.reconecta.components.metrics.TotalCollectsPoints
 import br.com.reconecta.components.metrics.ValueCard
 import br.com.reconecta.components.metrics.DateFilter
+import java.time.LocalDate
 
 
 @Composable
@@ -35,22 +33,18 @@ fun OrganizationMetricsScreen(
     context: Context,
     navController: NavHostController
 ) {
-    var isLoading by remember { mutableStateOf(true) }
+    var isLoading by remember { mutableStateOf(false) }
     var organizationMetrics by remember { mutableStateOf(GetSummaryResponse()) }
+    var startDate by remember { mutableStateOf(LocalDate.of(2023, 11, 20)) }
+    var endDate by remember { mutableStateOf(LocalDate.of(2023, 11, 20)) }
 
-//    LaunchedEffect(Unit) {
-//        try {
-//            isLoading = true
-//
-//            val collectService = RetrofitFactory().getCollectService(context)
-//            organizationMetrics = collectService.getSummaryAsync()
-//
-//            isLoading = false
-//        } catch (e: Exception) {
-//            Log.e("EstMetricsScreen", "Error fetching metrics: ${e.message}", e)
-//            isLoading = false
-//        }
-//    }
+
+    handleRetrofitApiCall(
+        call = RetrofitFactory().getCollectService(context).getSummaryAsync(startDate, endDate),
+        setIsLoading = { isLoading = it },
+        setState = { organizationMetrics = it })
+
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -58,8 +52,7 @@ fun OrganizationMetricsScreen(
             .fillMaxWidth()
     ) {
 
-        Header(text = "Métricas", onClick = {
-        })
+        HeaderWithoutArrow(text = "Métricas")
 
         Divider(thickness = 1.dp, color = Color.LightGray)
 
@@ -71,24 +64,20 @@ fun OrganizationMetricsScreen(
                 .weight(1f)
                 .verticalScroll(rememberScrollState())
         ) {
-            Spacer(modifier = Modifier.height(20.dp))
-
 
             DateFilter(
-                startDate = null,
-                endDate = null,
-                onStartDateSelected = {},
-                onEndDateSelected = {},
+                startDate = startDate,
+                endDate = endDate,
+                onStartDateSelected = { startDate = it },
+                onEndDateSelected = { endDate = it },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
             )
-
             if (isLoading) {
                 // Loading indicator
                 CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
             } else {
-
                 TotalCollectsPoints(
                     collects = organizationMetrics.collects,
                     points = organizationMetrics.points
@@ -97,11 +86,12 @@ fun OrganizationMetricsScreen(
                 Spacer(modifier = Modifier.height(20.dp))
 
                 ValueCard(
-                    title = "Total pagamentos",
+                    title = "Total valor recebido",
                     value = "R$ ${organizationMetrics.value}",
                     titleColor = Color.Black,
-                    valueColor = Color(0xFFF13D3D),
-                    cardColor = Color.White
+                    valueColor = Color.Red,
+                    cardColor = Color.White,
+                    showBorder = true
                 )
 
                 Spacer(modifier = Modifier.height(20.dp))
@@ -113,9 +103,6 @@ fun OrganizationMetricsScreen(
                     quantidadeCanceladas = organizationMetrics.status.find { it.name == "CANCELLED" }?.qtd ?: 0
                 )
 
-                Spacer(modifier = Modifier.height(20.dp))
-
-                Divider(thickness = 1.dp, color = Color.LightGray)
             }
         }
 
