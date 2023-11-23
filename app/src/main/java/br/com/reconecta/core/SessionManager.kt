@@ -3,7 +3,7 @@ package br.com.reconecta.core
 import android.content.Context
 import android.content.SharedPreferences
 import br.com.reconecta.R
-import br.com.reconecta.api.model.UserResponse
+import br.com.reconecta.api.model.auth.UserResponse
 
 class SessionManager(context: Context) {
     private var prefs: SharedPreferences =
@@ -12,6 +12,13 @@ class SessionManager(context: Context) {
     companion object {
         const val USER_TOKEN = "user_token"
         const val USER_SESSION = "user_session"
+    }
+
+    fun clear(){
+        val editor = prefs.edit()
+        editor.remove(USER_TOKEN)
+        editor.remove(USER_SESSION)
+        editor.apply()
     }
 
     fun saveUserSession(user: UserResponse){

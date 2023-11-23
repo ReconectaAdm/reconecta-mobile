@@ -48,11 +48,11 @@ import br.com.reconecta.components.commons.ENavMenuItems
 import br.com.reconecta.components.commons.Header
 import br.com.reconecta.components.commons.text_field.BaseTextField
 import br.com.reconecta.components.commons.text_field.CnpjTextField
+import br.com.reconecta.enums.EScreenNames
 import br.com.reconecta.ui.theme.LightGreenReconecta
 
 @Composable
 fun EditBankAccountScreen(context: Context, navController: NavController) {
-
     var isExpanded by remember { mutableStateOf(false) }
     val bank = remember { mutableStateOf("") }
     val agencia = remember { mutableStateOf("") }
@@ -91,7 +91,7 @@ fun EditBankAccountScreen(context: Context, navController: NavController) {
             }
 
             true -> {
-                Row (modifier = Modifier.fillMaxWidth(), Arrangement.End) {
+                Row(modifier = Modifier.fillMaxWidth(), Arrangement.End) {
                     Icon(
                         painter = painterResource(id = R.drawable.edit_icon_svg),
                         contentDescription = "Editar informações icon",
@@ -139,7 +139,7 @@ fun EditBankAccountScreen(context: Context, navController: NavController) {
 }
 
 @Composable
-fun DropDownMenu() {
+private fun DropDownMenu() {
     val suggestions = listOf(
         "Itaú Unibanco S.A",
         "Bco Bradesco S.A",

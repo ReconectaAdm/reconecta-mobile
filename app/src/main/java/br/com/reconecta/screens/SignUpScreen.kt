@@ -31,18 +31,15 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import br.com.reconecta.R
 import br.com.reconecta.api.model.AddressModel
-import br.com.reconecta.api.model.CreateAccountRequest
+import br.com.reconecta.api.model.CreateCompanyRequest
 import br.com.reconecta.api.model.UserModel
-import br.com.reconecta.api.service.RetrofitFactory
 import br.com.reconecta.api.service.RetrofitService
-import br.com.reconecta.api.service.handleRetrofitApiCall
 import br.com.reconecta.components.EAccountType
 import br.com.reconecta.components.commons.LoadingCircularIndicator
 import br.com.reconecta.components.commons.RoundedTopBaseBox
 import br.com.reconecta.components.commons.buttons.PrimaryButton
 import br.com.reconecta.components.sign_up.EstablishmentForm
 import br.com.reconecta.components.sign_up.LoginInformationForm
-import br.com.reconecta.core.AppConstants
 import br.com.reconecta.ui.theme.DarkGreenReconecta
 import br.com.reconecta.utils.StringUtils
 
@@ -176,7 +173,7 @@ fun SignUpScreen(navController: NavHostController, context: Context) {
                         PrimaryButton(text = "Cadastrar", enabled = isValidAccount, onClick = {
                             RetrofitService.handleSignUpCall(
                                 context = context,
-                                request = CreateAccountRequest(
+                                request = CreateCompanyRequest(
                                     user = UserModel(
                                         email = email.value, password = password.value
                                     ),

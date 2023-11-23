@@ -27,7 +27,7 @@ import br.com.reconecta.components.EAccountType
 import br.com.reconecta.components.commons.buttons.PrimaryButton
 import br.com.reconecta.components.commons.text_field.EmailTextField
 import br.com.reconecta.components.commons.text_field.PasswordTextField
-import br.com.reconecta.screens.EScreenNames
+import br.com.reconecta.enums.EScreenNames
 import br.com.reconecta.ui.theme.DarkGreenReconecta
 
 

@@ -31,6 +31,7 @@ import br.com.reconecta.components.BottomSheet
 import br.com.reconecta.components.collect_details.CollectScheduled
 import br.com.reconecta.components.commons.Header
 import br.com.reconecta.components.scheduling.SchedullingContent
+import br.com.reconecta.enums.EScreenNames
 import com.google.gson.Gson
 import kotlinx.datetime.LocalDate
 import retrofit2.Call
