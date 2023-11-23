@@ -32,26 +32,25 @@ import br.com.reconecta.components.metrics.DateFilter
 
 @Composable
 fun OrganizationMetricsScreen(
-    navController: Context,
-    context: NavHostController
+    context: Context,
+    navController: NavHostController
 ) {
     var isLoading by remember { mutableStateOf(true) }
     var organizationMetrics by remember { mutableStateOf(GetSummaryResponse()) }
 
-    LaunchedEffect(Unit) {
-        try {
-            isLoading = true
-
-
-            val collectService = RetrofitFactory().getCollectService(context)
-            organizationMetrics = collectService.getSummaryAsync()
-
-            isLoading = false
-        } catch (e: Exception) {
-            Log.e("EstMetricsScreen", "Error fetching metrics: ${e.message}", e)
-            isLoading = false
-        }
-    }
+//    LaunchedEffect(Unit) {
+//        try {
+//            isLoading = true
+//
+//            val collectService = RetrofitFactory().getCollectService(context)
+//            organizationMetrics = collectService.getSummaryAsync()
+//
+//            isLoading = false
+//        } catch (e: Exception) {
+//            Log.e("EstMetricsScreen", "Error fetching metrics: ${e.message}", e)
+//            isLoading = false
+//        }
+//    }
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -80,7 +79,6 @@ fun OrganizationMetricsScreen(
                 endDate = null,
                 onStartDateSelected = {},
                 onEndDateSelected = {},
-                onPeriodSelected = {},
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)

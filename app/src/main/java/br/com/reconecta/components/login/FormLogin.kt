@@ -101,7 +101,7 @@ fun handleLoginCall(
             if (it.isSuccessful) {
                 SessionManager(context).saveAuthToken(it.body()?.token!!)
                 SessionManager(context).saveUserSession(it.body()?.user!!)
-                navController.navigate(EScreenNames.ESTABLISHMENT_COLLECT_DETAILS.path)
+                navController.navigate(EScreenNames.ESTABLISHMENT_METRICS.path)
             } else {
                 errorMessage.value = "Email ou senha inválidos!"
             }

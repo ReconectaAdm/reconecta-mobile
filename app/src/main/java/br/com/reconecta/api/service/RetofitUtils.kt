@@ -32,7 +32,7 @@ fun <T> handleRetrofitApiCall(
 
 fun <T> handleRetrofitApiCall(
     call: Call<T>,
-    func: (Response<T>)-> Unit? = {},
+    func: (Response<T>) -> Unit? = {},
     setIsLoading: (Boolean) -> Unit,
     setState: (T) -> Unit
 ) {
@@ -51,6 +51,9 @@ fun <T> handleRetrofitApiCall(
             Log.i("API call error", t.message + t.stackTraceToString())
             setIsLoading(false)
         }
+
+
     })
+    setIsLoading(false)
 }
 

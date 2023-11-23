@@ -13,6 +13,8 @@ import retrofit2.http.GET
 import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
+import java.time.LocalDate
 
 interface CollectService {
     @GET("api/collect")
@@ -31,7 +33,7 @@ interface CollectService {
     fun getSummary(): Call<GetSummaryResponse>
 
     @GET("api/collect/summary")
-    suspend fun getSummaryAsync(): GetSummaryResponse
+    fun getSummaryAsync(@Query("initialDate") initialDate: LocalDate? = null, @Query("endDate") endDate: LocalDate? = null): Call<GetSummaryResponse>
 
     @GET("api/collect/rating/{collectId}")
     fun getRatingByCollectId(@Path("collectId") collectId: Int): Call<GetCollectRatingDto>

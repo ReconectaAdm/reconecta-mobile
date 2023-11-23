@@ -29,7 +29,7 @@ class RetrofitFactory {
         return organizationService
     }
 
-    fun getCollectService(context: NavHostController): CollectService {
+    fun getCollectService(context: Context): CollectService {
         if (!::collectService.isInitialized) {
             collectService = baseRetrofit(context).create(CollectService::class.java)
         }

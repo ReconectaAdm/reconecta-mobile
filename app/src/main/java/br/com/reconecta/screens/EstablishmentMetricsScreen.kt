@@ -20,36 +20,33 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import br.com.reconecta.api.model.GetSummaryResponse
 import br.com.reconecta.api.service.RetrofitFactory
+import br.com.reconecta.api.service.handleRetrofitApiCall
 import br.com.reconecta.components.commons.Header
 import br.com.reconecta.components.metrics.MostCollectedWasteTypes
 import br.com.reconecta.components.metrics.StatusCollects
 import br.com.reconecta.components.metrics.TotalCollectsPoints
 import br.com.reconecta.components.metrics.ValueCard
 import br.com.reconecta.components.metrics.DateFilter
+import java.time.LocalDate
 
 
 @Composable
 fun EstablishmentMetricsScreen(
-    navController: Context,
-    context: NavHostController
+    context: Context,
+    navController: NavHostController
 ) {
-    var isLoading by remember { mutableStateOf(true) }
+    var isLoading by remember { mutableStateOf(false) }
     var establishmentMetrics by remember { mutableStateOf(GetSummaryResponse()) }
-
-    LaunchedEffect(Unit) {
-        try {
-            isLoading = true
+    var startDate by remember { mutableStateOf(LocalDate.of(2023, 11, 20)) }
+    var endDate by remember { mutableStateOf(LocalDate.of(2023, 11, 20)) }
 
 
-            val collectService = RetrofitFactory().getCollectService(context)
-            establishmentMetrics = collectService.getSummaryAsync()
+    handleRetrofitApiCall(
+        call = RetrofitFactory().getCollectService(context).getSummaryAsync(startDate, endDate),
+        setIsLoading = { isLoading = it },
+        setState = { establishmentMetrics = it })
 
-            isLoading = false
-        } catch (e: Exception) {
-            Log.e("EstMetricsScreen", "Error fetching metrics: ${e.message}", e)
-            isLoading = false
-        }
-    }
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -74,11 +71,10 @@ fun EstablishmentMetricsScreen(
 
 
             DateFilter(
-                startDate = null,
-                endDate = null,
-                onStartDateSelected = {},
-                onEndDateSelected = {},
-                onPeriodSelected = {},
+                startDate = startDate,
+                endDate = endDate,
+                onStartDateSelected = { startDate = it },
+                onEndDateSelected = { endDate = it },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
@@ -108,9 +104,12 @@ fun EstablishmentMetricsScreen(
 
                 StatusCollects(
                     title = "Status coletas",
-                    quantidadeConcluidas = establishmentMetrics.status.find { it.name == "CONCLUDED" }?.qtd ?: 0,
-                    quantidadeAgendadas = establishmentMetrics.status.find { it.name == "SCHEDULED" }?.qtd ?: 0,
-                    quantidadeCanceladas = establishmentMetrics.status.find { it.name == "CANCELLED" }?.qtd ?: 0
+                    quantidadeConcluidas = establishmentMetrics.status.find { it.name == "CONCLUDED" }?.qtd
+                        ?: 0,
+                    quantidadeAgendadas = establishmentMetrics.status.find { it.name == "SCHEDULED" }?.qtd
+                        ?: 0,
+                    quantidadeCanceladas = establishmentMetrics.status.find { it.name == "CANCELLED" }?.qtd
+                        ?: 0
                 )
 
                 Spacer(modifier = Modifier.height(20.dp))
