@@ -55,7 +55,7 @@ fun SchedullingContent(
     openSuccessDialog: Boolean,
     setOpenSuccessDialog: (Boolean) -> Unit,
     collect: GetCollectDto,
-    setCollect: (GetCollectDto) -> Unit,
+    setCollect: (GetCollectDto) -> Unit
 ) {
     var loadingCollectCreation by remember { mutableStateOf(false) }
 

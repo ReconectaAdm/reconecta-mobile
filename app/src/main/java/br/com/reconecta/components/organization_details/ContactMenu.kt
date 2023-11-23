@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ContactMenu(email: String, phone: String) {
+fun ContactMenu(email: String, phone: String?) {
     TextMenuItem(text = "Contato")
     Spacer(modifier = Modifier.height(10.dp))
     Column(

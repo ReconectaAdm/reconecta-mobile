@@ -17,7 +17,7 @@ import br.com.reconecta.components.commons.formatters.PhoneNumberFormatter
 import br.com.reconecta.ui.theme.LightGreenReconecta
 
 @Composable
-fun PhoneInfo(phone: String) {
+fun PhoneInfo(phone: String?) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(5.dp),
         verticalAlignment = Alignment.CenterVertically
@@ -31,7 +31,7 @@ fun PhoneInfo(phone: String) {
             tint = LightGreenReconecta
         )
         Text(
-            text = PhoneNumberFormatter.format(phone),
+            text = if (phone != null) PhoneNumberFormatter.format(phone) else "Não informado",
             fontSize = 14.sp
         )
     }

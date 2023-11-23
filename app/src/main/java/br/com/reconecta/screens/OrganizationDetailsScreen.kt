@@ -39,7 +39,7 @@ import br.com.reconecta.core.SessionManager
 
 @Composable
 fun OrganizationDetailsScreen(
-    navController: NavHostController, context: Context, organizationId: Int = 20
+    navController: NavHostController, context: Context, organizationId: Int = 63
 ) {
     var organization by remember {
         mutableStateOf(GetOrganizationDto())
@@ -104,7 +104,7 @@ fun OrganizationDetailsScreen(
 
                 Spacer(modifier = Modifier.height(15.dp))
                 ContactMenu(
-                    SessionManager(context).fetchUserInfo()?.email ?: "", organization.phone ?: ""
+                    SessionManager(context).fetchUserInfo()?.email ?: "", organization.phone
                 )
                 Spacer(modifier = Modifier.height(50.dp))
 

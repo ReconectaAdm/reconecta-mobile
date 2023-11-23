@@ -45,17 +45,7 @@ fun RatingMenu(listSize: Int) {
                 )
             }) {
         TextMenuItem(
-            text = "Ver avaliações ($listSize)", modifier = Modifier.height(25.dp)
-        )
-        Icon(
-            painter = painterResource(id = R.drawable.arrow_right),
-            contentDescription = "Arrow go back",
-            modifier = Modifier
-                .height(25.dp)
-                .width(25.dp)
-                .align(Alignment.CenterVertically)
-                .clickable { },
-            tint = Color.Gray
+            text = "Nº Avaliações ($listSize)", modifier = Modifier.height(25.dp)
         )
     }
 }
