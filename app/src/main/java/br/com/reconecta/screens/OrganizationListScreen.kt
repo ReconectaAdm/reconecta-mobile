@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import br.com.reconecta.api.model.GetOrganizationDto
+import br.com.reconecta.api.model.organization.GetOrganizationDto
 import br.com.reconecta.api.service.RetrofitFactory
 import br.com.reconecta.api.service.handleRetrofitApiCall
 import br.com.reconecta.components.CreateOrganizationItem
@@ -27,13 +27,11 @@ import br.com.reconecta.utils.StringUtils
 
 
 @Composable
-fun OrganizationListScreen(navController: NavController, context: Context) {
-    val isLoading = remember { mutableStateOf(false) }
+fun OrganizationListScreen(navController: NavController, context: Context, residueType: String) {
     val organizations = remember { mutableStateOf(listOf<GetOrganizationDto>()) }
 
     handleRetrofitApiCall(
         call = RetrofitFactory().getOrganizationService(context).getAll(),
-        isLoading = isLoading,
         onResponse = {
             if(it.isSuccessful) organizations.value = it.body()!!
         }
@@ -60,7 +58,6 @@ fun OrganizationListScreen(navController: NavController, context: Context) {
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f)
-//                .verticalScroll(rememberScrollState())
         ) {
             items(items = organizations.value, itemContent = {
                 CreateOrganizationItem(
