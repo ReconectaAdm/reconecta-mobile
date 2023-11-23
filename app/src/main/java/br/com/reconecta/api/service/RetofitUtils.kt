@@ -30,3 +30,23 @@ fun <T> handleRetrofitApiCall(
         }
     })
 }
+
+fun <T> handleRetrofitApiCall(
+    call: Call<T>,
+    onResponse: (Response<T>) -> Unit? = {},
+    onFailure: (Call<T>, t: Throwable) -> Unit = { _: Call<T>, _: Throwable -> }
+) {
+    call.enqueue(object : Callback<T> {
+        override fun onResponse(
+            call: Call<T>,
+            response: Response<T>
+        ) {
+            onResponse(response)
+        }
+
+        override fun onFailure(call: Call<T>, t: Throwable) {
+            Log.i("API call error", t.message + t.stackTraceToString())
+            onFailure(call, t)
+        }
+    })
+}

@@ -12,11 +12,20 @@ class RetrofitFactory {
     private lateinit var organizationService: OrganizationService
     private lateinit var establishmentService: EstablishmentService
     private lateinit var collectService: CollectService
-    private lateinit var authService: AuthService
+    private lateinit var userService: UserService
     private lateinit var residueService: ResidueService
+    private lateinit var addressService: AddressService
 
     companion object {
         private const val BASE_URL = "https://reconecta-app-dev.azurewebsites.net/"
+    }
+
+    fun getAddressService(context: Context): AddressService {
+        if (!::addressService.isInitialized) {
+            addressService = baseRetrofit(context).create(AddressService::class.java)
+        }
+
+        return addressService
     }
 
     fun getOrganizationService(context: Context): OrganizationService {
@@ -52,12 +61,12 @@ class RetrofitFactory {
         return establishmentService
     }
 
-    fun getAuthService(context: Context): AuthService {
-        if (!::authService.isInitialized) {
-            authService = baseRetrofit(context).create(AuthService::class.java)
+    fun getAuthService(context: Context): UserService {
+        if (!::userService.isInitialized) {
+            userService = baseRetrofit(context).create(UserService::class.java)
         }
 
-        return authService
+        return userService
     }
 
     private fun baseRetrofit(context: Context, okHttpClient: OkHttpClient? = null) =
