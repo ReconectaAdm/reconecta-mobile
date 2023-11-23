@@ -41,8 +41,8 @@ fun FormLogin(
     errorMessage: MutableState<String>,
     isValidLogin: MutableState<Boolean>
 ) {
-    val passwordStr = remember { mutableStateOf("1234") }
-    val emailStr = remember { mutableStateOf("archnologycorp@gmail.com") }
+    val passwordStr = remember { mutableStateOf("123123") }
+    val emailStr = remember { mutableStateOf("estabelecimento1@test.com") }
     isValidLogin.value = StringUtils.isValidEmail(emailStr.value) && passwordStr.value.length > 3
 
     Column(modifier = Modifier.padding(40.dp)) {
@@ -101,7 +101,7 @@ fun handleLoginCall(
             if (it.isSuccessful) {
                 SessionManager(context).saveAuthToken(it.body()?.token!!)
                 SessionManager(context).saveUserSession(it.body()?.user!!)
-                navController.navigate(EScreenNames.AVAILABILITY.path)
+                navController.navigate(EScreenNames.HOME.path)
             } else {
                 errorMessage.value = "Email ou senha inválidos!"
             }

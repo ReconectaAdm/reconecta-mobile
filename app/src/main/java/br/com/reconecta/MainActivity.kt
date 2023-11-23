@@ -51,7 +51,7 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberAnimatedNavController()
                     AnimatedNavHost(
                         navController = navController,
-                        startDestination = EScreenNames.LOGIN.path,
+                        startDestination = EScreenNames.ORGANIZATION_LIST.path,
                         exitTransition = {
                             slideOutOfContainer(
                                 towards = AnimatedContentScope.SlideDirection.End,
@@ -74,8 +74,14 @@ class MainActivity : ComponentActivity() {
                         composable(route = EScreenNames.HOME.path) {
                             HomeScreen(navController, applicationContext)
                         }
-                        composable(route = EScreenNames.ORGANIZATION_DETAILS.path) {
-                            OrganizationDetailsScreen(navController, applicationContext)
+                        composable(
+                            route = "${EScreenNames.ORGANIZATION_DETAILS.path}/{organizationId}",
+                            arguments = listOf(navArgument("organizationId") { type = NavType.IntType })
+                        ) {
+
+
+                            val primitiveValue = it.arguments?.getInt("organizationId", 0)!!
+                            OrganizationDetailsScreen(navController, applicationContext, primitiveValue)
                         }
                         composable(route = EScreenNames.HOME_ESTABLISHMENT.path) {
                             HomeEstablishmentScreen(navController)
@@ -97,7 +103,7 @@ class MainActivity : ComponentActivity() {
                                 residueIds.map { residueId -> residueId })
                         }
                         composable(route = EScreenNames.ORGANIZATION_LIST.path) {
-                            OrganizationListScreen(navController, applicationContext, "")
+                            OrganizationListScreen(navController, applicationContext, 1)
                         }
                         composable(route = EScreenNames.ORGANIZATION_COLLECT_DETAILS.path) {
                             OrganizationCollectDetailsScreen(navController, applicationContext)

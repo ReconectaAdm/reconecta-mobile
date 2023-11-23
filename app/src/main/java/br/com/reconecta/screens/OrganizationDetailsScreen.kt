@@ -40,7 +40,7 @@ import br.com.reconecta.enums.EScreenNames
 
 @Composable
 fun OrganizationDetailsScreen(
-    navController: NavHostController, context: Context, organizationId: Int = 20
+    navController: NavHostController, context: Context, organizationId: Int
 ) {
     var organization by remember {
         mutableStateOf(GetOrganizationDto())
