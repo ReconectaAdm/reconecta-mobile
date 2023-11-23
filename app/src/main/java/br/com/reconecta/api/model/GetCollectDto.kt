@@ -1,6 +1,7 @@
 package br.com.reconecta.api.model
 
 import br.com.reconecta.api.model.enums.CollectStatus
+import br.com.reconecta.api.model.organization.GetOrganizationDto
 import java.time.LocalDateTime
 
 data class GetCollectDto(

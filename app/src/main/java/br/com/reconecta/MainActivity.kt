@@ -15,8 +15,8 @@ import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import br.com.reconecta.screens.AvailabilityScreen
 import br.com.reconecta.screens.OrganizationCollectDetailsScreen
-import br.com.reconecta.screens.EScreenNames
 import br.com.reconecta.screens.EstablishmentCollectDetailsScreen
+import br.com.reconecta.enums.EScreenNames
 import br.com.reconecta.screens.HomeEstablishmentScreen
 import br.com.reconecta.screens.HomeScreen
 import br.com.reconecta.screens.LoginScreen
@@ -72,7 +72,7 @@ class MainActivity : ComponentActivity() {
                             SignUpScreen(navController, applicationContext)
                         }
                         composable(route = EScreenNames.HOME.path) {
-                            HomeScreen(navController)
+                            HomeScreen(navController, applicationContext)
                         }
                         composable(route = EScreenNames.ORGANIZATION_DETAILS.path) {
                             OrganizationDetailsScreen(navController, applicationContext)
@@ -97,7 +97,7 @@ class MainActivity : ComponentActivity() {
                                 residueIds.map { residueId -> residueId })
                         }
                         composable(route = EScreenNames.ORGANIZATION_LIST.path) {
-                            OrganizationListScreen(navController, applicationContext)
+                            OrganizationListScreen(navController, applicationContext, "")
                         }
                         composable(route = EScreenNames.ORGANIZATION_COLLECT_DETAILS.path) {
                             OrganizationCollectDetailsScreen(navController, applicationContext)

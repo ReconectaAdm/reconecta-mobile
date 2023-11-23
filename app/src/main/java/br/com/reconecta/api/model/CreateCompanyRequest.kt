@@ -1,6 +1,6 @@
 package br.com.reconecta.api.model
 
-data class CreateAccountRequest(
+data class CreateCompanyRequest(
     val user: UserModel,
     val cnpj: String,
     val name: String,

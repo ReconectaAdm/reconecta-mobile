@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.sp
 import br.com.reconecta.R
 import br.com.reconecta.api.model.GetAddressDto
 import br.com.reconecta.api.model.GetCollectRatingDto
-import br.com.reconecta.api.model.GetOrganizationDto
+import br.com.reconecta.api.model.organization.GetOrganizationDto
 import java.math.BigDecimal
 import java.math.RoundingMode
 

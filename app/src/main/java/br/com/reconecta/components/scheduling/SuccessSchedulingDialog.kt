@@ -32,7 +32,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavHostController
 import br.com.reconecta.api.model.GetCollectDto
 import br.com.reconecta.components.commons.formatters.DateTimeFormatter
-import br.com.reconecta.screens.EScreenNames
+import br.com.reconecta.enums.EScreenNames
 
 @Composable
 fun SuccessSchedulingDialog(

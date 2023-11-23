@@ -14,8 +14,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.reconecta.api.model.GetEstablishmentDto
-import br.com.reconecta.api.model.GetOrganizationDto
 import br.com.reconecta.api.model.enums.CompanyType
+import br.com.reconecta.api.model.organization.GetOrganizationDto
 import br.com.reconecta.components.commons.CompanyLogo
 import br.com.reconecta.components.commons.formatters.PhoneNumberFormatter
 import br.com.reconecta.components.commons.texts.TextMedium

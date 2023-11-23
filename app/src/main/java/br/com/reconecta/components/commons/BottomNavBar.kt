@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.com.reconecta.R
-import br.com.reconecta.screens.EScreenNames
+import br.com.reconecta.enums.EScreenNames
 
 
 @Composable
