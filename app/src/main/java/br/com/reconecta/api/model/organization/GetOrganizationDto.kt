@@ -1,4 +1,4 @@
-package br.com.reconecta.api.model
+package br.com.reconecta.api.model.organization
 
 
 data class GetOrganizationDto(
