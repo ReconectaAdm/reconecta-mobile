@@ -37,7 +37,11 @@ import br.com.reconecta.utils.EnumUtils
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.atStartOfDayIn
+import kotlinx.datetime.atTime
 import kotlinx.datetime.toJavaInstant
+import kotlinx.datetime.toJavaLocalDate
+import kotlinx.datetime.toJavaLocalDateTime
+import kotlinx.datetime.toLocalDateTime
 import java.util.Date
 
 @Composable
@@ -114,7 +118,8 @@ fun SchedullingContent(
         }
 
         if (openSuccessDialog) {
-            SuccessSchedulingDialog(navController,
+            SuccessSchedulingDialog(
+                navController,
                 collect
             ) { setOpenSuccessDialog(false) }
         }
@@ -144,10 +149,8 @@ fun SchedullingContent(
                         setState = { setCollect(it) },
                         context = context,
                         request = CreateCollectRequest(
-                            Date.from(
-                                selectedDate.atStartOfDayIn(TimeZone.currentSystemDefault())
-                                    .toJavaInstant()
-                            ),
+                            date = selectedDate.atStartOfDayIn(TimeZone.currentSystemDefault())
+                                .toLocalDateTime(TimeZone.currentSystemDefault()).toJavaLocalDateTime(),
                             hourSelected,
                             CollectStatus.PENDING.value,
                             organizationId,

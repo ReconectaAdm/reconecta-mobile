@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.BottomSheetDefaults
@@ -55,6 +56,7 @@ fun BottomSheet(
         ) {
             Column(
                 Modifier
+                    .height(600.dp)
                     .fillMaxWidth()
                     .padding(start = 25.dp, end = 25.dp, bottom = 30.dp)
             ) {

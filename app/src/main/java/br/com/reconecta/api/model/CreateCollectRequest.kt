@@ -1,11 +1,10 @@
 package br.com.reconecta.api.model;
 
-import br.com.reconecta.api.model.enums.CollectStatus
-import kotlinx.datetime.LocalDate
-import java.util.Date
+import java.time.LocalDateTime
+
 
 data class CreateCollectRequest(
-    val date: Date,
+    val date: LocalDateTime,
     val hour: String,
     val status: Int,
     val organizationId: Int = 0,

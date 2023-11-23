@@ -7,4 +7,4 @@ import java.time.LocalDateTime
 
 fun createGsonSerializer(): Gson = GsonBuilder().registerTypeAdapter(
     LocalDateTime::class.java, LocalDateTimeTypeAdapter()
-).create()
+).setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create()

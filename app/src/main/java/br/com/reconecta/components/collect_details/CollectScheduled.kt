@@ -66,10 +66,10 @@ fun CollectScheduled(
             Spacer(modifier = Modifier.width(2.dp))
             TextMedium(
                 DateTimeFormatter.formatToExtendedDate(collect.date!!),
-                fontSize = 13.sp
+                fontSize = 12.sp
             )
-            TextMedium(" / ", fontSize = 13.sp)
-            TextMedium(collect.hour!!, fontSize = 13.sp)
+            TextMedium(" / ", fontSize = 12.sp)
+            TextMedium(collect.hour!!, fontSize = 12.sp)
         }
 
     }
