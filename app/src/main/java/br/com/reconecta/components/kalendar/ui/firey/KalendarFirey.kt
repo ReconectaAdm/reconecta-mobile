@@ -79,6 +79,7 @@ internal fun KalendarFirey(
     events: KalendarEvents = KalendarEvents(),
     kalendarDayKonfig: KalendarDayKonfig = KalendarDayKonfig.default(),
     dayContent: (@Composable (LocalDate) -> Unit)? = null,
+    availableDays: List<DayOfWeek>? = null,
     headerContent: (@Composable (java.time.Month, Int, () -> Unit, () -> Unit) -> Unit)? = null,
     onDayClick: (LocalDate, List<KalendarEvent>) -> Unit = { _, _ -> },
     onRangeSelected: (KalendarSelectedDayRange, List<KalendarEvent>) -> Unit = { _, _ -> },
@@ -120,6 +121,7 @@ internal fun KalendarFirey(
                 month = currentMonth,
                 year = currentYear,
                 kalendarTextKonfig = newHeaderTextKonfig,
+                isPreviousDisabled = displayedMonth.value == today.month && displayedYear.value == today.year,
                 onPreviousClick = {
                     displayedYear.value -= if (currentMonth == Month.JANUARY) 1 else 0
                     displayedMonth.value -= 1
@@ -157,12 +159,12 @@ internal fun KalendarFirey(
                             KalendarDay(
                                 date = day,
                                 selectedDate = selectedDate.value,
+                                availableDays = availableDays,
                                 kalendarColors = kalendarColors.color[currentMonthIndex],
                                 kalendarEvents = events,
                                 kalendarDayKonfig = kalendarDayKonfig,
                                 selectedRange = selectedRange.value,
                                 onDayClick = { clickedDate, event ->
-
                                     onDayClicked(
                                         clickedDate,
                                         event,

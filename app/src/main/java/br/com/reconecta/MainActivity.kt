@@ -1,5 +1,6 @@
 package br.com.reconecta
 
+import EditPerfilScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,17 +14,23 @@ import androidx.compose.ui.res.colorResource
 import br.com.reconecta.screens.EstablishmentCollectScreen
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
-import br.com.reconecta.screens.BottomSheetScreen
-import br.com.reconecta.screens.OrganizationCollectDetailsScreen
-import br.com.reconecta.screens.EScreenNames
+import br.com.reconecta.enums.EScreenNames
+import br.com.reconecta.screens.EditScreen
+import br.com.reconecta.screens.EditAvailabilityScreen
+import br.com.reconecta.screens.EditBankAccountScreen
+import br.com.reconecta.screens.EditPasswordScreen
+import br.com.reconecta.screens.EditResiduesScreen
 import br.com.reconecta.screens.EstablishmentCollectDetailsScreen
+import br.com.reconecta.screens.EstablishmentMetricsScreen
+import br.com.reconecta.screens.HomeOrganizationScreen
 import br.com.reconecta.screens.HomeEstablishmentScreen
-import br.com.reconecta.screens.HomeScreen
 import br.com.reconecta.screens.LoginScreen
+import br.com.reconecta.screens.OrganizationCollectDetailsScreen
 import br.com.reconecta.screens.OrganizationCollectInProgressScreen
 import br.com.reconecta.screens.OrganizationCollectScreen
 import br.com.reconecta.screens.OrganizationDetailsScreen
 import br.com.reconecta.screens.OrganizationListScreen
+import br.com.reconecta.screens.OrganizationMetricsScreen
 import br.com.reconecta.screens.ResetPasswordScreen
 import br.com.reconecta.screens.SchedulingScreen
 import br.com.reconecta.screens.SignUpScreen
@@ -67,28 +74,49 @@ class MainActivity : ComponentActivity() {
                         composable(route = EScreenNames.REGISTER.path) {
                             SignUpScreen(navController, applicationContext)
                         }
-                        composable(route = EScreenNames.HOME.path) {
-                            HomeScreen(navController)
-                        }
-                        composable(route = EScreenNames.ORGANIZATION_DETAILS.path) {
-                            OrganizationDetailsScreen(navController, applicationContext)
-                        }
                         composable(route = EScreenNames.HOME_ESTABLISHMENT.path) {
-                            HomeEstablishmentScreen(navController)
+                            HomeEstablishmentScreen(navController, applicationContext)
                         }
                         composable(
-                            route = "${EScreenNames.SCHEDULING.path}?residueIds={residueIds}",
-                            arguments = (
-                                    listOf(navArgument("residueIds") {
-                                        type = NavType.IntArrayType
-                                    })
-                                    )
-                        ) { it ->
-                            val residueIds = it.arguments?.getIntArray("residueIds")!!
-                            SchedulingScreen(navController, applicationContext, residueIds.map { residueId -> residueId })
+                            route = "${EScreenNames.ORGANIZATION_DETAILS.path}/{organizationId}",
+                            arguments = listOf(navArgument("organizationId") {
+                                type = NavType.IntType
+                            })
+                        ) {
+                            val primitiveValue = it.arguments?.getInt("organizationId", 0)!!
+                            OrganizationDetailsScreen(
+                                navController,
+                                applicationContext,
+                                primitiveValue
+                            )
                         }
-                        composable(route = EScreenNames.ORGANIZATION_LIST.path) {
-                            OrganizationListScreen(navController, applicationContext)
+                        composable(route = EScreenNames.HOME_ORGANIZATION.path) {
+                            HomeOrganizationScreen(navController)
+                        }
+                        composable(
+                            route = "${EScreenNames.SCHEDULING.path}/{organizationId}?residueIds={residueIds}",
+                            arguments = (listOf(
+                                navArgument("residueIds") { type = NavType.IntArrayType },
+                                navArgument("organizationId") { type = NavType.IntType }
+                            )))
+                        { it ->
+                            val residueIds = it.arguments?.getIntArray("residueIds")!!
+                            val organizationId: Int? = it.arguments?.getInt("organizationId", 0)
+
+                            SchedulingScreen(
+                                navController,
+                                applicationContext,
+                                organizationId!!,
+                                residueIds.map { residueId -> residueId })
+                        }
+                        composable(
+                            route = "${EScreenNames.ORGANIZATION_LIST.path}/{residueTypeId}",
+                            arguments = listOf(navArgument("residueTypeId") {
+                                type = NavType.IntType
+                            })
+                        ) {
+                            val residueTypeId = it.arguments?.getInt("residueTypeId", 0)!!
+                            OrganizationListScreen(navController, applicationContext, residueTypeId)
                         }
                         composable(route = EScreenNames.ORGANIZATION_COLLECT_DETAILS.path) {
                             OrganizationCollectDetailsScreen(navController, applicationContext)
@@ -98,8 +126,7 @@ class MainActivity : ComponentActivity() {
                             arguments = (
                                     listOf(navArgument("collectId") { type = NavType.IntType }))
                         ) {
-                            val collectId: Int? =
-                                it.arguments?.getInt("collectId", 0)
+                            val collectId: Int? = it.arguments?.getInt("collectId", 0)
                             OrganizationCollectInProgressScreen(
                                 navController,
                                 applicationContext,
@@ -118,8 +145,29 @@ class MainActivity : ComponentActivity() {
                         composable(route = EScreenNames.ORGANIZATION_COLLECT.path) {
                             OrganizationCollectScreen(navController, applicationContext)
                         }
-                        composable(route = EScreenNames.BOTTOM_SHEET.path) {
-                            BottomSheetScreen(navController, applicationContext)
+                        composable(route = EScreenNames.ACCOUNT_INFO.path) {
+                            EditScreen(applicationContext, navController)
+                        }
+                        composable(route = EScreenNames.ACCOUNT_INFO_EDIT_PASSWORD.path) {
+                            EditPasswordScreen(applicationContext, navController)
+                        }
+                        composable(route = EScreenNames.ACCOUNT_INFO_EDIT_PERFIL.path) {
+                            EditPerfilScreen(applicationContext, navController)
+                        }
+                        composable(route = EScreenNames.ACCOUNT_INFO_EDIT_WALLET.path) {
+                            EditBankAccountScreen(applicationContext, navController)
+                        }
+                        composable(route = EScreenNames.ACCOUNT_INFO_EDIT_AVAILABILITY.path) {
+                            EditAvailabilityScreen(navController, applicationContext)
+                        }
+                        composable(route = EScreenNames.ACCOUNT_INFO_EDIT_RESIDUES.path) {
+                            EditResiduesScreen(applicationContext, navController)
+                        }
+                        composable(route = EScreenNames.ESTABLISHMENT_METRICS.path){
+                            EstablishmentMetricsScreen(applicationContext, navController)
+                        }
+                        composable(route = EScreenNames.ORGANIZATION_METRICS.path){
+                            OrganizationMetricsScreen(applicationContext, navController)
                         }
                     }
                 }

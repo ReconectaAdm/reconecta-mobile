@@ -10,12 +10,13 @@ import br.com.reconecta.R
 import br.com.reconecta.components.commons.buttons.SecondaryButton
 
 @Composable
-fun AlertDialogExample(
+fun ResetPasswordAlertDialog(
     onClick : ()-> Unit,
     dialogTitle: String,
     dialogText: String,
 ) {
     AlertDialog(
+        containerColor = Color.White,
         icon = {
             Icon(
                 painter = painterResource(id = R.drawable.reset_password),

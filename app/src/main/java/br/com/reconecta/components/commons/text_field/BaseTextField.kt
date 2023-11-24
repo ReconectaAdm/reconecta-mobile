@@ -14,7 +14,6 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -25,6 +24,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.reconecta.R
+import br.com.reconecta.ui.theme.DisabledTextField
 
 @Composable
 fun BaseTextField(
@@ -35,9 +35,9 @@ fun BaseTextField(
     isRequired: Boolean = false,
     error: Boolean = false,
     visualTransformation: VisualTransformation? = VisualTransformation.None,
+    enabled: Boolean = true,
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
-
     ) {
     val showIcon = text.value.isNotEmpty()
 
@@ -62,14 +62,16 @@ fun BaseTextField(
             visualTransformation = visualTransformation!!,
             keyboardOptions = KeyboardOptions(keyboardType = keyboardType!!),
             onValueChange = { text.value = it },
+            enabled = enabled,
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = Color.Unspecified,
                 unfocusedContainerColor = Color.Unspecified,
-                disabledContainerColor = Color.Unspecified,
+                disabledContainerColor = DisabledTextField,
                 focusedIndicatorColor = Color.Unspecified,
                 unfocusedIndicatorColor = Color.Unspecified,
                 disabledIndicatorColor = Color.Unspecified,
             ),
+            maxLines = 1,
             modifier = modifier!!
                 .height(45.dp)
                 .fillMaxWidth()
@@ -86,31 +88,31 @@ fun BaseTextField(
 
 @Composable
 fun BaseTextField(
-    text: MutableState<String>,
+    text: String,
     label: @Composable (() -> Unit),
     modifier: Modifier? = Modifier,
     keyboardType: KeyboardType? = KeyboardType.Text,
-    error: Boolean = false,
     enable: Boolean = true,
     visualTransformation: VisualTransformation? = VisualTransformation.None,
     maxLines: Int = 1,
+    onChange: (String) -> Unit,
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
 ) {
-    val showIcon = text.value.isNotEmpty()
+    val showIcon = text.isNotEmpty()
 
     Column {
         label()
 
         OutlinedTextField(
-            value = text.value,
+            value = text,
             enabled = enable,
             leadingIcon = if (showIcon) leadingIcon else null,
             trailingIcon = if (showIcon) trailingIcon else null,
             visualTransformation = visualTransformation!!,
             keyboardOptions = KeyboardOptions(keyboardType = keyboardType!!),
             maxLines = maxLines,
-            onValueChange = { text.value = it },
+            onValueChange = { onChange(it) },
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = Color(0xFFEBEBEB),
                 unfocusedContainerColor = Color(0xFFEBEBEB),

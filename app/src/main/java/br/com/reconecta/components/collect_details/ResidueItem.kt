@@ -8,15 +8,14 @@ import androidx.compose.ui.unit.sp
 import br.com.reconecta.api.model.GetCollectResidueDto
 import br.com.reconecta.api.model.enums.mapUnitMeasure
 
-
 @Composable
 fun ResidueItem(
     res: GetCollectResidueDto,
 ) {
     Text(
-        text = " - ${res.residue!!.name.toString()} - ${res.quantity} ${
+        text = " - ${res.residue!!.name} - ${res.quantity} ${
             mapUnitMeasure(
-                res.residue.unitMeasure!!
+                res.residue.unitMeasure
             ).lowercase()
         }",
         fontSize = 14.sp

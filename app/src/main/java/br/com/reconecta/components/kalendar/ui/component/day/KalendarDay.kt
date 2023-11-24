@@ -17,6 +17,7 @@ package br.com.reconecta.components.kalendar.ui.component.day
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,8 +26,10 @@ import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -45,6 +48,7 @@ import br.com.reconecta.components.kalendar.util.MultiplePreviews
 import com.himanshoe.kalendar.color.KalendarColor
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit
+import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.minus
@@ -66,16 +70,18 @@ import kotlinx.datetime.todayIn
 @Composable
 fun KalendarDay(
     date: LocalDate,
+    selectedDate: LocalDate = date,
+    availableDays: List<DayOfWeek>? = null,
     kalendarColors: KalendarColor,
     onDayClick: (LocalDate, List<KalendarEvent>) -> Unit,
     selectedRange: KalendarSelectedDayRange?,
     modifier: Modifier = Modifier,
-    selectedDate: LocalDate = date,
     kalendarEvents: KalendarEvents = KalendarEvents(),
     kalendarDayKonfig: KalendarDayKonfig = KalendarDayKonfig.default(),
 ) {
     val selected = selectedDate == date
     val currentDay = Clock.System.todayIn(TimeZone.currentSystemDefault()) == date
+    val oldDate = Clock.System.todayIn(TimeZone.currentSystemDefault()) > date || availableDays != null && !availableDays.contains(date.dayOfWeek)
 
     Column(
         modifier = modifier
@@ -84,7 +90,11 @@ fun KalendarDay(
                 shape = CircleShape
             )
             .clip(shape = CircleShape)
-            .clickable { onDayClick(date, kalendarEvents.events) }
+            .clickable(
+                onClick = { if (!oldDate) onDayClick(date, kalendarEvents.events) },
+                interactionSource = remember { MutableInteractionSource() },
+                indication = if(!oldDate) rememberRipple(color = Color.Gray) else null,
+            )
             .dayBackgroundColor(
                 selected,
                 Color(0xFF3E9629),
@@ -102,7 +112,9 @@ fun KalendarDay(
             modifier = Modifier.wrapContentSize(),
             textAlign = TextAlign.Center,
             fontSize = kalendarDayKonfig.textSize,
-            color = if (selected) kalendarDayKonfig.selectedTextColor else kalendarDayKonfig.textColor,
+            color = if (selected) kalendarDayKonfig.selectedTextColor else if (oldDate) Color(
+                0xFF8F9BB3
+            ) else kalendarDayKonfig.textColor,
             fontWeight = if (selected) FontWeight.Bold else FontWeight.SemiBold
         )
         Row {

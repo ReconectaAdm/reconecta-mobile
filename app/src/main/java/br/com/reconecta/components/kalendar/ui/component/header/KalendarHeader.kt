@@ -73,6 +73,7 @@ fun KalendarHeader(
     year: Int,
     kalendarTextKonfig: KalendarTextKonfig,
     modifier: Modifier = Modifier,
+    isPreviousDisabled: Boolean = false,
     onPreviousClick: () -> Unit = {},
     onNextClick: () -> Unit = {},
     arrowShown: Boolean = true
@@ -100,15 +101,17 @@ fun KalendarHeader(
                             shape = RoundedCornerShape(35)
                         ),
                     onClick = {
-                        isNext = false
-                        onPreviousClick()
+                        if(!isPreviousDisabled){
+                            isNext = false
+                            onPreviousClick()
+                        }
                     }
                 ) {
                     Icon(
                         Icons.Filled.KeyboardArrowLeft,
                         "mês anterior",
-                        Modifier.size(25.dp)
-
+                        Modifier.size(25.dp),
+                        tint = if(!isPreviousDisabled) Color.Black else Color.LightGray
                     )
                 }
                 AnimatedContent(

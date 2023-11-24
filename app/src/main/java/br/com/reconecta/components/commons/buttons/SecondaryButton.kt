@@ -19,28 +19,33 @@ import br.com.reconecta.ui.theme.LightGreenReconecta
 
 @Composable
 fun SecondaryButton(
-    text: String,
+    text: String? = null,
     onClick: () -> Unit,
-    composable: @Composable () -> Unit? = {}
+    enabled: Boolean = true,
+    modifier: Modifier = Modifier,
+    composable: @Composable () -> Unit? = {},
 ) {
     Button(
         onClick = { onClick() },
         shape = RoundedCornerShape(7.dp),
+        enabled = enabled,
         colors = ButtonDefaults.buttonColors(
             containerColor = LightGreenReconecta,
             disabledContainerColor = DisabledButton
         ),
-        modifier = Modifier
+        modifier = modifier
             .height(40.dp)
             .width(250.dp)
 
     ) {
-        Text(
-            text = text,
-            fontSize = 14.5.sp,
-            color = Color.White,
-            fontFamily = FontFamily(Font(R.font.poppins_medium)),
-        )
+        if(text != null){
+            Text(
+                text = text,
+                fontSize = 14.5.sp,
+                color = Color.White,
+                fontFamily = FontFamily(Font(R.font.poppins_medium)),
+            )
+        }
         composable()
     }
 }

@@ -23,6 +23,7 @@ import br.com.reconecta.components.kalendar.ui.firey.KalendarFirey
 import br.com.reconecta.components.kalendar.ui.firey.KalendarSelectedDayRange
 import br.com.reconecta.components.kalendar.ui.firey.RangeSelectionError
 import com.himanshoe.kalendar.color.KalendarColors
+import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
 import java.time.Month
 
@@ -30,7 +31,6 @@ import java.time.Month
  * Composable function that represents a calendar component.
  *
  * @param currentDay The current selected day in the calendar.
- * @param kalendarType The type of calendar to be displayed.
  * @param modifier The modifier for styling or positioning the calendar.
  * @param showLabel Determines whether to show the labels for days of the week.
  * @param kalendarHeaderTextKonfig The configuration for the header text in the calendar.
@@ -53,6 +53,7 @@ fun Kalendar(
     kalendarDayKonfig: KalendarDayKonfig = KalendarDayKonfig.default(),
     dayContent: (@Composable (LocalDate) -> Unit)? = null,
     daySelectionMode: DaySelectionMode = DaySelectionMode.Single,
+    availableDays: List<DayOfWeek>? = null,
     headerContent: (@Composable (Month, Int, () -> Unit, () -> Unit) -> Unit)? = null,
     onDayClick: (LocalDate, List<KalendarEvent>) -> Unit = { _, _ -> },
     onRangeSelected: (KalendarSelectedDayRange, List<KalendarEvent>) -> Unit = { _, _ -> },
@@ -61,13 +62,14 @@ fun Kalendar(
     Kalendar(
         currentDay = currentDay,
         modifier = modifier,
-        daySelectionMode = daySelectionMode,
         showLabel = showLabel,
         kalendarHeaderTextKonfig = kalendarHeaderTextKonfig,
         kalendarColors = kalendarColors,
         kalendarDayKonfig = kalendarDayKonfig,
         onDayClick = onDayClick,
         dayContent = dayContent,
+        daySelectionMode = daySelectionMode,
+        availableDays = availableDays,
         headerContent = headerContent,
         events = KalendarEvents(),
         onRangeSelected = onRangeSelected,
@@ -79,7 +81,6 @@ fun Kalendar(
  * Composable function that represents a calendar component.
  *
  * @param currentDay The current selected day in the calendar.
- * @param kalendarType The type of calendar to be displayed.
  * @param modifier The modifier for styling or positioning the calendar.
  * @param showLabel Determines whether to show the labels for days of the week.
  * @param events The events to be displayed in the calendar.
@@ -104,6 +105,7 @@ fun Kalendar(
     kalendarDayKonfig: KalendarDayKonfig = KalendarDayKonfig.default(),
     daySelectionMode: DaySelectionMode = DaySelectionMode.Single,
     dayContent: (@Composable (LocalDate) -> Unit)? = null,
+    availableDays: List<DayOfWeek>? = null,
     headerContent: (@Composable (Month, Int, () -> Unit, () -> Unit) -> Unit)? = null,
     onDayClick: (LocalDate, List<KalendarEvent>) -> Unit = { _, _ -> },
     onRangeSelected: (KalendarSelectedDayRange, List<KalendarEvent>) -> Unit = { _, _ -> },
@@ -119,6 +121,7 @@ fun Kalendar(
         kalendarDayKonfig = kalendarDayKonfig,
         onDayClick = onDayClick,
         dayContent = dayContent,
+        availableDays = availableDays,
         headerContent = headerContent,
         daySelectionMode = daySelectionMode,
         onRangeSelected = onRangeSelected,

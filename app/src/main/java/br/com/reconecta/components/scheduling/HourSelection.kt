@@ -1,6 +1,5 @@
 package br.com.reconecta.components.scheduling
 
-import android.content.Context
 import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,10 +12,6 @@ import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.SuggestionChipDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,20 +19,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import br.com.reconecta.api.model.GetAvailabilityDto
-import br.com.reconecta.api.service.RetrofitFactory
-import br.com.reconecta.api.service.handleApiResponse
-import java.time.DayOfWeek
 
 @Composable
 fun HourSelection(
     hourSelected: String,
     setHourSelected: (hourSelected: String) -> Unit,
     dayOfWeek: Int,
-    availableHours: List<GetAvailabilityDto>
+    availableDays: List<GetAvailabilityDto>
 ) {
     Column(
         horizontalAlignment = Alignment.Start, modifier = Modifier.fillMaxWidth()
     ) {
+        val availableDay =
+            availableDays.find { day -> day.day == dayOfWeek } ?: return
+
         Text(
             text = "Horários Disponíveis",
             textAlign = TextAlign.Start,
@@ -51,18 +46,15 @@ fun HourSelection(
         ) {
             Log.i("availability", dayOfWeek.toString())
 
-            val dayAvailability =
-                availableHours.find { hour -> hour.day == dayOfWeek } ?: return
-
             HourChip(
-                dayAvailability.startHour,
+                availableDay.startHour,
                 "Manhã",
-                hourSelected == dayAvailability.startHour
+                hourSelected == availableDay.startHour
             ) { setHourSelected(it); }
             HourChip(
-                dayAvailability.endHour,
+                availableDay.endHour,
                 "Tarde",
-                hourSelected == dayAvailability.endHour
+                hourSelected == availableDay.endHour
             ) { setHourSelected(it); }
         }
     }

@@ -14,8 +14,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.reconecta.api.model.GetEstablishmentDto
-import br.com.reconecta.api.model.GetOrganizationDto
-import br.com.reconecta.api.model.enums.CompanyType
+import br.com.reconecta.api.model.organization.GetOrganizationDto
+import br.com.reconecta.components.EAccountType
 import br.com.reconecta.components.commons.CompanyLogo
 import br.com.reconecta.components.commons.formatters.PhoneNumberFormatter
 import br.com.reconecta.components.commons.texts.TextMedium
@@ -28,7 +28,7 @@ object CompanyInfo {
 
         TextMedium(label)
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-            CompanyLogo(organization.id!!, CompanyType.ORGANIZATION, context)
+            CompanyLogo(organization.id!!, EAccountType.ORGANIZATION, context)
             Spacer(modifier = Modifier.width(15.dp))
             Column {
                 TextSemiBold(organization.name, fontSize = 16.sp)
@@ -53,7 +53,7 @@ object CompanyInfo {
         if (establishment != null) {
             TextMedium(label)
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                CompanyLogo(establishment.id, CompanyType.ESTABLISHMENT, context)
+                CompanyLogo(establishment.id, EAccountType.ESTABLISHMENT, context)
                 Spacer(modifier = Modifier.width(15.dp))
                 Column {
                     TextSemiBold(establishment.name, fontSize = 16.sp)

@@ -1,26 +1,14 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package br.com.reconecta.screens
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
+import android.content.Context
+import android.util.Log
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.BottomSheetScaffold
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Text
-import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -30,51 +18,67 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import br.com.reconecta.components.commons.HeaderWithArrow
-import br.com.reconecta.components.scheduling.BottomSheetContent
-import br.com.reconecta.components.scheduling.Calendar
-import br.com.reconecta.components.scheduling.FormQtd
-import br.com.reconecta.components.scheduling.HourSelection
-import br.com.reconecta.components.scheduling.SuccessSchedulingDialog
+import br.com.reconecta.api.model.CreateCollectRequest
+import br.com.reconecta.api.model.GetAvailabilityDto
+import br.com.reconecta.api.model.GetCollectDto
+import br.com.reconecta.api.model.GetResidueDto
+import br.com.reconecta.api.service.RetrofitFactory
+import br.com.reconecta.api.service.handleRetrofitApiCall
+import br.com.reconecta.components.BottomSheet
+import br.com.reconecta.components.EAccountType
+import br.com.reconecta.components.collect_details.CollectScheduled
+import br.com.reconecta.components.commons.Header
+import br.com.reconecta.components.scheduling.SchedullingContent
+import br.com.reconecta.enums.EScreenNames
+import com.google.gson.Gson
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SchedulingScreen(navController: NavHostController) {
-    var qtd by remember {
-        mutableStateOf("")
-    }
+fun SchedulingScreen(
+    navController: NavHostController,
+    context: Context,
+    organizationId: Int,
+    residueIds: List<Int>
+) {
 
-    var dateChecked by remember {
-        mutableStateOf(false)
-    }
+    var loadingAvailability by remember { mutableStateOf(false) }
+    var loadingResidue by remember { mutableStateOf(false) }
 
-    var hourChecked by remember {
-        mutableStateOf(false)
-    }
+    var days by remember { mutableStateOf(listOf<GetAvailabilityDto>()) }
+    var residues by remember { mutableStateOf(listOf<GetResidueDto>()) }
+
+    handleRetrofitApiCall(
+        call = RetrofitFactory().getAvailabilityService(context)
+            .getByOrganizationId(organizationId),
+        setState = { days = it },
+        setIsLoading = { loadingAvailability = it },
+    )
+
+    handleRetrofitApiCall(call = RetrofitFactory().getResidueService(context)
+        .getResiduesByOrganizationId(organizationId),
+        setState = { residues = it },
+        setIsLoading = { loadingResidue = it })
+
     var openSuccessDialog by remember {
         mutableStateOf(false)
     }
 
-    var openSchedulingDetailsDialog by remember {
+    var openCollectDetail by remember {
         mutableStateOf(false)
     }
 
     val scaffoldState = rememberBottomSheetScaffoldState()
 
-    BottomSheetScaffold(
-        sheetContainerColor = Color.White,
-        sheetSwipeEnabled = false,
-        scaffoldState = scaffoldState,
-        sheetPeekHeight = if(openSchedulingDetailsDialog) 575.dp else 0.dp,
-        sheetShadowElevation = 10.dp,
-        sheetContent = {
-            if (openSchedulingDetailsDialog) BottomSheetContent(
-                { openSuccessDialog = true },
-                { openSchedulingDetailsDialog = false })
-            else null
-        }) {
+    if (collect.id != 0) {
+        handleRetrofitApiCall(call = RetrofitFactory().getCollectService(context)
+            .getById(collect.id),
+            setState = { collect = it },
+            setIsLoading = { loadingResidue = it })
+    }
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -87,50 +91,77 @@ fun SchedulingScreen(navController: NavHostController) {
             Divider(thickness = 1.dp, color = Color.LightGray)
             Spacer(modifier = Modifier.height(20.dp))
 
+    BottomSheet(openBottomSheet = openCollectDetail,
+        setOpenBottomSheet = { openCollectDetail = it; openSuccessDialog = !it },
+        appContent = {
             Column(
                 modifier = Modifier
                     .padding(horizontal = 25.dp)
                     .fillMaxWidth()
             ) {
-                FormQtd(qtd) { qtd = it }
+                Header("Agendamento") { navController.navigate(EScreenNames.ORGANIZATION_DETAILS.path) }
+                Divider(thickness = 1.dp, color = Color.LightGray)
+
                 Spacer(modifier = Modifier.height(20.dp))
 
-                Calendar { dateChecked = it }
-                Spacer(modifier = Modifier.height(10.dp))
-
-                HourSelection { hourChecked = it }
-                Spacer(modifier = Modifier.height(20.dp))
-
-                if (openSuccessDialog) {
-                    SuccessSchedulingDialog(
-                        navController,
-                        { openSuccessDialog = false },
-                        { openSchedulingDetailsDialog = true })
-                }
-
-                Row(
-                    horizontalArrangement = Arrangement.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                ) {
-                    Button(
-                        modifier = Modifier
-                            .width(225.dp)
-                            .padding(bottom = 20.dp),
-                        shape = RoundedCornerShape(10.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            contentColor = Color.White,
-                            containerColor = Color(0xFF3E9629),
-                            disabledContentColor = Color.White.copy(alpha = 0.7f),
-                            disabledContainerColor = Color(0xFF3E9629).copy(alpha = 0.7f)
-                        ),
-                        enabled = hourChecked && dateChecked && qtd.isNotEmpty(),
-                        onClick = { openSuccessDialog = true },
-                    ) {
-                        Text(text = "Agendar", color = Color.White, fontSize = 18.sp)
-                    }
-                }
+                SchedullingContent(
+                    navController = navController,
+                    context = context,
+                    organizationId = organizationId,
+                    days = days,
+                    residueIds = residueIds,
+                    residues = residues,
+                    openSuccessDialog = openSuccessDialog,
+                    setOpenSuccessDialog = { openSuccessDialog = it; openCollectDetail = !it },
+                    collect = collect,
+                    setCollect = { collect = it },
+                )
             }
-        }
+        }) {
+        CollectScheduled(
+            collect = collect,
+            companyType = EAccountType.ESTABLISHMENT,
+            context = context
+        )
     }
+}
+
+fun handleCallCreateCollect(
+    setLoading: (Boolean) -> Unit,
+    setOpenDialog: (Boolean) -> Unit,
+    setState: (GetCollectDto) -> Unit,
+    request: CreateCollectRequest,
+    context: Context,
+) {
+    setLoading(true)
+
+    val call = RetrofitFactory().getCollectService(context).createCollect(request)
+    val gson = Gson()
+    val json = gson.toJson(request)
+    Log.i("CollectCreation", json)
+
+    call.enqueue(object : Callback<GetCollectDto> {
+        override fun onResponse(
+            call: Call<GetCollectDto>, response: Response<GetCollectDto>
+        ) {
+            Log.i("CollectCreation", response.code().toString())
+            if (response.isSuccessful) {
+                setOpenDialog(true)
+                response.body()?.let { setState(it) }
+            } else if (response.errorBody() != null) {
+                val resp = response.errorBody()!!.string()
+                Log.e("CollectCreation", resp)
+
+            } else {
+                Log.e("CollectCreation", response.message())
+            }
+
+            setLoading(false)
+        }
+
+        override fun onFailure(call: Call<GetCollectDto>, t: Throwable) {
+            setLoading(false)
+            Log.e("CollectCreation", t.message ?: "")
+        }
+    })
 }
