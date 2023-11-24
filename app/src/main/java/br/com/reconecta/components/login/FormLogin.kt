@@ -24,6 +24,7 @@ import br.com.reconecta.R
 import br.com.reconecta.api.model.auth.LoginRequest
 import br.com.reconecta.api.service.RetrofitFactory
 import br.com.reconecta.api.service.handleRetrofitApiCall
+import br.com.reconecta.components.EAccountType
 import br.com.reconecta.components.commons.LoadingCircularIndicator
 import br.com.reconecta.components.commons.buttons.PrimaryButton
 import br.com.reconecta.components.commons.text_field.EmailTextField
@@ -101,7 +102,11 @@ fun handleLoginCall(
             if (it.isSuccessful) {
                 SessionManager(context).saveAuthToken(it.body()?.token!!)
                 SessionManager(context).saveUserSession(it.body()?.user!!)
-                navController.navigate(EScreenNames.HOME.path)
+
+                if (it.body()?.user?.company?.type == EAccountType.ORGANIZATION)
+                    navController.navigate(EScreenNames.HOME_ORGANIZATION.path)
+                else
+                    navController.navigate(EScreenNames.HOME_ESTABLISHMENT.path)
             } else {
                 errorMessage.value = "Email ou senha inválidos!"
             }

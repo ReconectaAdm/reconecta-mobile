@@ -25,7 +25,6 @@ import br.com.reconecta.components.CreateOrganizationItem
 import br.com.reconecta.components.commons.BottomNavBar
 import br.com.reconecta.components.commons.Header
 import br.com.reconecta.enums.EScreenNames
-import br.com.reconecta.utils.StringUtils
 
 
 @Composable
@@ -33,14 +32,13 @@ fun OrganizationListScreen(navController: NavController, context: Context, resid
     var organizations by remember { mutableStateOf(listOf<GetOrganizationDto>()) }
 
     handleRetrofitApiCall(
-        call = RetrofitFactory().getOrganizationService(context).getByResidueId(residueTypeId = 1),
+        call = RetrofitFactory().getOrganizationService(context).getByResidueId(residueTypeId = residueType),
         onResponse = {
             if (it.isSuccessful) organizations = it.body()!!
         }
     )
 
     Column {
-        // barra superior
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
@@ -50,7 +48,7 @@ fun OrganizationListScreen(navController: NavController, context: Context, resid
                 .weight(0.10f)
         ) {
             Header(text = "Organizações", onClick = {
-                navController.navigate(EScreenNames.HOME.path)
+                navController.navigate(EScreenNames.HOME_ORGANIZATION.path)
             })
         }
 

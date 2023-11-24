@@ -31,10 +31,11 @@ import br.com.reconecta.components.Residuo
 import br.com.reconecta.components.commons.BottomNavBar
 import br.com.reconecta.components.commons.ENavMenuItems
 import br.com.reconecta.core.SessionManager
+import br.com.reconecta.enums.EResidueType
 import br.com.reconecta.enums.EScreenNames
 
 @Composable
-fun HomeScreen(navController: NavHostController, applicationContext: Context) {
+    fun HomeScreen(navController: NavHostController, applicationContext: Context) {
     var address = ""
 
     SessionManager(applicationContext).fetchUserInfo()?.let {
@@ -107,31 +108,30 @@ fun HomeScreen(navController: NavHostController, applicationContext: Context) {
                         contentDescription = "Ícone de resíduo plástico",
                         text = "Plástico"
                     ) {
-                        navController.navigate(EScreenNames.ORGANIZATION_LIST.path)
+                        navigateTo(navController, EResidueType.PLASTICO.value)
                     }
                     Residuo(
                         id = R.drawable.residuo_metal,
                         contentDescription = "Ícone de resíduo metal",
                         text = "Metal"
                     ) {
-                        navController.navigate(EScreenNames.ORGANIZATION_LIST.path)
+                        navigateTo(navController, EResidueType.METAL.value)
                     }
                     Residuo(
                         id = R.drawable.residuo_papel,
                         contentDescription = "Ícone de resíduo papel",
                         text = "Papel"
                     ) {
-                        navController.navigate(EScreenNames.ORGANIZATION_LIST.path)
+                        navigateTo(navController, EResidueType.PAPEL.value)
                     }
                     Residuo(
                         id = R.drawable.residuo_vidro,
                         contentDescription = "Ícone de resíduo vidro",
                         text = "Vidro"
                     ) {
-                        navController.navigate(EScreenNames.ORGANIZATION_LIST.path)
+                        navigateTo(navController, EResidueType.VIDRO.value)
                     }
                 }
-                //segunda fileira
                 Row(
                     horizontalArrangement = Arrangement.SpaceAround,
                     modifier = Modifier
@@ -143,32 +143,31 @@ fun HomeScreen(navController: NavHostController, applicationContext: Context) {
                         contentDescription = "Ícone de resíduo orgânico",
                         text = "Orgânico"
                     ) {
-                        // Ação a ser executada quando o Residuo for clicado
+                        navigateTo(navController, EResidueType.ORGANICO.value)
                     }
                     Residuo(
                         id = R.drawable.residuo_pilhas,
                         contentDescription = "Ícone de resíduo pilha e bateria",
                         text = "Pilhas"
                     ) {
-                        // Ação a ser executada quando o Residuo for clicado
+                        navigateTo(navController, EResidueType.PILHAS.value)
                     }
                     Residuo(
                         id = R.drawable.residuo_eletronicos,
                         contentDescription = "Ícone de resíduo eletrônico",
                         text = "Eletrônicos"
                     ) {
-                        // Ação a ser executada quando o Residuo for clicado
+                        navigateTo(navController, EResidueType.ELETRICOS.value)
                     }
                     Residuo(
                         id = R.drawable.residuo_outros,
                         contentDescription = "Ícone de outros resíduos",
                         text = "Outros"
                     ) {
-                        // Ação a ser executada quando o Residuo for clicado
+                        navigateTo(navController, EResidueType.OUTROS.value)
                     }
                 }
             }
-            //favoritos
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -181,27 +180,22 @@ fun HomeScreen(navController: NavHostController, applicationContext: Context) {
                 )
                 Row(
                     horizontalArrangement = Arrangement.Start, modifier = Modifier
-//                        .background(Color.Red)
                         .padding(vertical = 7.dp)
                         .fillMaxWidth()
                         .horizontalScroll(rememberScrollState())
                 ) {
-                    //plasrecicla
                     Organizacao(
                         id = R.drawable.logo_plasrecicla,
                         contentDescription = "Logo da empresa PlasRecicla",
                         text = "PlasRecicla"
                     )
-                    //revidro
                     Organizacao(
                         id = R.drawable.logo_revidro,
                         contentDescription = "Logo da empresa ReVidro",
                         text = "ReVidro"
                     )
-
                 }
             }
-            //recentes
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -242,4 +236,8 @@ fun HomeScreen(navController: NavHostController, applicationContext: Context) {
 
         BottomNavBar(ENavMenuItems.HOME, navController)
     }
+}
+
+fun navigateTo(navController: NavHostController, id: Int) {
+    navController.navigate("${EScreenNames.ORGANIZATION_LIST.path}/$id")
 }

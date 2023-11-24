@@ -13,21 +13,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
-import br.com.reconecta.screens.AvailabilityScreen
-import br.com.reconecta.screens.OrganizationCollectDetailsScreen
-import br.com.reconecta.screens.EstablishmentCollectDetailsScreen
 import br.com.reconecta.enums.EScreenNames
-import br.com.reconecta.screens.HomeEstablishmentScreen
-import br.com.reconecta.screens.HomeScreen
-import br.com.reconecta.screens.LoginScreen
-import br.com.reconecta.screens.OrganizationCollectInProgressScreen
-import br.com.reconecta.screens.OrganizationDetailsScreen
-import br.com.reconecta.screens.OrganizationListScreen
 import br.com.reconecta.screens.AccountInformationScreen
+import br.com.reconecta.screens.AvailabilityScreen
 import br.com.reconecta.screens.EditAvailabilityScreen
 import br.com.reconecta.screens.EditBankAccountScreen
 import br.com.reconecta.screens.EditPasswordScreen
 import br.com.reconecta.screens.EditResiduesScreen
+import br.com.reconecta.screens.EstablishmentCollectDetailsScreen
+import br.com.reconecta.screens.HomeEstablishmentScreen
+import br.com.reconecta.screens.HomeScreen
+import br.com.reconecta.screens.LoginScreen
+import br.com.reconecta.screens.OrganizationCollectDetailsScreen
+import br.com.reconecta.screens.OrganizationCollectInProgressScreen
+import br.com.reconecta.screens.OrganizationDetailsScreen
+import br.com.reconecta.screens.OrganizationListScreen
 import br.com.reconecta.screens.ResetPasswordScreen
 import br.com.reconecta.screens.SchedulingScreen
 import br.com.reconecta.screens.SignUpScreen
@@ -51,7 +51,7 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberAnimatedNavController()
                     AnimatedNavHost(
                         navController = navController,
-                        startDestination = EScreenNames.ORGANIZATION_LIST.path,
+                        startDestination = EScreenNames.HOME_ORGANIZATION.path,
                         exitTransition = {
                             slideOutOfContainer(
                                 towards = AnimatedContentScope.SlideDirection.End,
@@ -71,17 +71,21 @@ class MainActivity : ComponentActivity() {
                         composable(route = EScreenNames.REGISTER.path) {
                             SignUpScreen(navController, applicationContext)
                         }
-                        composable(route = EScreenNames.HOME.path) {
+                        composable(route = EScreenNames.HOME_ORGANIZATION.path) {
                             HomeScreen(navController, applicationContext)
                         }
                         composable(
                             route = "${EScreenNames.ORGANIZATION_DETAILS.path}/{organizationId}",
-                            arguments = listOf(navArgument("organizationId") { type = NavType.IntType })
+                            arguments = listOf(navArgument("organizationId") {
+                                type = NavType.IntType
+                            })
                         ) {
-
-
                             val primitiveValue = it.arguments?.getInt("organizationId", 0)!!
-                            OrganizationDetailsScreen(navController, applicationContext, primitiveValue)
+                            OrganizationDetailsScreen(
+                                navController,
+                                applicationContext,
+                                primitiveValue
+                            )
                         }
                         composable(route = EScreenNames.HOME_ESTABLISHMENT.path) {
                             HomeEstablishmentScreen(navController)
@@ -102,8 +106,14 @@ class MainActivity : ComponentActivity() {
                                 organizationId!!,
                                 residueIds.map { residueId -> residueId })
                         }
-                        composable(route = EScreenNames.ORGANIZATION_LIST.path) {
-                            OrganizationListScreen(navController, applicationContext, 1)
+                        composable(
+                            route = "${EScreenNames.ORGANIZATION_LIST.path}/{residueTypeId}",
+                            arguments = listOf(navArgument("residueTypeId") {
+                                type = NavType.IntType
+                            })
+                        ) {
+                            val residueTypeId = it.arguments?.getInt("residueTypeId", 0)!!
+                            OrganizationListScreen(navController, applicationContext, residueTypeId)
                         }
                         composable(route = EScreenNames.ORGANIZATION_COLLECT_DETAILS.path) {
                             OrganizationCollectDetailsScreen(navController, applicationContext)
@@ -129,22 +139,22 @@ class MainActivity : ComponentActivity() {
                         composable(route = EScreenNames.AVAILABILITY.path) {
                             AvailabilityScreen(navController, applicationContext)
                         }
-                        composable(route = EScreenNames.ACCOUNT_INFO.path){
+                        composable(route = EScreenNames.ACCOUNT_INFO.path) {
                             AccountInformationScreen(applicationContext, navController)
                         }
-                        composable(route = EScreenNames.ACCOUNT_INFO_EDIT_PASSWORD.path){
+                        composable(route = EScreenNames.ACCOUNT_INFO_EDIT_PASSWORD.path) {
                             EditPasswordScreen(applicationContext, navController)
                         }
-                        composable(route = EScreenNames.ACCOUNT_INFO_EDIT_PERFIL.path){
+                        composable(route = EScreenNames.ACCOUNT_INFO_EDIT_PERFIL.path) {
                             EditPerfilScreen(applicationContext, navController)
                         }
-                        composable(route = EScreenNames.ACCOUNT_INFO_EDIT_WALLET.path){
+                        composable(route = EScreenNames.ACCOUNT_INFO_EDIT_WALLET.path) {
                             EditBankAccountScreen(applicationContext, navController)
                         }
-                        composable(route = EScreenNames.ACCOUNT_INFO_EDIT_AVAILABILITY.path){
+                        composable(route = EScreenNames.ACCOUNT_INFO_EDIT_AVAILABILITY.path) {
                             EditAvailabilityScreen(applicationContext, navController)
                         }
-                        composable(route = EScreenNames.ACCOUNT_INFO_EDIT_RESIDUES.path){
+                        composable(route = EScreenNames.ACCOUNT_INFO_EDIT_RESIDUES.path) {
                             EditResiduesScreen(applicationContext, navController)
                         }
                     }
