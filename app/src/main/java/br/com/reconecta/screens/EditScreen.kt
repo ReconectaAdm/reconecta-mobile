@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -42,6 +44,9 @@ import br.com.reconecta.components.account_info.CardEditEstablishment
 import br.com.reconecta.components.account_info.CardEditOrganization
 import br.com.reconecta.components.account_info.CardEstablishmentPoints
 import br.com.reconecta.components.account_info.CardOrganizationPoints
+import br.com.reconecta.components.commons.BottomNavBar
+import br.com.reconecta.components.commons.CompanyLogo
+import br.com.reconecta.components.commons.ENavMenuItems
 import br.com.reconecta.core.DateFormatters
 import br.com.reconecta.core.SessionManager
 import br.com.reconecta.enums.EScreenNames
@@ -50,7 +55,7 @@ import br.com.reconecta.ui.theme.LightGreenReconecta
 
 
 @Composable
-fun AccountInformationScreen(context: Context, navController: NavController) {
+fun EditScreen(context: Context, navController: NavController) {
     val user = SessionManager(context).fetchUserInfo()
     var showDeleteAccountModal by remember { mutableStateOf(false) }
     var showLeaveModal by remember { mutableStateOf(false) }
@@ -87,7 +92,7 @@ fun AccountInformationScreen(context: Context, navController: NavController) {
                         AccountButton(text = "Cancelar",
                             containerColor = DisabledGray,
                             textColor = Color.Black,
-                            onClick = {showDeleteAccountModal = false })
+                            onClick = { showDeleteAccountModal = false })
                         Spacer(modifier = Modifier.width(20.dp))
                         AccountButton(text = "Deletar",
                             containerColor = Color.Red,
@@ -141,15 +146,14 @@ fun AccountInformationScreen(context: Context, navController: NavController) {
 
     }
 
-    Column(modifier = Modifier.padding(horizontal = 20.dp)) {
+    Column(modifier = Modifier
+        .fillMaxWidth()
+        .padding(horizontal = 20.dp)
+    ) {
         Spacer(modifier = Modifier.height(35.dp))
 
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-            Image(
-                painter = painterResource(id = R.drawable.no_image),
-                contentDescription = "Logo",
-                modifier = Modifier.size(80.dp)
-            )
+//            CompanyLogo()
         }
 
 
@@ -208,8 +212,13 @@ fun AccountInformationScreen(context: Context, navController: NavController) {
                 contentDescription = "Sair"
             )
             Spacer(modifier = Modifier.width(10.dp))
-            Text(text= "Sair", fontWeight = FontWeight.Bold)
+            Text(text = "Sair", fontWeight = FontWeight.Bold)
         }
+
+        Spacer(modifier = Modifier.height(150.dp))
+        // Bottom navigation bar
+        Divider(thickness = 1.dp, color = Color.LightGray)
+        BottomNavBar(ENavMenuItems.ACCOUNT, navController)
     }
 }
 

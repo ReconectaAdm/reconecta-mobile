@@ -104,7 +104,7 @@ fun SuccessSchedulingDialog(
                     Text(text = "Ver detalhes", color = Color.White)
                 }
 
-                TextButton(onClick = { closeSuccessDialog(); navController.navigate(EScreenNames.HOME.path) }) {
+                TextButton(onClick = { closeSuccessDialog(); navController.navigate(EScreenNames.HOME_ORGANIZATION.path) }) {
                     Text("Início")
                 }
             }

@@ -46,8 +46,10 @@ fun BottomNavBar(activeMenu: ENavMenuItems? = null, navController: NavController
                 contentDescription = "Ícone início",
                 text = ENavMenuItems.HOME.value,
                 color = getActiveMenuItemColor(activeMenu, ENavMenuItems.HOME),
-                onClick = { navController.navigate(EScreenNames.HOME.path) })
-            NavbarItem(id = R.drawable.navbar_coleta,
+                onClick = { navController.navigate(EScreenNames.HOME_ORGANIZATION.path) }
+            )
+            NavbarItem(
+                id = R.drawable.navbar_coleta,
                 contentDescription = "Ícone coleta",
                 text = ENavMenuItems.COLLECT.value,
                 color = getActiveMenuItemColor(activeMenu, ENavMenuItems.COLLECT),

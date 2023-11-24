@@ -23,10 +23,10 @@ import br.com.reconecta.api.model.CreateCollectRequest
 import br.com.reconecta.api.model.GetAvailabilityDto
 import br.com.reconecta.api.model.GetCollectDto
 import br.com.reconecta.api.model.GetResidueDto
-import br.com.reconecta.api.model.enums.CompanyType
 import br.com.reconecta.api.service.RetrofitFactory
 import br.com.reconecta.api.service.handleRetrofitApiCall
 import br.com.reconecta.components.BottomSheet
+import br.com.reconecta.components.EAccountType
 import br.com.reconecta.components.collect_details.CollectScheduled
 import br.com.reconecta.components.commons.Header
 import br.com.reconecta.components.scheduling.SchedullingContent
@@ -112,7 +112,7 @@ fun SchedulingScreen(
         }) {
         CollectScheduled(
             collect = collect,
-            companyType = CompanyType.ESTABLISHMENT,
+            companyType = EAccountType.ESTABLISHMENT,
             context = context
         )
     }

@@ -8,9 +8,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import br.com.reconecta.api.model.GetCollectDto
 import br.com.reconecta.api.model.enums.CollectStatus
-import br.com.reconecta.api.model.enums.CompanyType
 import br.com.reconecta.api.service.RetrofitFactory
 import br.com.reconecta.api.service.handleRetrofitApiCall
+import br.com.reconecta.components.EAccountType
 import br.com.reconecta.components.collect_details.CollectScheduled
 
 @Composable
@@ -35,7 +35,7 @@ fun OrganizationCollectDetail(
             CollectConcluded(collect = collect, context = context)
         }
         CollectStatus.SCHEDULED -> {
-            CollectScheduled(collect = collect, CompanyType.ORGANIZATION, context = context)
+            CollectScheduled(collect = collect, EAccountType.ORGANIZATION, context = context)
         }
 
         else -> {}
