@@ -62,7 +62,7 @@ fun EditScreen(context: Context, navController: NavController) {
     val isLoading = remember { mutableStateOf(false) }
     var points by remember { mutableStateOf(0) }
     var collects by remember { mutableStateOf(0) }
-    val receivedValue by remember { mutableStateOf(0.0) }
+    var receivedValue by remember { mutableStateOf(0.0) }
 
     handleRetrofitApiCall(call = RetrofitFactory().getCollectService(context).getSummary(),
         isLoading = isLoading,
@@ -70,6 +70,7 @@ fun EditScreen(context: Context, navController: NavController) {
             if (it.isSuccessful) {
                 points = it.body()!!.points
                 collects = it.body()!!.collects
+                receivedValue = it.body()!!.value
             }
         })
 
@@ -189,7 +190,7 @@ fun EditScreen(context: Context, navController: NavController) {
             EAccountType.ORGANIZATION -> {
                 CardOrganizationPoints(
                     collects = collects,
-                    points = points,
+                    points = points
                 )
                 Spacer(modifier = Modifier.height(30.dp))
                 CardEditOrganization(navController = navController)
@@ -215,7 +216,7 @@ fun EditScreen(context: Context, navController: NavController) {
             Text(text = "Sair", fontWeight = FontWeight.Bold)
         }
 
-        Spacer(modifier = Modifier.height(150.dp))
+        Spacer(modifier = Modifier.height(175.dp))
         // Bottom navigation bar
         Divider(thickness = 1.dp, color = Color.LightGray)
         BottomNavBar(ENavMenuItems.ACCOUNT, navController)
