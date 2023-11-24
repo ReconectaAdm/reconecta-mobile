@@ -52,7 +52,7 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberAnimatedNavController()
                     AnimatedNavHost(
                         navController = navController,
-                        startDestination = EScreenNames.ORGANIZATION_COLLECT.path,
+                        startDestination = EScreenNames.LOGIN.path,
                         exitTransition = {
                             slideOutOfContainer(
                                 towards = AnimatedContentScope.SlideDirection.End,
