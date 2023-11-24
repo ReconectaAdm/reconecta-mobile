@@ -184,6 +184,6 @@ fun EstablishmentCollectScreen(navController: NavHostController, applicationCont
             Spacer(modifier = Modifier.size(20.dp))
         }
         Divider(thickness = 1.dp, color = Color.LightGray)
-        BottomNavBar(ENavMenuItems.COLLECT)
+        BottomNavBar(ENavMenuItems.COLLECT, navController)
     }
 }

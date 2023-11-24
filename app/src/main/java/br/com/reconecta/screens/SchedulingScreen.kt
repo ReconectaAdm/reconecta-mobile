@@ -36,7 +36,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SchedulingScreen(
     navController: NavHostController,
@@ -71,7 +70,9 @@ fun SchedulingScreen(
         mutableStateOf(false)
     }
 
-    val scaffoldState = rememberBottomSheetScaffoldState()
+    var collect by remember {
+        mutableStateOf(GetCollectDto())
+    }
 
     if (collect.id != 0) {
         handleRetrofitApiCall(call = RetrofitFactory().getCollectService(context)
@@ -80,23 +81,14 @@ fun SchedulingScreen(
             setIsLoading = { loadingResidue = it })
     }
 
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .verticalScroll(rememberScrollState())
-                .background(Color.White)
-                .fillMaxWidth()
-        ) {
-            HeaderWithArrow("Agendamento") { navController.navigate(EScreenNames.ORGANIZATION_DETAILS.path) }
-            Divider(thickness = 1.dp, color = Color.LightGray)
-            Spacer(modifier = Modifier.height(20.dp))
 
     BottomSheet(openBottomSheet = openCollectDetail,
         setOpenBottomSheet = { openCollectDetail = it; openSuccessDialog = !it },
         appContent = {
             Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
-                    .padding(horizontal = 25.dp)
+                    .verticalScroll(rememberScrollState())
                     .fillMaxWidth()
             ) {
                 Header("Agendamento") { navController.navigate(EScreenNames.ORGANIZATION_DETAILS.path) }

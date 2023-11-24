@@ -20,12 +20,10 @@ import br.com.reconecta.screens.EditAvailabilityScreen
 import br.com.reconecta.screens.EditBankAccountScreen
 import br.com.reconecta.screens.EditPasswordScreen
 import br.com.reconecta.screens.EditResiduesScreen
-import br.com.reconecta.screens.EstablishmentCollectDetailsScreen
 import br.com.reconecta.screens.EstablishmentMetricsScreen
 import br.com.reconecta.screens.HomeOrganizationScreen
 import br.com.reconecta.screens.HomeEstablishmentScreen
 import br.com.reconecta.screens.LoginScreen
-import br.com.reconecta.screens.OrganizationCollectDetailsScreen
 import br.com.reconecta.screens.OrganizationCollectInProgressScreen
 import br.com.reconecta.screens.OrganizationCollectScreen
 import br.com.reconecta.screens.OrganizationDetailsScreen
@@ -118,9 +116,6 @@ class MainActivity : ComponentActivity() {
                             val residueTypeId = it.arguments?.getInt("residueTypeId", 0)!!
                             OrganizationListScreen(navController, applicationContext, residueTypeId)
                         }
-                        composable(route = EScreenNames.ORGANIZATION_COLLECT_DETAILS.path) {
-                            OrganizationCollectDetailsScreen(navController, applicationContext)
-                        }
                         composable(
                             route = "${EScreenNames.ORGANIZATION_COLLECT_IN_PROGRESS.path}/{collectId}",
                             arguments = (
@@ -132,9 +127,6 @@ class MainActivity : ComponentActivity() {
                                 applicationContext,
                                 collectId!!
                             )
-                        }
-                        composable(route = EScreenNames.ESTABLISHMENT_COLLECT_DETAILS.path) {
-                            EstablishmentCollectDetailsScreen(navController, applicationContext)
                         }
                         composable(route = EScreenNames.RESET_PASSWORD.path) {
                             ResetPasswordScreen(navController, applicationContext)
