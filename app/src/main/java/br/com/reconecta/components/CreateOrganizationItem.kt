@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -33,7 +34,7 @@ import br.com.reconecta.R
 
 @Composable
 fun CreateOrganizationItem(
-    bitmap: Bitmap,
+    bitmap: Bitmap?,
     contentDescription: String,
     nome: String,
     avaliacao: Double,
@@ -48,17 +49,25 @@ fun CreateOrganizationItem(
             .padding(16.dp)
     ) {
 
-        Image(bitmap = bitmap.asImageBitmap(),
-            contentDescription = contentDescription,
-            modifier = Modifier.size(70.dp).clickable { onImageClick() }
-        )
-//        Image(
-//            painter = bitmap,
-//            contentDescription = contentDescription,
-//            modifier = Modifier
-//                .size(70.dp)
-//                .clickable { onImageClick() }
-//        )
+
+        if (bitmap != null) {
+            Image(bitmap = bitmap.asImageBitmap(),
+                contentDescription = contentDescription,
+                modifier = Modifier
+                    .size(70.dp)
+                    .clickable { onImageClick() }
+            )
+
+        } else {
+            Image(painter = painterResource(id = R.drawable.no_image),
+                contentDescription = contentDescription,
+                modifier = Modifier
+                    .size(70.dp)
+                    .clickable { onImageClick() }
+            )
+
+        }
+
 
         Column(
             modifier = Modifier

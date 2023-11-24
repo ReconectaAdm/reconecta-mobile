@@ -23,8 +23,11 @@ interface OrganizationService : IBaseCompanyService {
     @GET(prefix)
     override fun getAll(): Call<List<GetOrganizationDto>>
 
+    @GET("$prefix/residuetype/{residueTypeId}")
+    fun getByResidueId(@Path("residueTypeId") residueTypeId: Int): Call<List<GetOrganizationDto>>
+
     @GET("$prefix/{id}")
-    fun getById(@Path("id") id :Int): Call<GetOrganizationDto>
+    fun getById(@Path("id") id: Int): Call<GetOrganizationDto>
 
     @GET("$prefix/me")
     override fun getMe(): Call<Company>

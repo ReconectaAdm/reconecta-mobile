@@ -40,8 +40,7 @@ import br.com.reconecta.enums.EScreenNames
 
 @Composable
 fun OrganizationDetailsScreen(
-    navController: NavHostController, context: Context, organizationId: Int = 63
-) {
+    navController: NavHostController, context: Context, organizationId: Int) {
     var organization by remember {
         mutableStateOf(GetOrganizationDto())
     }
@@ -105,7 +104,7 @@ fun OrganizationDetailsScreen(
 
                 Spacer(modifier = Modifier.height(15.dp))
                 ContactMenu(
-                    SessionManager(context).fetchUserInfo()?.email ?: "", organization.phone
+                    organization.user.email ?: "", organization.phone
                 )
                 Spacer(modifier = Modifier.height(50.dp))
 
