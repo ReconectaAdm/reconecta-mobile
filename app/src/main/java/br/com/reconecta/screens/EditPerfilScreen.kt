@@ -93,10 +93,7 @@ fun EditPerfilScreen(context: Context, navController: NavHostController) {
 
             handleRetrofitApiCall(call = retrofitService?.uploadLogo(filePart)!!)
         }
-
-
     }
-
 
     SessionManager(context).fetchUserInfo()?.let {
         email.value = it.email

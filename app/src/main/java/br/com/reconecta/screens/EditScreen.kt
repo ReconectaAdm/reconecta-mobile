@@ -42,6 +42,7 @@ import br.com.reconecta.components.account_info.CardEditEstablishment
 import br.com.reconecta.components.account_info.CardEditOrganization
 import br.com.reconecta.components.account_info.CardEstablishmentPoints
 import br.com.reconecta.components.account_info.CardOrganizationPoints
+import br.com.reconecta.components.commons.CompanyLogo
 import br.com.reconecta.core.DateFormatters
 import br.com.reconecta.core.SessionManager
 import br.com.reconecta.enums.EScreenNames
@@ -50,7 +51,7 @@ import br.com.reconecta.ui.theme.LightGreenReconecta
 
 
 @Composable
-fun AccountInformationScreen(context: Context, navController: NavController) {
+fun EditScreen(context: Context, navController: NavController) {
     val user = SessionManager(context).fetchUserInfo()
     var showDeleteAccountModal by remember { mutableStateOf(false) }
     var showLeaveModal by remember { mutableStateOf(false) }
@@ -145,11 +146,7 @@ fun AccountInformationScreen(context: Context, navController: NavController) {
         Spacer(modifier = Modifier.height(35.dp))
 
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-            Image(
-                painter = painterResource(id = R.drawable.no_image),
-                contentDescription = "Logo",
-                modifier = Modifier.size(80.dp)
-            )
+//            CompanyLogo()
         }
 
 

@@ -33,12 +33,6 @@ fun CardEditEstablishment(navController: NavController) {
             id = R.drawable.perfil_icon, text = "Editar perfil"
         ) { navController.navigate(EScreenNames.ACCOUNT_INFO_EDIT_PERFIL.path) }
 
-        CreateEditInformationItem(
-            id = R.drawable.lock_closed, text = "Informações bancárias"
-        ) {
-            navController.navigate(EScreenNames.ACCOUNT_INFO_EDIT_WALLET.path)
-        }
-
         CreateEditInformationItem(id = R.drawable.key, text = "Redefinir senha") {
             navController.navigate(EScreenNames.ACCOUNT_INFO_EDIT_PASSWORD.path)
         }
@@ -66,12 +60,6 @@ fun CardEditOrganization(navController: NavController) {
             id = R.drawable.clock_icon_svg, text = "Meus resíduos"
         ) {
             navController.navigate(EScreenNames.ACCOUNT_INFO_EDIT_RESIDUES.path)
-        }
-
-        CreateEditInformationItem(
-            id = R.drawable.lock_closed, text = "Informações bancárias"
-        ) {
-            navController.navigate(EScreenNames.ACCOUNT_INFO_EDIT_WALLET.path)
         }
 
         CreateEditInformationItem(id = R.drawable.key, text = "Redefinir senha") {

@@ -43,7 +43,7 @@ fun FormLogin(
     isValidLogin: MutableState<Boolean>
 ) {
     val passwordStr = remember { mutableStateOf("123123") }
-    val emailStr = remember { mutableStateOf("estabelecimento1@test.com") }
+    val emailStr = remember { mutableStateOf("coletora1@test.com") }
     isValidLogin.value = StringUtils.isValidEmail(emailStr.value) && passwordStr.value.length > 3
 
     Column(modifier = Modifier.padding(40.dp)) {

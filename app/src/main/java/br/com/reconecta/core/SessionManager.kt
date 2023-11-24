@@ -17,7 +17,6 @@ class SessionManager(context: Context) {
     fun clear(){
         val editor = prefs.edit()
         editor.remove(USER_TOKEN)
-        editor.remove(USER_SESSION)
         editor.apply()
     }
 

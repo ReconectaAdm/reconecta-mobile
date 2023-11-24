@@ -11,7 +11,7 @@ class AuthInterceptor(context: Context) : Interceptor {
         val requestBuilder = chain.request().newBuilder()
 
         sessionManager.fetchAuthToken()?.let {
-            requestBuilder.addHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiIxOCIsIkNvbXBhbnlJZCI6IjQ2IiwiVHlwZSI6IjEiLCJuYmYiOjE3MDA3ODQ4NjcsImV4cCI6MTcwMDc5MjA2NywiaWF0IjoxNzAwNzg0ODY3fQ.-kGLRektTcWaxnVXrQ2aawTimQ3jYQA96QawPyDL_6Y")
+            requestBuilder.addHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiIxOCIsIkNvbXBhbnlJZCI6IjQ2IiwiVHlwZSI6IjEiLCJuYmYiOjE3MDA3ODY3NDYsImV4cCI6MTcwMDc5Mzk0NiwiaWF0IjoxNzAwNzg2NzQ2fQ.7izMgfuBpxUNo7uq57AVZAlVVhhLAYStWg1LBminqUA")
         }
 
         return chain.proceed(requestBuilder.build())

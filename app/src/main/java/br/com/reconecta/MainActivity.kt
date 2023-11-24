@@ -14,15 +14,14 @@ import androidx.compose.ui.res.colorResource
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import br.com.reconecta.enums.EScreenNames
-import br.com.reconecta.screens.AccountInformationScreen
-import br.com.reconecta.screens.AvailabilityScreen
+import br.com.reconecta.screens.EditScreen
 import br.com.reconecta.screens.EditAvailabilityScreen
 import br.com.reconecta.screens.EditBankAccountScreen
 import br.com.reconecta.screens.EditPasswordScreen
 import br.com.reconecta.screens.EditResiduesScreen
 import br.com.reconecta.screens.EstablishmentCollectDetailsScreen
+import br.com.reconecta.screens.HomeOrganizationScreen
 import br.com.reconecta.screens.HomeEstablishmentScreen
-import br.com.reconecta.screens.HomeScreen
 import br.com.reconecta.screens.LoginScreen
 import br.com.reconecta.screens.OrganizationCollectDetailsScreen
 import br.com.reconecta.screens.OrganizationCollectInProgressScreen
@@ -51,7 +50,7 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberAnimatedNavController()
                     AnimatedNavHost(
                         navController = navController,
-                        startDestination = EScreenNames.HOME_ORGANIZATION.path,
+                        startDestination = EScreenNames.LOGIN.path,
                         exitTransition = {
                             slideOutOfContainer(
                                 towards = AnimatedContentScope.SlideDirection.End,
@@ -71,8 +70,8 @@ class MainActivity : ComponentActivity() {
                         composable(route = EScreenNames.REGISTER.path) {
                             SignUpScreen(navController, applicationContext)
                         }
-                        composable(route = EScreenNames.HOME_ORGANIZATION.path) {
-                            HomeScreen(navController, applicationContext)
+                        composable(route = EScreenNames.HOME_ESTABLISHMENT.path) {
+                            HomeEstablishmentScreen(navController, applicationContext)
                         }
                         composable(
                             route = "${EScreenNames.ORGANIZATION_DETAILS.path}/{organizationId}",
@@ -87,8 +86,8 @@ class MainActivity : ComponentActivity() {
                                 primitiveValue
                             )
                         }
-                        composable(route = EScreenNames.HOME_ESTABLISHMENT.path) {
-                            HomeEstablishmentScreen(navController)
+                        composable(route = EScreenNames.HOME_ORGANIZATION.path) {
+                            HomeOrganizationScreen(navController)
                         }
                         composable(
                             route = "${EScreenNames.SCHEDULING.path}/{organizationId}?residueIds={residueIds}",
@@ -136,11 +135,8 @@ class MainActivity : ComponentActivity() {
                         composable(route = EScreenNames.RESET_PASSWORD.path) {
                             ResetPasswordScreen(navController, applicationContext)
                         }
-                        composable(route = EScreenNames.AVAILABILITY.path) {
-                            AvailabilityScreen(navController, applicationContext)
-                        }
                         composable(route = EScreenNames.ACCOUNT_INFO.path) {
-                            AccountInformationScreen(applicationContext, navController)
+                            EditScreen(applicationContext, navController)
                         }
                         composable(route = EScreenNames.ACCOUNT_INFO_EDIT_PASSWORD.path) {
                             EditPasswordScreen(applicationContext, navController)
@@ -152,7 +148,7 @@ class MainActivity : ComponentActivity() {
                             EditBankAccountScreen(applicationContext, navController)
                         }
                         composable(route = EScreenNames.ACCOUNT_INFO_EDIT_AVAILABILITY.path) {
-                            EditAvailabilityScreen(applicationContext, navController)
+                            EditAvailabilityScreen(navController, applicationContext)
                         }
                         composable(route = EScreenNames.ACCOUNT_INFO_EDIT_RESIDUES.path) {
                             EditResiduesScreen(applicationContext, navController)

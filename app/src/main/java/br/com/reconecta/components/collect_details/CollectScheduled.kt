@@ -23,17 +23,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.reconecta.api.model.GetCollectDto
-import br.com.reconecta.api.model.enums.CompanyType
-import br.com.reconecta.components.collect_details.CollectValue
-import br.com.reconecta.components.collect_details.CompanyInfo
-import br.com.reconecta.components.collect_details.ResidueInfo
+import br.com.reconecta.components.EAccountType
 import br.com.reconecta.components.commons.formatters.DateTimeFormatter
 import br.com.reconecta.components.commons.texts.TextMedium
 
 @Composable
 fun CollectScheduled(
     collect: GetCollectDto,
-    companyType: CompanyType,
+    companyType: EAccountType,
     context: Context
 ) {
     Column(
@@ -74,13 +71,13 @@ fun CollectScheduled(
 
     }
 
-    if (companyType == CompanyType.ORGANIZATION) {
+    if (companyType == EAccountType.ORGANIZATION) {
         CompanyInfo.EstablishmentInfo(
             label = "Empresa",
             establishment = collect.establishment!!,
             context = context
         )
-    } else if (companyType == CompanyType.ESTABLISHMENT) {
+    } else if (companyType == EAccountType.ESTABLISHMENT) {
         CompanyInfo.OrganizationInfo(
             label = "Empresa",
             organization = collect.organization!!,

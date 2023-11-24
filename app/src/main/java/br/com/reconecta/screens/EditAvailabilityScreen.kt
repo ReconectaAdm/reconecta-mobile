@@ -20,6 +20,7 @@ import br.com.reconecta.api.service.handleRetrofitApiCall
 import br.com.reconecta.components.availability.AvailabilityGrid
 import br.com.reconecta.components.availability.AvailabilityList
 import br.com.reconecta.components.commons.Header
+import br.com.reconecta.core.SessionManager
 import br.com.reconecta.utils.EnumUtils
 import com.google.gson.Gson
 import kotlinx.datetime.DayOfWeek
@@ -30,16 +31,14 @@ import retrofit2.Response
 
 
 @Composable
-fun AvailabilityScreen(navController: NavController, context: Context) {
-
+fun EditAvailabilityScreen(navController: NavController, context: Context) {
+    val asd by remember { mutableStateOf(SessionManager(context).fetchUserInfo()?.company?.id!!) }
     var loadingAvailability by remember { mutableStateOf(false) }
     var days by remember { mutableStateOf(listOf(GetAvailabilityDto())) }
-    var isEdit by remember {
-        mutableStateOf(false)
-    }
+    var isEdit by remember { mutableStateOf(false) }
 
     handleRetrofitApiCall(
-        call = RetrofitFactory().getAvailabilityService(context).getByOrganizationId(63),
+        call = RetrofitFactory().getAvailabilityService(context).getByOrganizationId(asd),
         setState = { days = it; days = fullFillWeek(63, days.toMutableList()) },
         setIsLoading = { loadingAvailability = it },
     )
@@ -60,7 +59,6 @@ fun AvailabilityScreen(navController: NavController, context: Context) {
         }
     }
 }
-
 
 fun handleCallUpdateAvailability(
     setIsEdit: () -> Unit,
