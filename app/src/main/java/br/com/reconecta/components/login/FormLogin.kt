@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import br.com.reconecta.R
-import br.com.reconecta.api.model.LoginRequest
+import br.com.reconecta.api.model.auth.LoginRequest
 import br.com.reconecta.api.service.RetrofitFactory
 import br.com.reconecta.api.service.handleRetrofitApiCall
 import br.com.reconecta.components.commons.LoadingCircularIndicator
@@ -29,7 +29,7 @@ import br.com.reconecta.components.commons.buttons.PrimaryButton
 import br.com.reconecta.components.commons.text_field.EmailTextField
 import br.com.reconecta.components.commons.text_field.PasswordTextField
 import br.com.reconecta.core.SessionManager
-import br.com.reconecta.screens.EScreenNames
+import br.com.reconecta.enums.EScreenNames
 import br.com.reconecta.ui.theme.DarkGreenReconecta
 import br.com.reconecta.utils.StringUtils
 
@@ -41,8 +41,9 @@ fun FormLogin(
     errorMessage: MutableState<String>,
     isValidLogin: MutableState<Boolean>
 ) {
-    val passwordStr = remember { mutableStateOf("1234") }
+
     val emailStr = remember { mutableStateOf("sixkings@gmail.com") }
+    val passwordStr = remember { mutableStateOf("1234") }
     isValidLogin.value = StringUtils.isValidEmail(emailStr.value) && passwordStr.value.length > 3
 
     Column(modifier = Modifier.padding(40.dp)) {

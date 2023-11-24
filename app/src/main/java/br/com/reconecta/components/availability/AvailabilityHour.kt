@@ -31,8 +31,11 @@ fun AvailabilityHour(
     setHour: (String) -> Unit,
 ) {
     val state = rememberTimePickerState(
-        initialHour = hour.split("h")[0].toInt(), initialMinute = hour.split("h")[1].toInt()
+        initialHour = hour.split("h")[0].toInt(),
+        initialMinute = hour.split("h")[1].toInt(),
+        is24Hour = false
     )
+
     var showTimePicker by remember {
         mutableStateOf(false)
     }
@@ -62,9 +65,10 @@ fun AvailabilityHour(
 
         }) {
             TimePicker(
-                state = state, colors = TimePickerDefaults.colors(
+                state = state,
+                colors = TimePickerDefaults.colors(
                     containerColor = Color.White, clockDialColor = Color.White
-                )
+                ),
             )
         }
     }

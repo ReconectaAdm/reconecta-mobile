@@ -2,6 +2,7 @@ package br.com.reconecta.utils
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import java.text.NumberFormat
 import java.util.Base64
 import java.util.Locale
 
@@ -12,6 +13,11 @@ object StringUtils {
 
     fun String.capitalizeText(): String {
         return this.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+    }
+
+    fun converStringToBrl(string: String): String {
+        val nf: NumberFormat = NumberFormat.getCurrencyInstance(Locale("pt", "BR"))
+        return nf.format(string.toDouble())
     }
 
     fun convertBase64StringToBitmap(base64Str: String): Bitmap = try {

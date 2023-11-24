@@ -33,7 +33,6 @@ fun OrganizationMetricsScreen(
     context: Context,
     navController: NavHostController
 ) {
-    var isLoading by remember { mutableStateOf(false) }
     var organizationMetrics by remember { mutableStateOf(GetSummaryResponse()) }
     var startDate by remember { mutableStateOf(LocalDate.of(2023, 11, 20)) }
     var endDate by remember { mutableStateOf(LocalDate.of(2023, 11, 20)) }
@@ -41,8 +40,7 @@ fun OrganizationMetricsScreen(
 
     handleRetrofitApiCall(
         call = RetrofitFactory().getCollectService(context).getSummaryAsync(startDate, endDate),
-        setIsLoading = { isLoading = it },
-        setState = { organizationMetrics = it })
+        onResponse = { organizationMetrics = it.body()!! })
 
 
     Column(
@@ -74,36 +72,35 @@ fun OrganizationMetricsScreen(
                     .fillMaxWidth()
                     .padding(16.dp)
             )
-            if (isLoading) {
-                // Loading indicator
-                CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
-            } else {
-                TotalCollectsPoints(
-                    collects = organizationMetrics.collects,
-                    points = organizationMetrics.points
-                )
 
-                Spacer(modifier = Modifier.height(20.dp))
+            TotalCollectsPoints(
+                collects = organizationMetrics.collects,
+                points = organizationMetrics.points
+            )
 
-                ValueCard(
-                    title = "Total valor recebido",
-                    value = "R$ ${organizationMetrics.value}",
-                    titleColor = Color.Black,
-                    valueColor = Color.Red,
-                    cardColor = Color.White,
-                    showBorder = true
-                )
+            Spacer(modifier = Modifier.height(20.dp))
 
-                Spacer(modifier = Modifier.height(20.dp))
+            ValueCard(
+                title = "Total valor recebido",
+                value = "R$ ${organizationMetrics.value}",
+                titleColor = Color.Black,
+                valueColor = Color.Red,
+                cardColor = Color.White,
+                showBorder = true
+            )
 
-                StatusCollects(
-                    title = "Status coletas",
-                    quantidadeConcluidas = organizationMetrics.status.find { it.name == "CONCLUDED" }?.qtd ?: 0,
-                    quantidadeAgendadas = organizationMetrics.status.find { it.name == "SCHEDULED" }?.qtd ?: 0,
-                    quantidadeCanceladas = organizationMetrics.status.find { it.name == "CANCELLED" }?.qtd ?: 0
-                )
+            Spacer(modifier = Modifier.height(20.dp))
 
-            }
+            StatusCollects(
+                title = "Status coletas",
+                quantidadeConcluidas = organizationMetrics.status.find { it.name == "CONCLUDED" }?.qtd
+                    ?: 0,
+                quantidadeAgendadas = organizationMetrics.status.find { it.name == "SCHEDULED" }?.qtd
+                    ?: 0,
+                quantidadeCanceladas = organizationMetrics.status.find { it.name == "CANCELLED" }?.qtd
+                    ?: 0
+            )
+
         }
 
         // Bottom navigation bar

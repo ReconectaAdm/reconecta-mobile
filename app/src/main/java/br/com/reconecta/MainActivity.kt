@@ -15,8 +15,8 @@ import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import br.com.reconecta.screens.AvailabilityScreen
 import br.com.reconecta.screens.OrganizationCollectDetailsScreen
-import br.com.reconecta.screens.EScreenNames
 import br.com.reconecta.screens.EstablishmentCollectDetailsScreen
+import br.com.reconecta.enums.EScreenNames
 import br.com.reconecta.screens.HomeEstablishmentScreen
 import br.com.reconecta.screens.HomeScreen
 import br.com.reconecta.screens.LoginScreen
@@ -74,10 +74,14 @@ class MainActivity : ComponentActivity() {
                             SignUpScreen(navController, applicationContext)
                         }
                         composable(route = EScreenNames.HOME.path) {
-                            HomeScreen(navController)
+                            HomeScreen(navController, applicationContext)
                         }
-                        composable(route = EScreenNames.ORGANIZATION_DETAILS.path) {
-                            OrganizationDetailsScreen(navController, applicationContext)
+                        composable(
+                            route = "${EScreenNames.ORGANIZATION_DETAILS.path}/{organizationId}",
+                            arguments = listOf(navArgument("organizationId") { type = NavType.IntType })
+                        ) {
+                            val organizationId = it.arguments?.getInt("organizationId", 0)!!
+                            OrganizationDetailsScreen(navController, applicationContext, organizationId)
                         }
                         composable(route = EScreenNames.HOME_ESTABLISHMENT.path) {
                             HomeEstablishmentScreen(navController)
@@ -99,7 +103,7 @@ class MainActivity : ComponentActivity() {
                                 residueIds.map { residueId -> residueId })
                         }
                         composable(route = EScreenNames.ORGANIZATION_LIST.path) {
-                            OrganizationListScreen(navController, applicationContext)
+                            OrganizationListScreen(navController, applicationContext, 1)
                         }
                         composable(route = EScreenNames.ORGANIZATION_COLLECT_DETAILS.path) {
                             OrganizationCollectDetailsScreen(navController, applicationContext)

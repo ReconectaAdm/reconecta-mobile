@@ -41,8 +41,8 @@ fun AvailabilityGrid(days: List<GetAvailabilityDto>, setIsEdit: () -> Unit) {
         FlowRow(
             modifier = Modifier.padding(horizontal = 5.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(5.dp, Alignment.CenterHorizontally),
-            maxItemsInEachRow = 3
+            horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterHorizontally),
+            maxItemsInEachRow = 2
         ) {
             val itemModifier = Modifier
                 .padding(vertical = 5.dp)

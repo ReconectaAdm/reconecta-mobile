@@ -23,7 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import br.com.reconecta.api.model.GetCollectRatingDto
-import br.com.reconecta.api.model.GetOrganizationDto
+import br.com.reconecta.api.model.organization.GetOrganizationDto
 import br.com.reconecta.api.service.RetrofitFactory
 import br.com.reconecta.api.service.handleRetrofitApiCall
 import br.com.reconecta.components.SecondaryButton
@@ -36,11 +36,11 @@ import br.com.reconecta.components.organization_details.RatingMenu
 import br.com.reconecta.components.organization_details.ResiduesDisplay
 import br.com.reconecta.components.organization_details.TextMenuItem
 import br.com.reconecta.core.SessionManager
+import br.com.reconecta.enums.EScreenNames
 
 @Composable
 fun OrganizationDetailsScreen(
-    navController: NavHostController, context: Context, organizationId: Int = 20
-) {
+    navController: NavHostController, context: Context, organizationId: Int) {
     var organization by remember {
         mutableStateOf(GetOrganizationDto())
     }
@@ -104,7 +104,7 @@ fun OrganizationDetailsScreen(
 
                 Spacer(modifier = Modifier.height(15.dp))
                 ContactMenu(
-                    SessionManager(context).fetchUserInfo()?.email ?: "", organization.phone ?: ""
+                    organization.user.email ?: "", organization.phone
                 )
                 Spacer(modifier = Modifier.height(50.dp))
 

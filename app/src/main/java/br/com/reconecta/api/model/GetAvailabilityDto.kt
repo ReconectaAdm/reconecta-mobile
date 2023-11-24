@@ -9,3 +9,4 @@ data class GetAvailabilityDto(
     var endHour: String = "",
     var available: Boolean = false
 )
+

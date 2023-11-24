@@ -20,6 +20,8 @@ import androidx.navigation.NavHostController
 import br.com.reconecta.api.model.GetSummaryResponse
 import br.com.reconecta.api.service.RetrofitFactory
 import br.com.reconecta.api.service.handleRetrofitApiCall
+import br.com.reconecta.components.commons.BottomNavBar
+import br.com.reconecta.components.commons.ENavMenuItems
 import br.com.reconecta.components.commons.HeaderWithoutArrow
 import br.com.reconecta.components.metrics.MostCollectedWasteTypes
 import br.com.reconecta.components.metrics.StatusCollects
@@ -34,16 +36,14 @@ fun EstablishmentMetricsScreen(
     context: Context,
     navController: NavHostController
 ) {
-    var isLoading by remember { mutableStateOf(false) }
     var establishmentMetrics by remember { mutableStateOf(GetSummaryResponse()) }
-    var startDate by remember { mutableStateOf(LocalDate.of(2023, 11, 20)) }
-    var endDate by remember { mutableStateOf(LocalDate.of(2023, 11, 20)) }
+    var startDate by remember { mutableStateOf(LocalDate.now()) }
+    var endDate by remember { mutableStateOf(LocalDate.now()) }
 
 
     handleRetrofitApiCall(
         call = RetrofitFactory().getCollectService(context).getSummaryAsync(startDate, endDate),
-        setIsLoading = { isLoading = it },
-        setState = { establishmentMetrics = it })
+        onResponse = { establishmentMetrics = it.body()?: GetSummaryResponse() })
 
 
     Column(
@@ -75,10 +75,6 @@ fun EstablishmentMetricsScreen(
                     .fillMaxWidth()
                     .padding(16.dp)
             )
-            if (isLoading) {
-                // Loading indicator
-                CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
-            } else {
                 TotalCollectsPoints(
                     collects = establishmentMetrics.collects,
                     points = establishmentMetrics.points
@@ -112,10 +108,11 @@ fun EstablishmentMetricsScreen(
                 MostCollectedWasteTypes(residuesSortedByQuantity)
 
                 Divider(thickness = 1.dp, color = Color.LightGray)
-            }
+//            }
         }
 
         // Bottom navigation bar
+        BottomNavBar(ENavMenuItems.METRICS, navController)
 
     }
 }

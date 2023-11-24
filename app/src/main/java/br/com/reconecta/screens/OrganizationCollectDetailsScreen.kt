@@ -14,7 +14,7 @@ import br.com.reconecta.components.collect_details.organization.OrganizationColl
 
 @Composable
 fun OrganizationCollectDetailsScreen(navController: NavHostController, context: Context) {
-    val id = 2
+    val id = 12
 
     var openCollectDetail by rememberSaveable { mutableStateOf(false) }
 

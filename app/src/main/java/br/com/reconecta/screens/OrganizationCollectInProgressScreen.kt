@@ -19,6 +19,7 @@ import br.com.reconecta.components.BottomSheet
 import br.com.reconecta.components.collect_details.organization.CollectInProgress
 import br.com.reconecta.components.collect_details.organization.CollectInfo
 import br.com.reconecta.components.commons.Header
+import br.com.reconecta.enums.EScreenNames
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,7 +27,7 @@ import retrofit2.Response
 
 @Composable
 fun OrganizationCollectInProgressScreen(
-    navController: NavHostController, context: Context, collectId: Int
+    navController: NavHostController, context: Context, collectId: Int = 12
 ) {
     var openCollectInfo by remember {
         mutableStateOf(false)

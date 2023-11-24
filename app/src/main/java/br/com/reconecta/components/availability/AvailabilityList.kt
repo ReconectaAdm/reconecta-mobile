@@ -22,13 +22,16 @@ import br.com.reconecta.components.commons.BaseSwitch
 import br.com.reconecta.components.commons.LoadingCircularIndicator
 import br.com.reconecta.components.commons.buttons.SecondaryButton
 import br.com.reconecta.screens.handleCallUpdateAvailability
+import br.com.reconecta.utils.EnumUtils
+import kotlinx.datetime.DayOfWeek
 
 @Composable
 fun AvailabilityList(days: List<GetAvailabilityDto>, context: Context, setIsEdit: () -> Unit) {
     var loadingUpdateAvailability by remember { mutableStateOf(false) }
 
-    Column(Modifier.padding(15.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(Modifier.padding(5.dp), horizontalAlignment = Alignment.CenterHorizontally) {
         days.map { day ->
+
             var isAvailable by remember {
                 mutableStateOf(day.available)
             }
@@ -55,6 +58,7 @@ fun AvailabilityList(days: List<GetAvailabilityDto>, context: Context, setIsEdit
                 if (!isAvailable) Text(text = "Fechado", color = Color.LightGray)
                 BaseSwitch(isAvailable) { isAvailable = it }
                 day.available = isAvailable
+
             }) {
                 if (isAvailable) {
                     Row(
@@ -65,20 +69,22 @@ fun AvailabilityList(days: List<GetAvailabilityDto>, context: Context, setIsEdit
                         Text(text = "Manhã", Modifier.width(60.dp))
 
                         AvailabilityHour(
-                            startInitialHour, "Selecione o primeiro horário"
+                            hour = startInitialHour,
+                            "Selecione o primeiro horário"
                         ) {
-                            startInitialHour = it; day.startHour =
-                            "${startInitialHour}-${endInitialHour}"
+                            startInitialHour = it
                         }
 
                         Text(text = "até")
+
                         AvailabilityHour(
-                            startFinalHour, "Selecione o segundo horário"
+                            hour = startFinalHour,
+                            "Selecione o segundo horário"
                         ) {
-                            startFinalHour = it; day.startHour =
-                            "${startInitialHour}-${endInitialHour}"
+                            startFinalHour = it
                         }
 
+                        day.startHour = "${startInitialHour}-${startFinalHour}"
                     }
 
                     Row(
@@ -87,21 +93,22 @@ fun AvailabilityList(days: List<GetAvailabilityDto>, context: Context, setIsEdit
                     ) {
                         Text(text = "Tarde", Modifier.width(60.dp))
                         AvailabilityHour(
-                            endInitialHour, "Selecione o primeiro horário"
+                            hour = endInitialHour,
+                            "Selecione o primeiro horário"
                         ) {
-                            endInitialHour = it; day.endHour =
-                            "${endInitialHour}-${endFinalHour}"
+                            endInitialHour = it
                         }
-
 
                         Text(text = "até")
 
                         AvailabilityHour(
-                            endFinalHour, "Selecione o segundo horário"
+                            hour = endFinalHour,
+                            "Selecione o segundo horário"
                         ) {
-                            endFinalHour = it;day.endHour =
-                            "${endInitialHour}-${endFinalHour}"
+                            endFinalHour = it
                         }
+
+                        day.endHour = "${endInitialHour}-${endFinalHour}"
 
                     }
 

@@ -21,15 +21,6 @@ fun EstablishmentCollectDetailsScreen(navController: NavController, context: Con
     val id = 12
     var openCollectDetail by rememberSaveable { mutableStateOf(false) }
 
-    val collect = remember { mutableStateOf(GetCollectDto()) }
-    val isLoading = remember { mutableStateOf(false) }
-
-    handleRetrofitApiCall(
-        call = RetrofitFactory().getCollectService(context).getById(id),
-        setState = { collect.value = it },
-        setIsLoading = { isLoading.value = it }
-    )
-
     BottomSheet(openBottomSheet = openCollectDetail,
         setOpenBottomSheet = { openCollectDetail = it },
         appContent = {

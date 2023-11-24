@@ -30,6 +30,8 @@ import br.com.reconecta.components.BottomSheet
 import br.com.reconecta.components.collect_details.CollectScheduled
 import br.com.reconecta.components.commons.Header
 import br.com.reconecta.components.scheduling.SchedullingContent
+import br.com.reconecta.enums.EScreenNames
+import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -124,7 +126,11 @@ fun handleCallCreateCollect(
     context: Context,
 ) {
     setLoading(true)
+
     val call = RetrofitFactory().getCollectService(context).createCollect(request)
+    val gson = Gson()
+    val json = gson.toJson(request)
+    Log.i("CollectCreation", json)
 
     call.enqueue(object : Callback<GetCollectDto> {
         override fun onResponse(

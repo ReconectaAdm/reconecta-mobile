@@ -23,6 +23,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import br.com.reconecta.components.commons.formatters.DateTimeFormatter.formatToShortDate
+import br.com.reconecta.core.DateFormatters
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.atStartOfDayIn
+import kotlinx.datetime.toJavaLocalDateTime
+import kotlinx.datetime.toLocalDateTime
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
@@ -76,7 +82,7 @@ fun DateFilter(
             )
         }
         Text(
-            text = "${startDate}-${endDate}",
+            text = "${DateFormatters.BRAZIL_LOCAL_DATE.format(startDate)}-${DateFormatters.BRAZIL_LOCAL_DATE.format(endDate)}",
             textAlign = TextAlign.Center,
             modifier = Modifier.weight(1f)
         )
