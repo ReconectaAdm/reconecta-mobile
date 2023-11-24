@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.sp
 import br.com.reconecta.R
 
 @Composable
-fun HeaderWithArrow(text: String, onClick: () -> Unit) {
+fun Header(text: String, onClick: () -> Unit) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier

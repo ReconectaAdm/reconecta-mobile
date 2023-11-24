@@ -1,8 +1,10 @@
 package br.com.reconecta.screens
 
 import android.content.Context
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Divider
@@ -30,7 +32,8 @@ fun OrganizationListScreen(navController: NavController, context: Context, resid
     var organizations by remember { mutableStateOf(listOf<GetOrganizationDto>()) }
 
     handleRetrofitApiCall(
-        call = RetrofitFactory().getOrganizationService(context).getByResidueId(residueTypeId = residueType),
+        call = RetrofitFactory().getOrganizationService(context)
+            .getByResidueId(residueTypeId = residueType),
         onResponse = {
             if (it.isSuccessful) organizations = it.body()!!
         }
@@ -50,29 +53,30 @@ fun OrganizationListScreen(navController: NavController, context: Context, resid
             })
 //        }
 
-        Divider(thickness = 1.dp, color = Color.LightGray)
+            Divider(thickness = 1.dp, color = Color.LightGray)
 
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f)
-        ) {
-            items(items = organizations, itemContent = {
-                CreateOrganizationItem(
-                    bitmap = null,
-                    contentDescription = it.description?: "",
-                    nome = it.name,
-                    avaliacao = 0.0,
-                    distanciaKm = 1.0,
-                    isFavorito = it.isFavorite!!,
-                    onFavoriteClick = { it.isFavorite = !it.isFavorite!! },
-                    onImageClick = { navController.navigate("${EScreenNames.ORGANIZATION_DETAILS.path}/${it.id}") }
-                )
-            })
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+            ) {
+                items(items = organizations, itemContent = {
+                    CreateOrganizationItem(
+                        bitmap = null,
+                        contentDescription = it.description ?: "",
+                        nome = it.name,
+                        avaliacao = 0.0,
+                        distanciaKm = 1.0,
+                        isFavorito = it.isFavorite!!,
+                        onFavoriteClick = { it.isFavorite = !it.isFavorite!! },
+                        onImageClick = { navController.navigate("${EScreenNames.ORGANIZATION_DETAILS.path}/${it.id}") }
+                    )
+                })
+            }
+
+            Divider(thickness = 1.dp, color = Color.LightGray)
+
+            BottomNavBar(navController = navController)
         }
-
-        Divider(thickness = 1.dp, color = Color.LightGray)
-
-        BottomNavBar(navController = navController)
     }
 }

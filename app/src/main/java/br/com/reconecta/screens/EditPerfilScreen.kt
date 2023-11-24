@@ -51,8 +51,6 @@ import br.com.reconecta.api.service.RetrofitFactory
 import br.com.reconecta.api.service.handleRetrofitApiCall
 import br.com.reconecta.components.EAccountType
 import br.com.reconecta.components.YesOrNoOption
-import br.com.reconecta.components.commons.BottomNavBar
-import br.com.reconecta.components.commons.ENavMenuItems
 import br.com.reconecta.components.commons.Header
 import br.com.reconecta.components.commons.buttons.SecondaryButton
 import br.com.reconecta.components.commons.text_field.BaseTextField

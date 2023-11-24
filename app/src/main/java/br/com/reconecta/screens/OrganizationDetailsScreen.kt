@@ -75,7 +75,7 @@ fun OrganizationDetailsScreen(
                 .background(Color.White)
                 .verticalScroll(rememberScrollState())
         ) {
-            HeaderWithArrow(
+            Header(
                 "Organização"
             ) { navController.navigate(EScreenNames.ORGANIZATION_LIST.path) }
             Divider(thickness = 1.dp, color = Color.LightGray)
